@@ -1,7 +1,8 @@
 import React from "react";
-import "./Home.scss"; // Подключаем новые стили
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/cartSlice";
+import "./Home.scss";
 
-// Временная база данных услуг (пока нет бэкенда)
 const mockServices = [
   {
     id: 1,
@@ -34,13 +35,19 @@ const mockServices = [
 ];
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  // Функция, которая срабатывает при клике на кнопку
+  const handleAddToCart = (service) => {
+    dispatch(addItem(service));
+  };
+
   return (
     <main className="home-page">
       <section className="services-section">
         <h1 className="services-section__title">Наши услуги и цены</h1>
 
         <div className="services-grid">
-          {/* Проходимся циклом по массиву и отрисовываем карточку для каждой услуги */}
           {mockServices.map((service) => (
             <div key={service.id} className="service-card">
               <h3>{service.title}</h3>
@@ -48,8 +55,13 @@ const Home = () => {
 
               <div className="service-card__footer">
                 <span className="price">{service.price}</span>
-                {/* Пока кнопка ничего не делает, логику корзины/заявок напишем позже */}
-                <button className="order-btn">Выбрать</button>
+                {/* Вешаем событие onClick на кнопку */}
+                <button
+                  className="order-btn"
+                  onClick={() => handleAddToCart(service)}
+                >
+                  Выбрать
+                </button>
               </div>
             </div>
           ))}
