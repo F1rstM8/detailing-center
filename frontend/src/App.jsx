@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-
-import Home from './pages/Home/Home';
-import Cart from './pages/Cart/Cart';
-import Blog from './pages/Blog/Blog';
-import Portfolio from './pages/Portfolio/Portfolio';
-import Contacts from './pages/Contacts/Contacts';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Hero from "./components/Hero/Hero";
+import Home from "./pages/Home/Home";
+import Cart from "./pages/Cart/Cart";
+import Blog from "./pages/Blog/Blog";
+import Portfolio from "./pages/Portfolio/Portfolio";
+import Contacts from "./pages/Contacts/Contacts";
 
 // Создаем новый компонент, который объединяет все наши секции
 const LandingPage = () => {
@@ -34,4 +34,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
