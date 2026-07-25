@@ -43,7 +43,7 @@ const Home = () => {
   };
 
   return (
-    <main className="home-page">
+    <section id="services" className="home-page">
       <section className="services-section">
         <h1 className="services-section__title">Наши услуги и цены</h1>
 
@@ -67,7 +67,7 @@ const Home = () => {
           ))}
         </div>
       </section>
-    </main>
+    </section>
   );
 };
 

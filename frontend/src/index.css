@@ -12,6 +12,7 @@ body, html {
   color: #ffffff;
   width: 100%;
   min-height: 100vh;
+  scroll-behavior: smooth; /* Добавили плавный скролл */
 }
 
 /* Заставляем главный контейнер React занимать всю ширину */

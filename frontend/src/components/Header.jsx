@@ -14,10 +14,11 @@ const Header = () => {
       </div>
 
       <nav className="header__nav">
-        <Link to="/">Услуги и цены</Link>
-        <Link to="/blog">Блог</Link>
-        <Link to="/portfolio">Портфолио</Link>
-        <Link to="/contacts">Контакты</Link>
+        {/* Используем обычные ссылки-якоря со слэшем в начале (чтобы они работали и со страницы Корзины) */}
+        <a href="/#services">Услуги и цены</a>
+        <a href="/#portfolio">Портфолио</a>
+        <a href="/#blog">Блог</a>
+        <a href="/#contacts">Контакты</a>
       </nav>
 
       {/* Обертка для корзины и выбора языка */}

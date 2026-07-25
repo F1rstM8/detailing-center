@@ -25,7 +25,7 @@ const mockPosts = [
 
 const Blog = () => {
   return (
-    <main className="page-content blog-page">
+   <section id="blog" className="page-content blog-page">
       <h1 className="blog-page__title">Блог о детейлинге</h1>
       
       <div className="blog-page__list">
@@ -38,7 +38,7 @@ const Blog = () => {
           </article>
         ))}
       </div>
-    </main>
+    </section>
   );
 };
 

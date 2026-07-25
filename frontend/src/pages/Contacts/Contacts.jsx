@@ -3,7 +3,7 @@ import "./Contacts.scss"; // Подключаем наши новые стили
 
 const Contacts = () => {
   return (
-    <main className="page-content contacts-page">
+    <section id="contacts" className="page-content contacts-page">
       <h1 className="contacts-page__title">Свяжитесь с нами</h1>
 
       <div className="contacts-page__container">
@@ -35,7 +35,7 @@ const Contacts = () => {
           </form>
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 

@@ -1,28 +1,37 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header'; // Если Хедер тоже положишь в папку Header, путь будет './components/Header/Header'
+import Header from './components/Header';
 
-// Обновленные пути к страницам:
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Blog from './pages/Blog/Blog';
 import Portfolio from './pages/Portfolio/Portfolio';
 import Contacts from './pages/Contacts/Contacts';
 
+// Создаем новый компонент, который объединяет все наши секции
+const LandingPage = () => {
+  return (
+    <>
+      <Home />
+      <Portfolio />
+      <Blog />
+      <Contacts />
+    </>
+  );
+};
+
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* По корневому адресу теперь грузится весь LandingPage целиком */}
+        <Route path="/" element={<LandingPage />} />
+        {/* Корзина остается отдельной страницей */}
         <Route path="/cart" element={<Cart />} />
-        {/* Заглушки для будущих страниц: */}
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/contacts" element={<Contacts />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App;
+export default App; 

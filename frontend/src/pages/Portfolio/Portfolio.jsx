@@ -37,7 +37,7 @@ const mockWorks = [
 
 const Portfolio = () => {
   return (
-    <main className="page-content portfolio-page">
+  <section id="portfolio" className="page-content portfolio-page">
       <h1 className="portfolio-page__title">Наши работы</h1>
 
       <div className="portfolio-page__grid">
@@ -53,7 +53,7 @@ const Portfolio = () => {
           </div>
         ))}
       </div>
-    </main>
+    </section>
   );
 };
 
