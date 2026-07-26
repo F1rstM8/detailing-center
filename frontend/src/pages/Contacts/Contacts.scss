@@ -86,3 +86,27 @@
     }
   }
 }
+.success-message {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid #4caf50;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+
+  h3 {
+    color: #4caf50;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+  }
+
+  p {
+    color: #e0e0e0;
+    line-height: 1.5;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
