@@ -27,7 +27,8 @@ const Home = () => {
               <p className="service-card__desc">{service.description}</p>
 
               <div className="service-card__footer">
-                <span className="price">{service.price}</span>
+                
+               <span className="price">{service.price} €</span>
                 <button
                   className="order-btn"
                   onClick={() => handleAddToCart(service)}

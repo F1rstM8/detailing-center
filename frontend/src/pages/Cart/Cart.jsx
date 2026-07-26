@@ -50,7 +50,8 @@ const Cart = () => {
             <div key={index} className="cart-item">
               <div className="cart-item__info">
                 <h3>{item.title}</h3>
-                <p>{item.price}</p>
+                {/* Добавляем значок евро вот сюда: */}
+                <p>{item.price} €</p>
               </div>
 
               <button
