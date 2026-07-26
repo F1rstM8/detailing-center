@@ -1,30 +1,52 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 40px;
   background-color: #1e1e1e;
   border-bottom: 1px solid #333;
   width: 100%;
   position: relative; // Важно для выпадающего меню
 
-  @media (max-width: 768px) {
-    padding: 18px 20px;
+  /* 1. Новый контейнер, который держит элементы в ряд */
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    max-width: 1200px;
+    margin: 0 auto; // Центрируем контейнер на больших экранах
+
+    @media (max-width: 768px) {
+      padding: 18px 20px;
+    }
   }
 
+  /* 2. Собранные вместе стили логотипа */
   &__logo {
-    h2 {
-      margin: 0;
-      font-size: 1.4rem;
+    &-link {
+      display: flex;
+      align-items: center;
+      gap: 12px; // Расстояние между логотипом и текстом
+      text-decoration: none;
+      color: inherit;
+    }
+
+    &-img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    
+    span {
+      font-size: 1.5rem;
       font-weight: bold;
       color: #fff;
       letter-spacing: 1px;
     }
   }
 
-  /* Стили для обычной навигации и для мобильной */
+  /* 3. Стили для навигации */
   &__nav {
     display: flex;
+    align-items: center;
     gap: 28px;
 
     a {
@@ -66,6 +88,52 @@
     }
   }
 
+  /* 4. Новая обертка для корзины и языка */
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Стили для ссылки корзины */
+  &__cart {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1rem;
+    
+    span {
+      margin-left: 5px;
+      color: #4caf50;
+      font-weight: bold;
+    }
+  }
+
+  /* 5. Переписанные стили для селекта языка */
+  &__lang {
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #2b2b2b;
+    color: #fff;
+    border: 1px solid #444;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-color: #4caf50;
+    }
+
+    @media (max-width: 768px) {
+      display: none; // Прячем выбор языка на телефоне для экономии места
+    }
+
+    option {
+      background-color: #2b2b2b;
+    }
+  }
+
   /* Кнопка-бургер */
   &__burger {
     display: none; // Скрыта на ПК
@@ -89,23 +157,9 @@
       display: flex;
     }
   }
-
-  &__lang {
-    select {
-      padding: 6px 12px;
-      border-radius: 4px;
-      background-color: #2b2b2b;
-      color: #fff;
-      border: 1px solid #444;
-      outline: none;
-      cursor: pointer;
-
-      @media (max-width: 768px) {
-        display: none; // Прячем выбор языка на телефоне для экономии места
-      }
-    }
-  }
 }
+
+/* Глобальный мобильный стиль для цены корзины */
 @media (max-width: 768px) {
   .cart-price {
     display: none; // Скрываем сумму на мобильных

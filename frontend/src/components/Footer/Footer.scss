@@ -80,6 +80,12 @@
 
       &:hover {
         color: #4caf50;
+        .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
       }
     }
   }
@@ -91,3 +97,13 @@
     font-size: 0.9rem;
   }
 }
+.social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      /* Железобетонный отступ для иконки */
+      svg {
+        margin-right: 8px; 
+      }
+    }

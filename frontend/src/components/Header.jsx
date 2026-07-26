@@ -1,68 +1,53 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next'; // 1. Импортируем хук
 import './Header.scss';
 
 const Header = () => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const cartItems = useSelector((state) => state.cart.items);
   
-  // Создаем состояние для мобильного меню (false = закрыто)
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // 2. Достаем функции перевода (t) и управления языком (i18n)
+  const { t, i18n } = useTranslation();
 
-  // Функция переключения
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Функция для закрытия меню после клика по ссылке
-  const closeMenu = () => {
-    setIsMenuOpen(false);
+  // 3. Функция, которая срабатывает при выборе языка в выпадающем списке
+  const changeLanguage = (e) => {
+    i18n.changeLanguage(e.target.value);
   };
 
   return (
     <header className="header">
-      
-      <div className="header__logo">
-        <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }} onClick={closeMenu}>
-          <h2>Detailing Center</h2>
-        </Link>
-      </div>
-      
-      {/* Если isMenuOpen === true, добавляется класс 'open' */}
-      <nav className={`header__nav ${isMenuOpen ? 'open' : ''}`}>
-        <a href="/#services" onClick={closeMenu}>Услуги и цены</a>
-        <a href="/#portfolio" onClick={closeMenu}>Портфолио</a>
-        <a href="/#blog" onClick={closeMenu}>Блог</a>
-        <a href="/#contacts" onClick={closeMenu}>Контакты</a>
-      </nav>
+      <div className="header__container">
+        <div className="header__logo">
+          <Link to="/" className="header__logo-link">
+            <img src="/logo.png" alt="d3garage логотип" className="header__logo-img" />
+            <span>d3garage</span>
+          </Link>
+        </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        
-        <Link to="/cart" style={{ textDecoration: 'none', color: 'inherit' }} onClick={closeMenu}>
-          <div style={{ fontSize: '0.95rem', fontWeight: '500', cursor: 'pointer' }}>
-            🛒 <span style={{ color: '#fff' }}>{items.length}</span> 
-            {/* Скрываем сумму на мобильных, оставляем только иконку и количество */}
-            <span style={{ color: '#4caf50', marginLeft: '8px' }} className="cart-price">
-              {totalPrice > 0 ? `(${totalPrice} €)` : ''}
-            </span>
-          </div>
-        </Link>
+        <nav className="header__nav">
+          {/* 4. Заменяем обычный текст на функцию t('ключ_из_словаря') */}
+          <Link to="/">{t('nav_services')}</Link>
+          <Link to="/">{t('nav_portfolio')}</Link>
+          <Link to="/">{t('nav_blog')}</Link>
+          <Link to="/">{t('nav_contacts')}</Link>
+        </nav>
 
-        <div className="header__lang">
-          <select defaultValue="ru">
+        <div className="header__actions">
+          <Link to="/cart" className="header__cart">
+            🛒 <span>{cartItems.length}</span>
+          </Link>
+          
+          {/* 5. Привязываем функцию changeLanguage к нашему селекту */}
+          <select 
+            className="header__lang" 
+            onChange={changeLanguage} 
+            defaultValue={i18n.language}
+          >
             <option value="ru">Русский</option>
-            <option value="en">English</option>
             <option value="pl">Polski</option>
           </select>
         </div>
-
-        {/* Сама кнопка Бургера (три полоски) */}
-        <div className="header__burger" onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-
       </div>
     </header>
   );

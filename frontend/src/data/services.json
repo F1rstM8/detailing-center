@@ -1,26 +1,50 @@
 [
   {
     "id": 1,
-    "title": "Комплексная мойка",
+    "title": {
+      "ru": "Комплексная мойка",
+      "pl": "Mycie kompleksowe"
+    },
     "price": 15,
-    "description": "Тщательная мойка кузова, уборка салона пылесосом, чистка стекол изнутри и снаружи."
+    "description": {
+      "ru": "Тщательная мойка кузова, уборка салона пылесосом, чистка стекол изнутри и снаружи.",
+      "pl": "Dokładne mycie karoserii, odkurzanie wnętrza, czyszczenie szyb wewnątrz i na zewnątrz."
+    }
   },
   {
     "id": 2,
-    "title": "Химчистка салона",
+    "title": {
+      "ru": "Химчистка салона",
+      "pl": "Pranie tapicerki i czyszczenie wnętrza"
+    },
     "price": 70,
-    "description": "Глубокая очистка всех элементов салона: сидений, пола, потолка и пластика."
+    "description": {
+      "ru": "Глубокая очистка всех элементов салона: сидений, пола, потолка и пластика.",
+      "pl": "Głębokie czyszczenie wszystkich elementów wnętrza: foteli, podłogi, podsufitki i plastików."
+    }
   },
   {
     "id": 3,
-    "title": "Полировка кузова",
+    "title": {
+      "ru": "Полировка кузова",
+      "pl": "Korekta lakieru"
+    },
     "price": 120,
-    "description": "Восстановительная многоэтапная полировка, устранение царапин и потертостей."
+    "description": {
+      "ru": "Восстановительная многоэтапная полировка, устранение царапин и потертостей.",
+      "pl": "Wieloetapowa korekta lakieru, usuwanie zarysowań i zmatowień."
+    }
   },
   {
     "id": 4,
-    "title": "Керамическое покрытие",
+    "title": {
+      "ru": "Керамическое покрытие",
+      "pl": "Powłoka ceramiczna"
+    },
     "price": 200,
-    "description": "Надежная защита кузова на 1-2 года, мощный гидрофобный эффект и блеск."
+    "description": {
+      "ru": "Надежная защита кузова на 1-2 года, мощный гидрофобный эффект и блеск.",
+      "pl": "Niezawodna ochrona karoserii na 1-2 lata, silny efekt hydrofobowy i głęboki połysk."
+    }
   }
 ]
