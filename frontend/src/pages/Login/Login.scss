@@ -1,0 +1,106 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 20px;
+}
+
+.login-container {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  h2 {
+    color: #fff;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      color: #a0a0a0;
+      font-size: 14px;
+    }
+
+    input {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background-color: #2a2a2a;
+      color: #fff;
+      font-size: 16px;
+      transition: border-color 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #4caf50;
+      }
+
+      /* Убираем светлый фон при автозаполнении браузера */
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover, 
+      &:-webkit-autofill:focus, 
+      &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+  }
+
+  /* Изменен класс с .login-btn на .login-submit-btn */
+  .login-submit-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: #45a049;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+/* Стили для ссылки "Нет аккаунта?" */
+.register-redirect {
+  margin-top: 20px;
+  text-align: center;
+  color: #a0a0a0;
+  font-size: 14px;
+
+  a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #45a049;
+      text-decoration: underline;
+    }
+  }
+}

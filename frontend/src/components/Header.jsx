@@ -1,18 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next'; // 1. Импортируем хук
+import { useSelector, useDispatch } from 'react-redux'; // Добавили useDispatch
+import { useTranslation } from 'react-i18next';
+import { logout } from "../redux/authSlice";
 import './Header.scss';
 
 const Header = () => {
   const cartItems = useSelector((state) => state.cart.items);
   
-  // 2. Достаем функции перевода (t) и управления языком (i18n)
+  // Достаем статус авторизации, данные пользователя и роль из нашего нового слайса
+  const { isAuthenticated, user, role } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  
   const { t, i18n } = useTranslation();
 
-  // 3. Функция, которая срабатывает при выборе языка в выпадающем списке
   const changeLanguage = (e) => {
     i18n.changeLanguage(e.target.value);
+  };
+
+  // Функция для выхода из аккаунта
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -26,7 +34,6 @@ const Header = () => {
         </div>
 
         <nav className="header__nav">
-          {/* 4. Заменяем обычный текст на функцию t('ключ_из_словаря') */}
           <Link to="/">{t('nav_services')}</Link>
           <Link to="/">{t('nav_portfolio')}</Link>
           <Link to="/">{t('nav_blog')}</Link>
@@ -38,7 +45,6 @@ const Header = () => {
             🛒 <span>{cartItems.length}</span>
           </Link>
           
-          {/* 5. Привязываем функцию changeLanguage к нашему селекту */}
           <select 
             className="header__lang" 
             onChange={changeLanguage} 
@@ -47,6 +53,26 @@ const Header = () => {
             <option value="ru">Русский</option>
             <option value="pl">Polski</option>
           </select>
+
+          {/* --- БЛОК АВТОРИЗАЦИИ --- */}
+          <div className="header__auth">
+            {isAuthenticated ? (
+              <div className="user-profile">
+                <span className="user-name">
+                  {user?.name} <span className="user-role">({role})</span>
+                </span>
+                <button onClick={handleLogout} className="logout-btn">
+                  Выйти
+                </button>
+              </div>
+            ) : (
+              <div className="auth-links">
+                <Link to="/login" className="login-link">Войти</Link>
+                <Link to="/register" className="register-btn">Регистрация</Link>
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </header>
