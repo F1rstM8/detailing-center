@@ -1,0 +1,145 @@
+.about-detailing {
+  /* Меняем цвет на прозрачный, чтобы блок полностью слился с общим фоном сайта */
+  background-color: transparent; 
+  /* Убираем нижнюю рамку, чтобы не было лишних линий между секциями */
+  border-bottom: none; 
+  
+  padding: 80px 20px;
+  color: #fff;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* ... весь остальной код ниже оставляем без изменений ... */
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 60px auto;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 26px;
+        height: 26px;
+        border: 2px solid #4caf50; // Акцентный цвет (зеленый)
+        color: #4caf50;
+        border-radius: 50%;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-top: 2px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #d0d0d0;
+      }
+    }
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    margin-bottom: 50px;
+
+    .about-card {
+      text-align: center;
+      transition: transform 0.3s ease;
+
+      /* Обертка для зум-анимации */
+      &__img-wrapper {
+        width: 100%;
+        height: 240px;
+        border-radius: 14px;
+        overflow: hidden; // Прячет вылезающую при зуме картинку
+        margin-bottom: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        border: 1px solid #333;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          /* Плавность трансформации */
+          transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+        }
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      p {
+        font-size: 0.88rem;
+        color: #aaa;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      /* 🔥 ЭФФЕКТЫ ПРИ НАВЕДЕНИИ НА КАРТОЧКУ 🔥 */
+      &:hover {
+        transform: translateY(-6px); // Карточка слегка приподнимается
+
+        .about-card__img-wrapper img {
+          transform: scale(1.08); // Плавный зум картинки
+          filter: brightness(1.12); // Карточка становится чуть ярче
+        }
+      }
+    }
+  }
+
+  &__action {
+    text-align: center;
+
+    .about-btn {
+      display: inline-block;
+      background-color: #4caf50; // Единая зеленая кнопка
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #43a047;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.45);
+      }
+    }
+  }
+}

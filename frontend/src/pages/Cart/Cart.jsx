@@ -1,34 +1,33 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, clearCart } from "../../redux/cartSlice"; // Импортируем clearCart
+import { removeItem, clearCart } from "../../redux/cartSlice";
+import { useTranslation } from 'react-i18next'; // 1. Импортируем хук
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  // Локальное состояние для отслеживания успешного заказа
+  // 2. Достаем функцию перевода и текущий язык
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
 
-  // Функция оформления заказа
   const handleCheckout = () => {
-    // В будущем здесь будет код отправки данных на сервер (Node.js)
-
-    dispatch(clearCart()); // Очищаем корзину в Redux
-    setIsOrderPlaced(true); // Показываем сообщение об успехе
+    dispatch(clearCart());
+    setIsOrderPlaced(true);
   };
 
-  // Если заказ только что оформлен, показываем это сообщение
   if (isOrderPlaced) {
     return (
       <main className="page-content cart-page">
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <h1 style={{ color: "#4caf50", marginBottom: "20px" }}>
-            🎉 Заявка успешно отправлена!
+            {t('cart_success_title')}
           </h1>
           <p style={{ fontSize: "1.2rem", color: "#e0e0e0" }}>
-            Наш менеджер скоро свяжется с вами для уточнения деталей времени
-            записи.
+            {t('cart_success_desc')}
           </p>
         </div>
       </main>
@@ -37,20 +36,19 @@ const Cart = () => {
 
   return (
     <main className="page-content cart-page">
-      <h1 className="cart-page__title">Ваша корзина</h1>
+      <h1 className="cart-page__title">{t('cart_title')}</h1>
 
       {items.length === 0 ? (
         <p className="cart-page__empty">
-          Корзина пока пуста. Перейдите на главную страницу, чтобы выбрать
-          услуги.
+          {t('cart_empty')}
         </p>
       ) : (
         <div className="cart-page__container">
           {items.map((item, index) => (
             <div key={index} className="cart-item">
               <div className="cart-item__info">
-                <h3>{item.title}</h3>
-                {/* Добавляем значок евро вот сюда: */}
+                {/* 3. Вытаскиваем название в зависимости от выбранного языка */}
+                <h3>{item.title[currentLang]}</h3>
                 <p>{item.price} €</p>
               </div>
 
@@ -58,21 +56,20 @@ const Cart = () => {
                 className="cart-item__delete-btn"
                 onClick={() => dispatch(removeItem(item.id))}
               >
-                Удалить
+                {t('cart_remove')}
               </button>
             </div>
           ))}
 
           <div className="cart-summary">
             <h2>
-              Итого к оплате: <span>{totalPrice} €</span>
+              {t('cart_total')}: <span>{totalPrice} €</span>
             </h2>
-            {/* Вешаем функцию на кнопку */}
             <button
               className="cart-summary__checkout-btn"
               onClick={handleCheckout}
             >
-              Оформить заказ
+              {t('cart_checkout')}
             </button>
           </div>
         </div>
