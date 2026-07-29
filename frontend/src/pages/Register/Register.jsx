@@ -7,6 +7,8 @@ import "./Register.scss";
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [car, setCar] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,41 +20,62 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-    // Простейшая валидация
     if (password !== confirmPassword) {
       setError("Пароли не совпадают!");
       return;
     }
 
-    // Имитация успешной регистрации:
-    // Сразу авторизуем пользователя и всегда даем ему роль 'client'
+    // Сохраняем расширенные данные в Redux
     dispatch(
       loginSuccess({
-        user: { name, email },
+        user: { name, email, phone, car },
         role: "client",
       })
     );
 
-    // Перенаправляем на главную
     navigate("/");
   };
 
   return (
     <main className="page-content register-page">
       <div className="register-container">
-        <h2>Регистрация</h2>
+        <h2>Регистрация в системе</h2>
         
         {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleRegister} className="register-form">
+          {/* Группа: Основные данные */}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Имя</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Как к вам обращаться?"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Телефон</label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+48 000 000 000"
+                required
+              />
+            </div>
+          </div>
+
           <div className="form-group">
-            <label>Имя</label>
+            <label>Марка и модель авто (необязательно)</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Как к вам обращаться?"
-              required
+              value={car}
+              onChange={(e) => setCar(e.target.value)}
+              placeholder="Например: Toyota Prius+"
             />
           </div>
 
@@ -67,30 +90,33 @@ const Register = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>Пароль</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Придумайте пароль"
-              required
-            />
-          </div>
+          {/* Группа: Пароли */}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Пароль</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Придумайте пароль"
+                required
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Подтвердите пароль</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Повторите пароль"
-              required
-            />
+            <div className="form-group">
+              <label>Повторите пароль</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Еще раз"
+                required
+              />
+            </div>
           </div>
 
           <button type="submit" className="register-submit-btn">
-            Зарегистрироваться
+            Создать аккаунт
           </button>
         </form>
 

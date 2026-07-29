@@ -11,7 +11,9 @@
   padding: 40px;
   border-radius: 12px;
   width: 100%;
-  max-width: 400px;
+  /* Увеличили контейнер, чтобы двум колонкам не было тесно */
+  max-width: 520px; 
+  box-sizing: border-box; /* Чтобы внутренние отступы не ломали ширину */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
   h2 {
@@ -36,10 +38,30 @@
   flex-direction: column;
   gap: 16px;
 
+  /* Сетка для полей в один ряд */
+  .form-row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    
+    .form-group {
+      flex: 1; 
+      /* Запрещаем элементам вываливаться за пределы флекс-контейнера */
+      min-width: 0; 
+    }
+
+    /* На мобилках выстраиваем поля друг под другом */
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    width: 100%;
 
     label {
       color: #a0a0a0;
@@ -47,6 +69,8 @@
     }
 
     input {
+      width: 100%; /* Жестко задаем ширину */
+      box-sizing: border-box; /* Критически важное свойство для инпутов */
       padding: 12px 16px;
       border-radius: 8px;
       border: 1px solid #333;
@@ -58,6 +82,16 @@
       &:focus {
         outline: none;
         border-color: #4caf50;
+      }
+
+      /* Сброс автозаполнения браузера */
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover, 
+      &:-webkit-autofill:focus, 
+      &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 5000s ease-in-out 0s;
       }
     }
   }
@@ -73,6 +107,7 @@
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
     margin-top: 10px;
+    width: 100%;
 
     &:hover {
       background-color: #45a049;
