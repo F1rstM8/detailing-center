@@ -10,8 +10,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // Действие при успешном входе (временно используем заглушку)
-    loginSuccess: (state, action) => {
+    // Действие при успешном входе (называем login, чтобы совпадало с вызовами в компонентах)
+    login: (state, action) => {
       state.user = action.payload.user;
       state.role = action.payload.role;
       state.isAuthenticated = true;
@@ -25,5 +25,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,0 +1,182 @@
+.profile-page {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 900px; /* Делаем кабинет широким */
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+
+  h2 {
+    color: #fff;
+    margin: 0;
+  }
+
+  .logout-btn {
+    background-color: transparent;
+    color: #ff5252;
+    border: 1px solid #ff5252;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 82, 82, 0.1);
+    }
+  }
+}
+
+.profile-content {
+  display: flex;
+  gap: 24px;
+
+  /* На мобильных устройствах блоки встанут друг под другом */
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.profile-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  flex: 1;
+
+  h3 {
+    color: #4caf50;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Стили для левой колонки (Личные данные) */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .label {
+      color: #a0a0a0;
+      font-size: 13px;
+    }
+
+    .value {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+
+.edit-btn {
+  width: 100%;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #333;
+  }
+}
+
+/* Стили для правой колонки (Записи) */
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.appointment-item {
+  background-color: #2a2a2a;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .appointment-details {
+    h4 {
+      color: #fff;
+      margin: 0 0 6px 0;
+      font-size: 15px;
+    }
+
+    .appointment-date {
+      color: #a0a0a0;
+      margin: 0;
+      font-size: 13px;
+    }
+  }
+
+  .appointment-status {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    &.pending {
+      background-color: rgba(255, 167, 38, 0.1);
+      color: #ffa726;
+      border: 1px solid rgba(255, 167, 38, 0.3);
+    }
+
+    /* НОВЫЙ СТИЛЬ ДЛЯ СТАТУСА "В РАБОТЕ" */
+    &.in_progress {
+      background-color: rgba(33, 150, 243, 0.1);
+      color: #2196f3;
+      border: 1px solid rgba(33, 150, 243, 0.3);
+    }
+
+    &.completed {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: #4caf50;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+  }
+}
+
+.new-appointment-btn {
+  width: 100%;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}

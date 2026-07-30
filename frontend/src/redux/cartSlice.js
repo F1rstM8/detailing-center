@@ -1,45 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-// Функция для загрузки корзины из памяти браузера
-const loadCartFromStorage = () => {
-  try {
-    const savedCart = localStorage.getItem('cartState');
-    if (savedCart === null) {
-      return { items: [], totalPrice: 0 }; // Если пусто, возвращаем чистую корзину
-    }
-    return JSON.parse(savedCart); // Если есть данные, расшифровываем их
-  } catch (err) {
-    return { items: [], totalPrice: 0 };
-  }
+const initialState = {
+  items: [],
+  totalPrice: 0,
 };
 
-const initialState = loadCartFromStorage(); // Используем функцию вместо пустых массивов
-
 const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const existingItem = state.items.find(item => item.id === action.payload.id);
+      const item = action.payload;
+      const existingItem = state.items.find((i) => i.id === item.id);
       
+      // Если услуга уже в корзине, мы просто не добавляем ее второй раз
       if (!existingItem) {
-        state.items.push(action.payload);
-        state.totalPrice += action.payload.price;
+        state.items.push(item);
+        state.totalPrice += item.price;
       }
     },
     removeItem: (state, action) => {
-      const itemToRemove = state.items.find(item => item.id === action.payload);
+      const id = action.payload;
+      const existingItem = state.items.find((i) => i.id === id);
       
-      if (itemToRemove) {
-        state.totalPrice -= itemToRemove.price;
-        state.items = state.items.filter(item => item.id !== action.payload);
+      if (existingItem) {
+        state.totalPrice -= existingItem.price;
+        state.items = state.items.filter((i) => i.id !== id);
       }
     },
     clearCart: (state) => {
       state.items = [];
       state.totalPrice = 0;
-    }
-  }
+    },
+  },
 });
 
 export const { addItem, removeItem, clearCart } = cartSlice.actions;

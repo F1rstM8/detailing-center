@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { loginSuccess } from "../../redux/authSlice";
+import { login } from "../../redux/authSlice";
 import "./Login.scss";
 
 const Login = () => {
@@ -11,65 +11,71 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Назначаем роль на основе email (Mock-авторизация)
-    let role = "client";
-    if (email === "admin@test.com") role = "admin";
-    if (email === "manager@test.com") role = "manager";
+    // Проверяем, не пытается ли войти админ (для теста)
+    if (email === "admin@test.com") {
+      dispatch(
+        login({
+          user: { name: "admin", email: "admin@test.com", phone: "+48 111 222 333", car: "Service Car" },
+          role: "admin",
+        })
+      );
+      navigate("/admin");
+      return;
+    }
 
-    // Получаем имя из email (до символа @) для красоты
-    const name = email.split("@")[0];
-
-    // Отправляем данные в Redux
+    // Иначе логиним как обычного клиента
     dispatch(
-      loginSuccess({
-        user: { name, email },
-        role,
+      login({
+        user: { name: email.split("@")[0], email: email, phone: "+48 000 000 000", car: "Toyota Prius+" },
+        role: "client",
       })
     );
-
-    // Перенаправляем на главную
-    navigate("/");
+    navigate("/profile");
   };
 
   return (
     <main className="page-content login-page">
       <div className="login-container">
-        <h2>Вход в систему</h2>
+        <div className="login-box">
+          <h2>Вход в систему</h2>
+          <p className="subtitle">Введите свои данные для доступа к личному кабинету</p>
 
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@mail.com"
-              required
-            />
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="admin@test.com или ваш email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="password">Пароль</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Введите пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button type="submit" className="submit-btn">Войти</button>
+          </form>
+
+          <div className="login-footer">
+            <span>Нет аккаунта?</span>
+            <Link to="/register" className="register-link">Зарегистрироваться</Link>
           </div>
-
-          <div className="form-group">
-            <label>Пароль</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Введите пароль"
-              required
-            />
-          </div>
-
-          <button type="submit" className="login-submit-btn">
-            Войти
-          </button>
-        </form>
-
-        <p className="register-redirect">
-          Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
-        </p>
+        </div>
       </div>
     </main>
   );

@@ -1,128 +1,127 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { loginSuccess } from "../../redux/authSlice";
+import { login } from "../../redux/authSlice";
 import "./Register.scss";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [car, setCar] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    car: "",
+    password: "",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
+    
+    // Эмулируем регистрацию: сразу логиним пользователя с введенными данными
+    const newUser = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      car: formData.car,
+    };
 
-    if (password !== confirmPassword) {
-      setError("Пароли не совпадают!");
-      return;
-    }
-
-    // Сохраняем расширенные данные в Redux
-    dispatch(
-      loginSuccess({
-        user: { name, email, phone, car },
-        role: "client",
-      })
-    );
-
-    navigate("/");
+    // Передаем данные в Redux (роль - обычный клиент)
+    dispatch(login({ user: newUser, role: "client" }));
+    
+    // Перенаправляем в Личный кабинет
+    navigate("/profile");
   };
 
   return (
     <main className="page-content register-page">
       <div className="register-container">
-        <h2>Регистрация в системе</h2>
-        
-        {error && <div className="error-message">{error}</div>}
+        <div className="register-box">
+          <h2>Создать аккаунт</h2>
+          <p className="subtitle">Присоединяйтесь к нам для быстрого оформления заявок</p>
 
-        <form onSubmit={handleRegister} className="register-form">
-          {/* Группа: Основные данные */}
-          <div className="form-row">
-            <div className="form-group">
-              <label>Имя</label>
+          <form onSubmit={handleSubmit} className="register-form">
+            <div className="input-group">
+              <label htmlFor="name">Ваше имя</label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Как к вам обращаться?"
+                id="name"
+                name="name"
+                placeholder="Например, Максим"
+                value={formData.name}
+                onChange={handleChange}
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label>Телефон</label>
+            <div className="input-row">
+              <div className="input-group">
+                <label htmlFor="phone">Телефон</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+48 000 000 000"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="car">Ваш автомобиль</label>
+                <input
+                  type="text"
+                  id="car"
+                  name="car"
+                  placeholder="Марка и модель"
+                  value={formData.car}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
               <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+48 000 000 000"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Марка и модель авто (необязательно)</label>
-            <input
-              type="text"
-              value={car}
-              onChange={(e) => setCar(e.target.value)}
-              placeholder="Например: Toyota Prius+"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@mail.com"
-              required
-            />
-          </div>
-
-          {/* Группа: Пароли */}
-          <div className="form-row">
-            <div className="form-group">
-              <label>Пароль</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Придумайте пароль"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="example@mail.com"
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label>Повторите пароль</label>
+            <div className="input-group">
+              <label htmlFor="password">Пароль</label>
               <input
                 type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Еще раз"
+                id="password"
+                name="password"
+                placeholder="Минимум 6 символов"
+                value={formData.password}
+                onChange={handleChange}
                 required
+                minLength={6}
               />
             </div>
+
+            <button type="submit" className="submit-btn">Зарегистрироваться</button>
+          </form>
+
+          <div className="register-footer">
+            <span>Уже есть аккаунт?</span>
+            <Link to="/login" className="login-link">Войти</Link>
           </div>
-
-          <button type="submit" className="register-submit-btn">
-            Создать аккаунт
-          </button>
-        </form>
-
-        <p className="login-redirect">
-          Уже есть аккаунт? <Link to="/login">Войти</Link>
-        </p>
+        </div>
       </div>
     </main>
   );

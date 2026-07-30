@@ -1,24 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'; // Добавили useDispatch
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice";
-import './Header.scss';
+import "./Header.scss";
 
 const Header = () => {
-  const cartItems = useSelector((state) => state.cart.items);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  // Достаем статус авторизации, данные пользователя и роль из нашего нового слайса
-  const { isAuthenticated, user, role } = useSelector((state) => state.auth);
+  // 1. Достаем данные авторизации и корзины из Redux
+  const { user, role, isAuthenticated } = useSelector((state) => state.auth);
+  const { totalPrice } = useSelector((state) => state.cart); 
   const dispatch = useDispatch();
-  
-  const { t, i18n } = useTranslation();
 
-  const changeLanguage = (e) => {
-    i18n.changeLanguage(e.target.value);
-  };
-
-  // Функция для выхода из аккаунта
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -26,54 +19,67 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__container">
+        
+        {/* Логотип */}
         <div className="header__logo">
           <Link to="/" className="header__logo-link">
-            <img src="/logo.png" alt="d3garage логотип" className="header__logo-img" />
             <span>d3garage</span>
           </Link>
         </div>
 
-        <nav className="header__nav">
-          <Link to="/">{t('nav_services')}</Link>
-          <Link to="/">{t('nav_portfolio')}</Link>
-          <Link to="/">{t('nav_blog')}</Link>
-          <Link to="/">{t('nav_contacts')}</Link>
+        {/* Навигация */}
+        <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
+          <Link to="/portfolio">Портфолио</Link>
+          <Link to="/blog">Блог</Link>
+          <Link to="/contacts">Контакты</Link>
         </nav>
 
+        {/* Действия (Корзина, Язык) */}
         <div className="header__actions">
           <Link to="/cart" className="header__cart">
-            🛒 <span>{cartItems.length}</span>
+            🛒 <span className="cart-price">{totalPrice} PLN</span> {/* 2. Выводим реальную сумму */}
           </Link>
-          
-          <select 
-            className="header__lang" 
-            onChange={changeLanguage} 
-            defaultValue={i18n.language}
-          >
+
+          <select className="header__lang">
             <option value="ru">Русский</option>
             <option value="pl">Polski</option>
+            <option value="en">English</option>
           </select>
-
-          {/* --- БЛОК АВТОРИЗАЦИИ --- */}
-          <div className="header__auth">
-            {isAuthenticated ? (
-              <div className="user-profile">
-                <span className="user-name">
-                  {user?.name} <span className="user-role">({role})</span>
-                </span>
-                <button onClick={handleLogout} className="logout-btn">
-                  Выйти
-                </button>
-              </div>
-            ) : (
-              <div className="auth-links">
-                <Link to="/login" className="login-link">Войти</Link>
-                <Link to="/register" className="register-btn">Регистрация</Link>
-              </div>
-            )}
-          </div>
-
         </div>
+
+        {/* Авторизация и профиль */}
+        <div className="header__auth">
+          {isAuthenticated ? (
+            <div className="user-profile">
+              <Link to="/profile" className="user-name-link">
+                {user.name} 
+                {role === "admin" && <span className="user-role">Admin</span>}
+              </Link>
+              
+              {role === "admin" && (
+                <Link to="/admin" className="admin-link">Панель управления</Link>
+              )}
+              
+              <button onClick={handleLogout} className="logout-btn">Выйти</button>
+            </div>
+          ) : (
+            <div className="auth-links">
+              <Link to="/login" className="login-link">Войти</Link>
+              <Link to="/register" className="register-btn">Регистрация</Link>
+            </div>
+          )}
+        </div>
+
+        {/* Бургер-меню для мобилок */}
+        <div 
+          className="header__burger" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
       </div>
     </header>
   );

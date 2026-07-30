@@ -10,8 +10,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 18px 40px;
-    max-width: 1200px;
-    margin: 0 auto; // Центрируем контейнер на больших экранах
+    max-width: 1400px; /* Увеличили ширину */
+    margin: 0 auto;
+    gap: 20px; /* Защита от налипания блоков друг на друга */
 
     @media (max-width: 768px) {
       padding: 18px 20px;
@@ -23,7 +24,7 @@
     &-link {
       display: flex;
       align-items: center;
-      gap: 12px; // Расстояние между логотипом и текстом
+      gap: 12px;
       text-decoration: none;
       color: inherit;
     }
@@ -47,13 +48,14 @@
   &__nav {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
 
     a {
       color: #e0e0e0;
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
+      white-space: nowrap; /* Запрещаем перенос текста на две строки */
       transition: color 0.3s ease;
 
       &:hover {
@@ -61,8 +63,8 @@
       }
     }
 
-    /* На экранах меньше 768px прячем меню */
-    @media (max-width: 768px) {
+    /* На экранах меньше 1024px прячем меню в бургер */
+    @media (max-width: 1024px) {
       position: absolute;
       top: 100%;
       left: 0;
@@ -88,7 +90,7 @@
     }
   }
 
-  /* 4. Новая обертка для корзины и языка */
+  /* 4. Обертка для корзины и языка */
   &__actions {
     display: flex;
     align-items: center;
@@ -110,7 +112,7 @@
     }
   }
 
-  /* 5. Переписанные стили для селекта языка */
+  /* 5. Стили для селекта языка */
   &__lang {
     padding: 6px 12px;
     border-radius: 4px;
@@ -126,7 +128,7 @@
     }
 
     @media (max-width: 768px) {
-      display: none; // Прячем выбор языка на телефоне для экономии места
+      display: none; // Прячем выбор языка на телефоне
     }
 
     option {
@@ -134,12 +136,12 @@
     }
   }
 
-  /* 6. НОВОЕ: Стили для блока авторизации */
+  /* 6. Стили для блока авторизации */
   &__auth {
     display: flex;
     align-items: center;
     border-left: 1px solid #333;
-    padding-left: 20px;
+    padding-left: 24px;
 
     .auth-links {
       display: flex;
@@ -175,27 +177,60 @@
     .user-profile {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
 
-      .user-name {
-        color: #fff;
+      .user-name-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #fff !important;
+        text-decoration: none;
         font-weight: 500;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 0.8;
+        }
         
         .user-role {
           color: #4caf50;
-          font-size: 0.85em;
-          margin-left: 4px;
+          font-size: 0.75rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          background-color: rgba(76, 175, 80, 0.15);
+          padding: 4px 8px;
+          border-radius: 12px;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .admin-link {
+        color: #ffa726 !important;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        background-color: rgba(255, 167, 38, 0.1);
+        border: 1px solid rgba(255, 167, 38, 0.3);
+        padding: 6px 14px;
+        border-radius: 6px;
+        transition: all 0.3s;
+        white-space: nowrap;
+
+        &:hover {
+          background-color: #ffa726;
+          color: #1a1a1a !important;
         }
       }
 
       .logout-btn {
         background-color: transparent;
-        border: 1px solid #ff5252;
+        border: 1px solid rgba(255, 82, 82, 0.4);
         color: #ff5252;
-        padding: 6px 12px;
+        padding: 6px 14px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.3s;
+        font-weight: 500;
 
         &:hover {
           background-color: #ff5252;
@@ -219,8 +254,8 @@
       }
       
       .user-profile {
-        .user-name {
-          display: none; // Скрываем имя на телефоне, оставляем только кнопку "Выйти"
+        .user-name-link, .admin-link {
+          display: none;
         }
       }
     }
@@ -244,8 +279,8 @@
       transition: all 0.3s ease;
     }
 
-    /* Показываем бургер только на телефонах */
-    @media (max-width: 768px) {
+    /* Показываем бургер с того же момента, как прячем меню (1024px) */
+    @media (max-width: 1024px) {
       display: flex;
     }
   }
