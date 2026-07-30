@@ -1,45 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"; // Добавили useNavigate
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { removeItem, clearCart } from "../../redux/cartSlice";
-import { addOrder } from "../../redux/ordersSlice"; // Импорт экшена заявок
+import { addOrder } from "../../redux/ordersSlice"; 
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  const { user, isAuthenticated } = useSelector((state) => state.auth); // Достаем данные клиента
-  
+  const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // НОВАЯ ФУНКЦИЯ: Оформление заказа
-  const handleCheckout = () => {
-    if (!isAuthenticated) {
-      alert("Пожалуйста, войдите в аккаунт или зарегистрируйтесь для оформления заказа.");
-      navigate("/login");
+  const [isCheckoutFormOpen, setIsCheckoutFormOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const [name, setName] = useState(user?.name || "");
+  const [phone, setPhone] = useState(user?.phone || "+48 ");
+
+  const handleOrderSubmit = (e) => {
+    if (e) e.preventDefault();
+
+    // Проверка, чтобы клиент не отправил пустые поля
+    if (!name.trim() || !phone.trim() || phone.trim() === "+48") {
+      alert("Пожалуйста, введите корректное имя и номер телефона.");
       return;
     }
 
-    // Собираем объект заявки
     const newOrder = {
-      id: Date.now(),
-      client: user?.name || "Клиент",
-      phone: user?.phone || "Не указан",
-      car: user?.car || "Не указано",
-      // Склеиваем названия всех услуг через плюсик
-      service: items.map(item => item.title).join(" + "), 
-      total: totalPrice,
-      date: new Date().toLocaleString("ru-RU", { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-      status: "pending"
+      id: Date.now(), 
+      date: new Date().toLocaleDateString("ru-RU"),
+      customerName: name,
+      customerPhone: phone,
+      items: items,
+      totalPrice: totalPrice,
+      status: "Новый", 
     };
 
-    dispatch(addOrder(newOrder)); // Отправляем в базу админа
-    dispatch(clearCart()); // Очищаем корзину
-    alert("Заявка успешно оформлена! Мы свяжемся с вами в ближайшее время.");
-    navigate("/profile"); // Перекидываем в личный кабинет
+    try {
+      dispatch(addOrder(newOrder)); 
+      dispatch(clearCart()); 
+      setIsSuccess(true); 
+    } catch (error) {
+      console.error("Ошибка при оформлении заказа:", error);
+      alert("Ошибка! Убедитесь, что ordersSlice подключен в store.js");
+    }
   };
+
+  if (isSuccess) {
+    return (
+      <main className="page-content cart-page">
+        <div className="cart-container success-container">
+          <h2>🎉 {t("order_success_title", "Заявка успешно отправлена!")}</h2>
+          <p>{t("order_success_text", "Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей.")}</p>
+          <Link to="/" className="back-to-shop" onClick={() => setIsSuccess(false)}>
+            {t("back_to_home", "Вернуться на главную")}
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="page-content cart-page">
@@ -57,36 +77,86 @@ const Cart = () => {
           </div>
         ) : (
           <div className="cart-content">
-            {/* ... (здесь остается вывод карточек услуг, как было раньше) ... */}
-            <div className="cart-items">
-              {items.map((item) => (
-                <div key={item.id} className="cart-item">
-                  <div className="item-info">
-                    <h4>{item.title}</h4>
+            {!isCheckoutFormOpen ? (
+              <>
+                <div className="cart-items">
+                  {items.map((item) => (
+                    <div key={item.id} className="cart-item">
+                      <div className="item-info">
+                        <h4>{item.title}</h4>
+                      </div>
+                      <div className="item-price">
+                        <span>{item.price} PLN</span>
+                        <button
+                          onClick={() => dispatch(removeItem(item.id))}
+                          className="remove-btn"
+                          title={t("cart_remove", "Удалить")}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="cart-summary">
+                  <div className="summary-row">
+                    <span>{t("cart_total", "Итого к оплате:")}</span>
+                    <span className="total-price">{totalPrice} PLN</span>
                   </div>
-                  <div className="item-price">
-                    <span>{item.price} PLN</span>
-                    <button onClick={() => dispatch(removeItem(item.id))} className="remove-btn">✕</button>
+                  <button 
+                    className="checkout-btn"
+                    onClick={() => setIsCheckoutFormOpen(true)}
+                  >
+                    {t("cart_checkout", "Оформить заявку")}
+                  </button>
+                  <button className="clear-btn" onClick={() => dispatch(clearCart())}>
+                    {t("cart_clear", "Очистить корзину")}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="checkout-form-container">
+                <h3>{t("checkout_details", "Контактные данные")}</h3>
+                {/* Теперь это div, а не form */}
+                <div className="checkout-form">
+                  <div className="input-group">
+                    <label>Имя</label>
+                    <input 
+                      type="text" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)} 
+                      placeholder="Как к вам обращаться?" 
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label>Телефон</label>
+                    <input 
+                      type="tel" 
+                      value={phone} 
+                      onChange={(e) => setPhone(e.target.value)} 
+                    />
+                  </div>
+                  <div className="checkout-actions">
+                    {/* Кнопка с явным вызовом функции */}
+                    <button 
+                      type="button" 
+                      className="checkout-btn"
+                      onClick={handleOrderSubmit}
+                    >
+                      {t("confirm_order", "Подтвердить заказ")}
+                    </button>
+                    <button 
+                      type="button" 
+                      className="cancel-btn" 
+                      onClick={() => setIsCheckoutFormOpen(false)}
+                    >
+                      {t("cancel", "Назад")}
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="cart-summary">
-              <div className="summary-row">
-                <span>{t("cart_total", "Итого к оплате:")}</span>
-                <span className="total-price">{totalPrice} PLN</span>
               </div>
-              
-              {/* ВЕШАЕМ ФУНКЦИЮ НА КНОПКУ */}
-              <button className="checkout-btn" onClick={handleCheckout}>
-                {t("cart_checkout", "Оформить заявку")}
-              </button>
-              
-              <button className="clear-btn" onClick={() => dispatch(clearCart())}>
-                {t("cart_clear", "Очистить корзину")}
-              </button>
-            </div>
+            )}
           </div>
         )}
       </div>

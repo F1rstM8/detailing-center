@@ -1,101 +1,67 @@
-import React, { useState } from 'react';
-import './Contacts.scss';
+import React from "react";
+import "./Contacts.scss";
 
 const Contacts = () => {
-  // Состояние для хранения данных формы
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    question: ''
-  });
-
-  // Состояние для показа успешного сообщения
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Функция, которая обновляет данные при вводе текста
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  // Функция отправки формы
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Останавливаем перезагрузку страницы
-    
-    // В реальном проекте здесь будет код отправки на сервер или в Telegram
-    console.log('Отправленные данные:', formData);
-    
-    // Показываем сообщение об успехе
-    setIsSubmitted(true);
-    
-    // Очищаем поля формы
-    setFormData({ name: '', phone: '', question: '' });
-
-    // Возвращаем форму обратно через 5 секунд
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
-  };
-
   return (
-    <section id="contacts" className="page-content contacts-page">
-      <h1 className="contacts-page__title">Свяжитесь с нами</h1>
-      
-      <div className="contacts-page__container">
-        {/* Левый блок с информацией */}
-        <div className="contacts-info">
-          <h2>Наши контакты</h2>
-          <p><strong>Телефон:</strong> +48 123 456 789</p>
-          <p><strong>Email:</strong> info@detailing-center.com</p>
-          <p><strong>Адрес:</strong> г. Краков, ул. Примерная, 10</p>
-          <p><strong>Режим работы:</strong> Пн-Вс: 09:00 - 20:00</p>
-        </div>
+    <main className="page-content contacts-page">
+      <div className="contacts-container">
         
-        {/* Правый блок с формой или уведомлением */}
-        <div className="contacts-form">
-          {isSubmitted ? (
-            <div className="success-message">
-              <h3>Спасибо за обращение!</h3>
-              <p>Мы получили ваш вопрос и перезвоним вам в ближайшее время для консультации.</p>
+        <header className="contacts-header">
+          <h2>Наши контакты</h2>
+          <p>Мы всегда на связи и готовы привести ваш автомобиль в идеальное состояние.</p>
+        </header>
+
+        <div className="contacts-content">
+          {/* Левая колонка: Информационные карточки */}
+          <div className="contacts-info">
+            <div className="info-card">
+              <div className="card-icon">📍</div>
+              <div className="card-text">
+                <h3>Адрес студии</h3>
+                <p>ul. Długa 15, 31-147 Kraków</p>
+                <p>Польша</p>
+              </div>
             </div>
-          ) : (
-            <>
-              <h2>Остались вопросы?</h2>
-              <form onSubmit={handleSubmit}>
-                <input 
-                  type="text" 
-                  name="name"
-                  placeholder="Ваше имя" 
-                  value={formData.name}
-                  onChange={handleChange}
-                  required 
-                />
-                <input 
-                  type="tel" 
-                  name="phone"
-                  placeholder="Номер телефона" 
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required 
-                />
-                <textarea 
-                  name="question"
-                  placeholder="Ваш вопрос" 
-                  rows="4" 
-                  value={formData.question}
-                  onChange={handleChange}
-                  required
-                ></textarea>
-                <button type="submit">Отправить</button>
-              </form>
-            </>
-          )}
+
+            <div className="info-card">
+              <div className="card-icon">📞</div>
+              <div className="card-text">
+                <h3>Телефон</h3>
+                <p>+48 123 456 789</p>
+                <p>Пн-Сб, с 09:00 до 20:00</p>
+              </div>
+            </div>
+
+            <div className="info-card">
+              <div className="card-icon">✉️</div>
+              <div className="card-text">
+                <h3>Email и Соцсети</h3>
+                <p>hello@detailing-krakow.pl</p>
+                <div className="social-links">
+                  <a href="#" className="social-link">Instagram</a>
+                  <a href="#" className="social-link">Facebook</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Правая колонка: Карта */}
+          <div className="contacts-map">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d81986.20815462002!2d19.86479011110055!3d50.04674464522434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471644c0354e18d1%3A0xb46bb6b576478abf!2z0JrRgNCw0LrQvtCy!5e0!3m2!1sru!2spl!4v1700000000000!5m2!1sru!2spl" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Maps"
+            ></iframe>
+          </div>
         </div>
+
       </div>
-    </section>
+    </main>
   );
 };
 

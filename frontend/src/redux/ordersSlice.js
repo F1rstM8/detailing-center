@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  list: [], // Здесь будут храниться все оформленные заявки
+  ordersList: [], // Здесь будут храниться все заказы
 };
 
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
-    // Добавление новой заявки
+    // Добавление нового заказа
     addOrder: (state, action) => {
-      state.list.push(action.payload);
+      state.ordersList.push(action.payload);
     },
-    // Изменение статуса заявки админом
+    // Обновление статуса (пригодится для админки позже)
     updateOrderStatus: (state, action) => {
       const { id, status } = action.payload;
-      const order = state.list.find((o) => o.id === id);
+      const order = state.ordersList.find((o) => o.id === id);
       if (order) {
         order.status = status;
       }

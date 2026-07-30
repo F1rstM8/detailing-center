@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateOrderStatus } from "../../redux/ordersSlice";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState("requests");
-
-  // Получаем реальные заявки из глобального хранилища Redux
-  const requests = useSelector((state) => state.orders.list);
+  // Достаем массив заказов из Redux
+  const orders = useSelector((state) => state.orders.ordersList);
   const dispatch = useDispatch();
 
-  // Функция для смены статуса заявки через Redux
+  // Функция для смены статуса заказа
   const handleStatusChange = (id, newStatus) => {
     dispatch(updateOrderStatus({ id, status: newStatus }));
   };
@@ -18,107 +16,60 @@ const AdminDashboard = () => {
   return (
     <main className="page-content admin-page">
       <div className="admin-container">
-        
-        {/* Боковое меню */}
-        <aside className="admin-sidebar">
-          <h2>Управление</h2>
-          <nav className="admin-nav">
-            <button 
-              className={activeTab === "requests" ? "active" : ""} 
-              onClick={() => setActiveTab("requests")}
-            >
-              📋 Новые заявки
-            </button>
-            <button 
-              className={activeTab === "clients" ? "active" : ""} 
-              onClick={() => setActiveTab("clients")}
-            >
-              👥 Клиенты
-            </button>
-            <button 
-              className={activeTab === "settings" ? "active" : ""} 
-              onClick={() => setActiveTab("settings")}
-            >
-              ⚙️ Настройки услуг
-            </button>
-          </nav>
-        </aside>
+        <header className="admin-header">
+          <h2>Панель управления</h2>
+          <p>Управление заявками и статусами автомобилей</p>
+        </header>
 
-        {/* Основная рабочая область */}
-        <section className="admin-content">
-          <header className="admin-header">
-            <h3>
-              {activeTab === "requests" && "Управление заявками"}
-              {activeTab === "clients" && "База клиентов"}
-              {activeTab === "settings" && "Настройки прайс-листа"}
-            </h3>
-          </header>
-
-          <div className="admin-workspace">
-            
-            {/* ВКЛАДКА: ЗАЯВКИ */}
-            {activeTab === "requests" && (
-              <div className="requests-list">
-                {!requests || requests.length === 0 ? (
-                  <p className="empty-message">Нет активных заявок.</p>
-                ) : (
-                  requests.map((req) => (
-                    <div key={req.id} className="request-card">
-                      <div className="req-info">
-                        <h4>{req.service}</h4>
-                        <p className="req-client">
-                          <strong>Клиент:</strong> {req.client} ({req.phone})
-                        </p>
-                        <p className="req-car">
-                          <strong>Авто:</strong> {req.car}
-                        </p>
-                        <p className="req-date">
-                          <strong>Дата:</strong> {req.date}
-                        </p>
-                      </div>
-                      
-                      <div className="req-actions">
-                        <span className={`status-badge ${req.status}`}>
-                          {req.status === "pending" && "Ожидает"}
-                          {req.status === "in_progress" && "В работе"}
-                          {req.status === "completed" && "Выполнено"}
-                        </span>
-                        
-                        <div className="action-buttons">
-                          {req.status === "pending" && (
-                            <button onClick={() => handleStatusChange(req.id, "in_progress")} className="btn-progress">
-                              Взять в работу
-                            </button>
-                          )}
-                          {req.status === "in_progress" && (
-                            <button onClick={() => handleStatusChange(req.id, "completed")} className="btn-complete">
-                              Завершить
-                            </button>
-                          )}
-                        </div>
-                      </div>
+        <div className="admin-content">
+          <h3>Текущие заявки</h3>
+          
+          {!orders || orders.length === 0 ? (
+            <p className="no-orders">Новых заявок пока нет.</p>
+          ) : (
+            <div className="orders-list">
+              {orders.map((order) => (
+                <div key={order.id} className="order-card">
+                  <div className="order-header">
+                    <span className="order-date">{order.date}</span>
+                    <span className={`order-status status-${order.status === 'Новый' ? 'new' : 'progress'}`}>
+                      {order.status}
+                    </span>
+                  </div>
+                  
+                  <div className="order-body">
+                    <p><strong>Клиент:</strong> {order.customerName}</p>
+                    <p><strong>Телефон:</strong> {order.customerPhone}</p>
+                    <div className="order-services">
+                      <strong>Выбранные услуги:</strong>
+                      <ul>
+                        {order.items.map(item => (
+                          <li key={item.id}>{item.title} — {item.price} PLN</li>
+                        ))}
+                      </ul>
                     </div>
-                  ))
-                )}
-              </div>
-            )}
+                    <p className="order-total"><strong>Итого к оплате:</strong> {order.totalPrice} PLN</p>
+                  </div>
 
-            {/* Заглушки для остальных вкладок */}
-            {activeTab === "clients" && (
-              <div className="placeholder-block">
-                <p>Здесь будет список всех зарегистрированных пользователей и история их посещений.</p>
-              </div>
-            )}
-
-            {activeTab === "settings" && (
-              <div className="placeholder-block">
-                <p>Здесь можно будет добавлять новые услуги, менять цены и загружать фото для портфолио.</p>
-              </div>
-            )}
-
-          </div>
-        </section>
-
+                  <div className="order-actions">
+                    <button 
+                      className="btn-progress"
+                      onClick={() => handleStatusChange(order.id, "В работе")}
+                    >
+                      В работу
+                    </button>
+                    <button 
+                      className="btn-done"
+                      onClick={() => handleStatusChange(order.id, "Выполнено")}
+                    >
+                      Выполнено
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
