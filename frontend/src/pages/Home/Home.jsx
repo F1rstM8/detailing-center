@@ -1,12 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Reviews from "../../components/Reviews/Reviews"; // Проверь путь к файлу
-import servicesData from "../../data/services.json"; // Импортируем наши услуги
+import { useDispatch } from "react-redux"; // 1. Импортируем хук
+import { addItem } from "../../redux/cartSlice"; // 2. Импортируем экшен добавления
+import Reviews from "../../components/Reviews/Reviews"; 
+import servicesData from "../../data/services.json"; 
 import "./Home.scss";
 
 const Home = () => {
-  // Берем только первые 3 услуги для превью на главной странице
   const popularServices = servicesData.slice(0, 3);
+  const dispatch = useDispatch(); // 3. Инициализируем dispatch
+
+  // 4. Функция добавления в корзину
+  const handleAddToCart = (service) => {
+    dispatch(addItem({
+      id: service.id,
+      title: service.title,
+      price: service.price, // Берем цену из JSON
+      category: service.category || "Популярные услуги"
+    }));
+  };
 
   return (
     <main className="page-content home-page">
@@ -57,6 +69,13 @@ const Home = () => {
               <p className="desc">{service.description}</p>
               <div className="footer">
                 <span className="price">от {service.price} PLN</span>
+                {/* 5. Добавляем кнопку В корзину */}
+                <button 
+                  className="add-to-cart-btn"
+                  onClick={() => handleAddToCart(service)}
+                >
+                  В корзину
+                </button>
               </div>
             </div>
           ))}
