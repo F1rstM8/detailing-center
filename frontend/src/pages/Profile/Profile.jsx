@@ -1,96 +1,105 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/authSlice";
+import { useTranslation } from "react-i18next";
+// Если у тебя есть экшен для выхода (logout) в authSlice, импортируем его:
+// import { logout } from "../../redux/authSlice"; 
 import "./Profile.scss";
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.auth);
-  // Достаем все заявки из Redux
-  const { list: orders } = useSelector((state) => state.orders); 
-  
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  
+  // Достаем данные пользователя (если он не залогинен, покажем заглушку)
+  const { user } = useSelector((state) => state.auth);
+  
+  // Достаем все заказы и фильтруем только те, что принадлежат этому пользователю
+  // Для простоты сверяем по номеру телефона (или имени)
+  const allOrders = useSelector((state) => state.orders?.ordersList || []);
+  const myOrders = allOrders.filter(
+    (order) => order.customerPhone === (user?.phone || "+48 ")
+  );
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
+  // Временные данные профиля, если пользователь не авторизован (для наглядности)
+  const currentUser = user || {
+    name: "Гость",
+    phone: "+48 000 000 000",
+    email: "guest@example.com",
+    car: "Не указан"
   };
 
-  // Фильтруем заявки: показываем только те, которые принадлежат текущему пользователю
-  const userOrders = orders.filter(
-    (order) => order.client === user?.name && order.phone === user?.phone
-  );
+  const handleLogout = () => {
+    // dispatch(logout());
+    alert("Здесь будет выход из аккаунта");
+  };
 
   return (
     <main className="page-content profile-page">
       <div className="profile-container">
         
         <header className="profile-header">
-          <h2>Личный кабинет</h2>
-          <button onClick={handleLogout} className="logout-btn">
-            Выйти из аккаунта
-          </button>
+          <h2>{t("profile_title", "Личный кабинет")}</h2>
         </header>
 
         <div className="profile-content">
-          {/* Блок с личными данными */}
-          <section className="profile-card user-info">
-            <h3>Мои данные</h3>
-            <div className="info-list">
-              <div className="info-item">
-                <span className="label">Имя:</span>
-                <span className="value">{user?.name || "Не указано"}</span>
+          {/* Левая колонка: Данные пользователя */}
+          <aside className="profile-sidebar">
+            <div className="user-info-card">
+              <div className="user-avatar">
+                {currentUser.name.charAt(0)}
               </div>
-              <div className="info-item">
-                <span className="label">Телефон:</span>
-                <span className="value">{user?.phone || "Не указано"}</span>
+              <h3>{currentUser.name}</h3>
+              <p className="user-phone">{currentUser.phone}</p>
+              
+              <div className="user-details">
+                <div className="detail-item">
+                  <span className="label">Email:</span>
+                  <span className="value">{currentUser.email}</span>
+                </div>
+                <div className="detail-item">
+                  <span className="label">Автомобиль:</span>
+                  <span className="value">{currentUser.car}</span>
+                </div>
               </div>
-              <div className="info-item">
-                <span className="label">Email:</span>
-                <span className="value">{user?.email || "Не указано"}</span>
-              </div>
-              <div className="info-item">
-                <span className="label">Автомобиль:</span>
-                <span className="value">{user?.car || "Не добавлен"}</span>
-              </div>
-            </div>
-            <button className="edit-btn">Редактировать профиль</button>
-          </section>
 
-          {/* Блок с историей записей */}
-          <section className="profile-card user-appointments">
-            <h3>Мои записи</h3>
+              <button className="logout-btn" onClick={handleLogout}>
+                Выйти
+              </button>
+            </div>
+          </aside>
+
+          {/* Правая колонка: История заказов */}
+          <section className="profile-orders">
+            <h3>Мои заявки и автомобили</h3>
             
-            <div className="appointment-list">
-              {userOrders.length === 0 ? (
-                <p style={{ color: "#a0a0a0", textAlign: "center", padding: "20px 0" }}>
-                  У вас пока нет активных записей.
-                </p>
-              ) : (
-                userOrders.map((order) => (
-                  <div key={order.id} className="appointment-item">
-                    <div className="appointment-details">
-                      <h4>{order.service}</h4>
-                      <p className="appointment-date">{order.date}</p>
-                      <p className="appointment-price" style={{ color: "#a0a0a0", fontSize: "13px", marginTop: "4px" }}>
-                        Сумма: {order.total} PLN
-                      </p>
+            {myOrders.length === 0 ? (
+              <div className="no-orders">
+                <p>У вас пока нет активных заявок.</p>
+              </div>
+            ) : (
+              <div className="orders-list">
+                {myOrders.map((order) => (
+                  <div key={order.id} className="order-card">
+                    <div className="order-header">
+                      <span className="order-date">От {order.date}</span>
+                      {/* Цвет бейджа зависит от статуса */}
+                      <span className={`status-badge ${order.status === 'Новый' ? 'status-new' : 'status-progress'}`}>
+                        {order.status}
+                      </span>
                     </div>
-                    {/* Класс статуса динамически подставляется из данных */}
-                    <div className={`appointment-status ${order.status}`}>
-                      {order.status === "pending" && "Ожидает"}
-                      {order.status === "in_progress" && "В работе"}
-                      {order.status === "completed" && "Выполнено"}
+                    <div className="order-services">
+                      <ul>
+                        {order.items.map(item => (
+                          <li key={item.id}>{item.title}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="order-footer">
+                      <span className="order-total">Итого: {order.totalPrice} PLN</span>
                     </div>
                   </div>
-                ))
-              )}
-            </div>
-            
-            <button className="new-appointment-btn" onClick={() => navigate("/#services")}>
-              Записаться на услуги
-            </button>
+                ))}
+              </div>
+            )}
           </section>
         </div>
 

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/authSlice";
+import { logout } from "../redux/authSlice"; 
+import AuthModal from "./AuthModal/AuthModal";
 import "./Header.scss";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false); // Состояние для модалки
   
-  // 1. Достаем данные авторизации и корзины из Redux
+  // Достаем данные авторизации и корзины из Redux
   const { user, role, isAuthenticated } = useSelector((state) => state.auth);
   const { totalPrice } = useSelector((state) => state.cart); 
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ const Header = () => {
         {/* Действия (Корзина, Язык) */}
         <div className="header__actions">
           <Link to="/cart" className="header__cart">
-            🛒 <span className="cart-price">{totalPrice} PLN</span> {/* 2. Выводим реальную сумму */}
+            🛒 <span className="cart-price">{totalPrice} PLN</span>
           </Link>
 
           <select className="header__lang">
@@ -52,7 +54,7 @@ const Header = () => {
           {isAuthenticated ? (
             <div className="user-profile">
               <Link to="/profile" className="user-name-link">
-                {user.name} 
+                {user?.name} 
                 {role === "admin" && <span className="user-role">Admin</span>}
               </Link>
               
@@ -64,8 +66,21 @@ const Header = () => {
             </div>
           ) : (
             <div className="auth-links">
-              <Link to="/login" className="login-link">Войти</Link>
-              <Link to="/register" className="register-btn">Регистрация</Link>
+              {/* Заменили Link на button, который открывает модалку */}
+              <button 
+                className="login-btn" 
+                onClick={() => setIsAuthModalOpen(true)}
+                style={{ 
+                  background: 'none', 
+                  border: '1px solid #4caf50', 
+                  color: '#fff', 
+                  padding: '8px 16px', 
+                  borderRadius: '4px', 
+                  cursor: 'pointer' 
+                }}
+              >
+                Войти
+              </button>
             </div>
           )}
         </div>
@@ -81,6 +96,12 @@ const Header = () => {
         </div>
 
       </div>
+
+      {/* Рендерим модальное окно. Если isAuthModalOpen === false, оно вернет null */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
     </header>
   );
 };

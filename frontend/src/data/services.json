@@ -1,50 +1,42 @@
 [
   {
-    "id": 1,
-    "title": {
-      "ru": "Комплексная мойка",
-      "pl": "Mycie kompleksowe"
-    },
-    "price": 15,
-    "description": {
-      "ru": "Тщательная мойка кузова, уборка салона пылесосом, чистка стекол изнутри и снаружи.",
-      "pl": "Dokładne mycie karoserii, odkurzanie wnętrza, czyszczenie szyb wewnątrz i na zewnątrz."
-    }
+    "id": "s1",
+    "title": "Комплексная химчистка салона",
+    "category": "Интерьер",
+    "description": "Глубокая очистка всех поверхностей: сиденья, пол, потолок, пластик. Нанесение защитного кондиционера на кожу.",
+    "price": 600,
+    "time": "1-2 дня"
   },
   {
-    "id": 2,
-    "title": {
-      "ru": "Химчистка салона",
-      "pl": "Pranie tapicerki i czyszczenie wnętrza"
-    },
-    "price": 70,
-    "description": {
-      "ru": "Глубокая очистка всех элементов салона: сидений, пола, потолка и пластика.",
-      "pl": "Głębokie czyszczenie wszystkich elementów wnętrza: foteli, podłogi, podsufitki i plastików."
-    }
+    "id": "s2",
+    "title": "Полировка кузова (Восстановительная)",
+    "category": "Экстерьер",
+    "description": "Удаление до 95% царапин, голограмм и потертостей. Возвращение заводского блеска ЛКП.",
+    "price": 1200,
+    "time": "2-3 дня"
   },
   {
-    "id": 3,
-    "title": {
-      "ru": "Полировка кузова",
-      "pl": "Korekta lakieru"
-    },
-    "price": 120,
-    "description": {
-      "ru": "Восстановительная многоэтапная полировка, устранение царапин и потертостей.",
-      "pl": "Wieloetapowa korekta lakieru, usuwanie zarysowań i zmatowień."
-    }
+    "id": "s3",
+    "title": "Керамическое покрытие (2 слоя)",
+    "category": "Защита",
+    "description": "Нанесение премиальной керамики. Мощный гидрофобный эффект, защита от реагентов и мелких царапин.",
+    "price": 1500,
+    "time": "1 день"
   },
   {
-    "id": 4,
-    "title": {
-      "ru": "Керамическое покрытие",
-      "pl": "Powłoka ceramiczna"
-    },
-    "price": 200,
-    "description": {
-      "ru": "Надежная защита кузова на 1-2 года, мощный гидрофобный эффект и блеск.",
-      "pl": "Niezawodna ochrona karoserii na 1-2 lata, silny efekt hydrofobowy i głęboki połysk."
-    }
+    "id": "s4",
+    "title": "Оклейка зон риска полиуретаном",
+    "category": "Пленка",
+    "description": "Бронирование капота, бампера, крыльев, фар и зеркал антигравийной пленкой (PPF).",
+    "price": 2500,
+    "time": "2 дня"
+  },
+  {
+    "id": "s5",
+    "title": "Мойка двигателя диэлектриком",
+    "category": "Детейлинг-мойка",
+    "description": "Безопасная очистка подкапотного пространства специальным диэлектрическим составом и консервация.",
+    "price": 250,
+    "time": "3 часа"
   }
 ]

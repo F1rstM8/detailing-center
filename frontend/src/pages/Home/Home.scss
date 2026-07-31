@@ -1,77 +1,233 @@
 .home-page {
-  padding: 40px;
-  color: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100% !important; /* Убираем рамки контейнера по бокам */
+  background: transparent !important; /* Выключаем фон, который рисует прямоугольник */
+  padding: 0 !important;
 }
 
-.services-section {
-  max-width: 1200px;
-  margin: 0 auto;
+/* --- Hero Section --- */
+.hero-section {
+  min-height: 50vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px; 
+  
+  /* Строку с background мы удалили, теперь фон прозрачный */
+  
+  position: relative;
+  overflow: hidden;
 
-  &__title {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    text-align: center;
+  /* Зеленое свечение на фоне можно оставить, оно будет красиво подсвечивать текст */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
   }
 }
 
-.services-grid {
-  display: grid;
-  // Автоматически подстраивает количество колонок под ширину экрана
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+
+  h1 {
+    font-size: 3.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
 }
 
-.service-card {
-  background-color: #1e1e1e;
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+
+  a {
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background-color: #4caf50;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #45a049;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #4caf50;
+
+    &:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+    }
+  }
+}
+
+/* --- Features Section --- */
+.features-section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 50px;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background-color: #1a1a1a;
+  padding: 40px 30px;
+  border-radius: 12px;
   border: 1px solid #333;
-  border-radius: 8px;
-  padding: 24px;
+  text-align: center;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-10px);
+    border-color: #4caf50;
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+  }
+
+  p {
+    color: #a0a0a0;
+    line-height: 1.5;
+  }
+}
+/* --- Home Services Section --- */
+.home-services-section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 50px;
+  }
+}
+
+.home-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.home-service-card {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px); // Легкое поднятие карточки при наведении
-    border-color: #555;
+    transform: translateY(-8px);
+    border-color: #4caf50;
   }
 
   h3 {
-    margin-bottom: 12px;
-    font-size: 1.25rem;
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
   }
 
-  &__desc {
-    color: #aaa;
-    font-size: 0.9rem;
-    margin-bottom: 24px;
-    flex-grow: 1; // Растягивает описание, прижимая футер к низу карточки
-    line-height: 1.4;
+  .desc {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Прижимает цену к низу карточки */
   }
 
-  &__footer {
+  .footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-
+    justify-content: flex-start;
+    
     .price {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #4caf50; // Приятный зеленый цвет для цены
+      color: #4caf50;
     }
+  }
+}
 
-    .order-btn {
-      background-color: #fff;
-      color: #000;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+.home-services-action {
+  text-align: center;
+  margin-top: 20px;
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
 
-      &:hover {
-        background-color: #e0e0e0;
-      }
+    &:hover {
+      background-color: #45a049;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
     }
   }
 }

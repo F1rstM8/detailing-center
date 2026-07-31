@@ -1,26 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Пытаемся достать юзера из памяти браузера при загрузке
+const savedUser = JSON.parse(localStorage.getItem("authUser"));
+
 const initialState = {
-  user: null, // Здесь будут данные пользователя (имя, email)
-  role: null, // Роль: 'admin', 'manager' или 'client'
-  isAuthenticated: false, // Флаг: авторизован или нет
+  user: savedUser || null, // null означает, что мы не залогинены
+  isAuthenticated: !!savedUser,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // Действие при успешном входе (называем login, чтобы совпадало с вызовами в компонентах)
     login: (state, action) => {
-      state.user = action.payload.user;
-      state.role = action.payload.role;
+      state.user = action.payload;
       state.isAuthenticated = true;
+      // Сохраняем в LocalStorage
+      localStorage.setItem("authUser", JSON.stringify(action.payload));
     },
-    // Действие при выходе из аккаунта
     logout: (state) => {
       state.user = null;
-      state.role = null;
       state.isAuthenticated = false;
+      localStorage.removeItem("authUser");
     },
   },
 });

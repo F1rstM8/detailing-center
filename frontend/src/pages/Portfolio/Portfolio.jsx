@@ -1,25 +1,63 @@
-import React from 'react';
-import './Portfolio.scss';
-// Импортируем наши данные
-import works from '../../data/portfolio.json';
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import portfolioItems from "../../data/portfolio.json"; // Импортируем данные из JSON
+import "./Portfolio.scss";
 
 const Portfolio = () => {
+  const { t } = useTranslation();
+  const [activeFilter, setActiveFilter] = useState("Все работы");
+
+  // Вытягиваем уникальные категории для кнопок фильтра
+  const categories = ["Все работы", ...new Set(portfolioItems.map(item => item.category))];
+
+  // Фильтруем массив в зависимости от выбранной категории
+  const filteredItems = activeFilter === "Все работы" 
+    ? portfolioItems 
+    : portfolioItems.filter(item => item.category === activeFilter);
+
   return (
-    <section id="portfolio" className="portfolio-section">
-      <h2 className="portfolio-section__title">Наши <span>работы</span></h2>
-      
-      <div className="portfolio-section__grid">
-        {works.map((work) => (
-          <div key={work.id} className="portfolio-section__item">
-            <img src={work.image} alt={work.title} />
-            <div className="overlay">
-              <h3>{work.title}</h3>
-              <p>{work.category}</p>
+    <main className="page-content portfolio-page">
+      <div className="portfolio-container">
+        
+        <header className="portfolio-header">
+          <h2>{t("portfolio_title", "Наши работы")}</h2>
+          <p>{t("portfolio_subtitle", "Оцените качество нашей работы на реальных примерах.")}</p>
+        </header>
+
+        {/* Фильтры */}
+        <div className="portfolio-filters">
+          {categories.map((category, index) => (
+            <button 
+              key={index}
+              className={`filter-btn ${activeFilter === category ? "active" : ""}`}
+              onClick={() => setActiveFilter(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Сетка проектов */}
+        <div className="portfolio-grid">
+          {filteredItems.map((item) => (
+            <div key={item.id} className="portfolio-card">
+              <div className="card-image">
+                <img src={item.image} alt={item.title} />
+                <div className="card-overlay">
+                  <span>Смотреть детали</span>
+                </div>
+              </div>
+              <div className="card-content">
+                <span className="category-badge">{item.category}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
-    </section>
+    </main>
   );
 };
 

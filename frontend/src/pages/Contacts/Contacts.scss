@@ -52,7 +52,9 @@
   padding: 25px;
   border-radius: 12px;
   border: 1px solid #333;
-  transition: transform 0.3s, border-color 0.3s;
+  transition:
+    transform 0.3s,
+    border-color 0.3s;
 
   &:hover {
     transform: translateY(-5px);
