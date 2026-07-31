@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-// Раскомментировали импорт экшенов из твоего слайса
 import { removeItem, clearCart } from "../../redux/cartSlice";
 import "./Cart.scss";
 
@@ -10,14 +9,11 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const handleRemoveItem = (id) => {
-    // Теперь кнопка реально удаляет услугу из Redux и пересчитывает сумму
     dispatch(removeItem(id));
   };
 
   const handleCheckout = () => {
-    // Имитируем отправку заказа на сервер
     alert("Заявка успешно оформлена! Мы свяжемся с вами в ближайшее время.");
-    // Очищаем корзину после успешного оформления
     dispatch(clearCart());
   };
 
