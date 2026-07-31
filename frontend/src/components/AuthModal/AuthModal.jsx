@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
 import "./AuthModal.scss";
 
-const AuthModal = ({ isOpen, onClose }) => {
+const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const dispatch = useDispatch();
-  const [isLoginMode, setIsLoginMode] = useState(true); // Переключатель: Вход / Регистрация
+  
+  // Устанавливаем режим в зависимости от того, на какую кнопку нажали
+  const [isLoginMode, setIsLoginMode] = useState(initialMode === "login");
+
+  // Синхронизируем состояние при каждом открытии модалки
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoginMode(initialMode === "login");
+    }
+  }, [isOpen, initialMode]);
 
   // Состояния полей формы
   const [email, setEmail] = useState("");
@@ -13,27 +22,26 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
-  if (!isOpen) return null; // Если окно закрыто, не рендерим его
+  if (!isOpen) return null; 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Формируем данные пользователя (имитация ответа от сервера)
+    // Формируем данные пользователя
     const userData = {
       id: Date.now(),
       email,
-      name: isLoginMode ? "Постоянный клиент" : name, // Если вход, придумываем имя, если рега - берем из формы
+      name: isLoginMode ? "Постоянный клиент" : name,
       phone: isLoginMode ? "+48 111 222 333" : phone,
       car: "Не указан",
     };
 
-    dispatch(login(userData)); // Отправляем в Redux
-    onClose(); // Закрываем модалку
+    dispatch(login(userData)); 
+    onClose(); 
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      {/* Останавливаем всплытие клика, чтобы окно не закрывалось при клике по самой форме */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>✕</button>
 

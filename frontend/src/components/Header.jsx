@@ -7,7 +7,8 @@ import "./Header.scss";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false); // Состояние для модалки
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("login"); // Состояние для режима модалки (вход или регистрация)
   
   // Достаем данные авторизации и корзины из Redux
   const { user, role, isAuthenticated } = useSelector((state) => state.auth);
@@ -16,6 +17,12 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+  };
+
+  // Функция для открытия модалки в нужном режиме
+  const openAuthModal = (mode) => {
+    setAuthMode(mode);
+    setIsAuthModalOpen(true);
   };
 
   return (
@@ -66,20 +73,17 @@ const Header = () => {
             </div>
           ) : (
             <div className="auth-links">
-              {/* Заменили Link на button, который открывает модалку */}
               <button 
                 className="login-btn" 
-                onClick={() => setIsAuthModalOpen(true)}
-                style={{ 
-                  background: 'none', 
-                  border: '1px solid #4caf50', 
-                  color: '#fff', 
-                  padding: '8px 16px', 
-                  borderRadius: '4px', 
-                  cursor: 'pointer' 
-                }}
+                onClick={() => openAuthModal("login")}
               >
                 Войти
+              </button>
+              <button 
+                className="register-btn" 
+                onClick={() => openAuthModal("register")}
+              >
+                Регистрация
               </button>
             </div>
           )}
@@ -97,10 +101,11 @@ const Header = () => {
 
       </div>
 
-      {/* Рендерим модальное окно. Если isAuthModalOpen === false, оно вернет null */}
+      {/* Рендерим модальное окно с передачей начального режима */}
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
+        initialMode={authMode}
       />
     </header>
   );

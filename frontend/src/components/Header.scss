@@ -144,35 +144,45 @@
     padding-left: 24px;
 
     .auth-links {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: 15px;
 
-      .login-link {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s;
+  button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-        &:hover {
-          color: #4caf50;
-        }
-      }
+  .login-btn {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #4caf50;
 
-      .register-btn {
-        background-color: #4caf50;
-        color: #fff;
-        text-decoration: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 500;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #45a049;
-        }
-      }
+    &:hover {
+      background-color: rgba(76, 175, 80, 0.1);
     }
+  }
+
+  .register-btn {
+    background-color: #4caf50;
+    color: #fff;
+    border: 1px solid #4caf50;
+
+    &:hover {
+      background-color: #45a049;
+      box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
 
     .user-profile {
       display: flex;
