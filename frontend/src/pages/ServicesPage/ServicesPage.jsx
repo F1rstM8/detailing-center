@@ -1,16 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../redux/cartSlice"; // Проверь правильность пути до cartSlice
-import servicesData from "../../data/services.json"; // Проверь правильность пути до твоего json
+import { addItem } from "../../redux/cartSlice";
+import servicesData from "../../data/services.json";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (service) => {
-    // Отправляем объект услуги целиком в корзину
     dispatch(addItem(service));
-    // Небольшое уведомление (потом можно заменить на красивый тост)
     alert(`Услуга "${service.title}" добавлена в корзину!`);
   };
 

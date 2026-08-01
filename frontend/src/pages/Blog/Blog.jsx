@@ -1,7 +1,5 @@
 import React from "react";
 import "./Blog.scss";
-
-// Импортируем данные статей из JSON
 import posts from "../../data/blog.json";
 
 const Blog = () => {

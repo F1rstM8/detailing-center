@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { addItem } from "../../redux/cartSlice"; // Подключаем экшен добавления
+import { addItem } from "../../redux/cartSlice";
 import servicesData from "../../data/services.json";
 import "./Services.scss";
 
@@ -17,13 +17,13 @@ const Services = () => {
     : servicesData.filter(item => item.category === activeCategory);
 
   const handleAddToCart = (service) => {
-    // Формируем объект для корзины
     const itemToAdd = {
       id: service.id,
       title: service.title,
       price: service.price,
+      category: service.category || "Услуги"
     };
-    dispatch(addItem(itemToAdd)); // Отправляем в Redux
+    dispatch(addItem(itemToAdd));
     alert(`Услуга "${service.title}" добавлена в корзину!`);
   };
 
@@ -36,7 +36,6 @@ const Services = () => {
           <p>{t("services_subtitle", "Выберите необходимые процедуры для вашего автомобиля")}</p>
         </header>
 
-        {/* Фильтры категорий */}
         <div className="services-filters">
           {categories.map((category, index) => (
             <button 
@@ -49,7 +48,6 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Список услуг */}
         <div className="services-grid">
           {filteredServices.map((service) => (
             <div key={service.id} className="service-card">

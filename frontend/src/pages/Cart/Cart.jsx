@@ -2,13 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeItem, clearCart } from "../../redux/cartSlice";
-import { addOrder } from "../../redux/ordersSlice"; // Подключаем отправку заказа
+import { addOrder } from "../../redux/ordersSlice";
 import "./Cart.scss";
 
 const Cart = () => {
-  // Достаем РЕАЛЬНЫЕ товары и сумму из корзины
   const { items, totalPrice } = useSelector((state) => state.cart);
-  // Достаем данные клиента
   const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
 
@@ -19,21 +17,17 @@ const Cart = () => {
   const handleCheckout = () => {
     if (items.length === 0) return;
 
-    // Формируем реальный заказ из данных JSON, которые лежат в корзине
     const newOrder = {
       id: `ord-${Date.now()}`,
       date: new Date().toLocaleDateString("ru-RU"),
-      customerName: user?.name || "Гость", // Берем имя из стейта авторизации
+      customerName: user?.name || "Гость",
       customerPhone: user?.phone || "Не указан",
       status: "Новый",
-      items: items, // Передаем объекты услуг целиком (с правильными ценами!)
-      totalPrice: totalPrice, // Передаем правильную сумму
+      items: items,
+      totalPrice: totalPrice,
     };
 
-    // Отправляем реальные данные в админку
     dispatch(addOrder(newOrder));
-    
-    // Очищаем корзину
     dispatch(clearCart());
     
     alert("Заявка успешно оформлена! Можете проверить её в Панели управления.");

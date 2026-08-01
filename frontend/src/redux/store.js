@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
 import authReducer from "./authSlice";
-import ordersReducer from "./ordersSlice"; // 1. Импортируем новый редюсер
+import ordersReducer from "./ordersSlice";
 
-// Функция загрузки данных из LocalStorage
 const loadState = () => {
   try {
     const cartState = localStorage.getItem("cartState");
-    const ordersState = localStorage.getItem("ordersState"); // Читаем заявки
+    const ordersState = localStorage.getItem("ordersState");
     
     return {
       cart: cartState ? JSON.parse(cartState) : undefined,
@@ -25,12 +24,11 @@ const store = configureStore({
   reducer: {
     cart: cartReducer,
     auth: authReducer,
-    orders: ordersReducer, // 2. Добавляем в общий стор
+    orders: ordersReducer,
   },
   preloadedState,
 });
 
-// Сохраняем и корзину, и заявки при любых изменениях
 store.subscribe(() => {
   try {
     const state = store.getState();

@@ -1,7 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-// Наш словарь с переводами
 const resources = {
   ru: {
     translation: {
@@ -9,15 +8,12 @@ const resources = {
       nav_portfolio: "Портфолио",
       nav_blog: "Блог",
       nav_contacts: "Контакты",
-      // Переводы для Hero
       hero_title: "Премиальный детейлинг в Кракове",
       hero_subtitle:
         "Профессиональный уход, защита кузова и химчистка. Вернем вашему автомобилю состояние нового.",
       hero_btn: "Смотреть услуги",
-      // Добавленные ключи для секции услуг
       services_title: "Наши услуги и цены",
       btn_choose: "Выбрать",
-      // Переводы для Корзины
       cart_title: "Ваша корзина",
       cart_empty: "Корзина пока пуста. Перейдите на главную страницу, чтобы выбрать услуги.",
       cart_remove: "Удалить",
@@ -25,7 +21,6 @@ const resources = {
       cart_checkout: "Оформить заказ",
       cart_success_title: "🎉 Заявка успешно отправлена!",
       cart_success_desc: "Наш менеджер скоро свяжется с вами для уточнения деталей времени записи.",
-      // Секция "Что такое детейлинг"
       about_title: "Что такое детейлинг и зачем?",
       about_list_1: "Это высококачественная и безопасная мойка кузова, удаление старой грязи, налетов, битума, следов от насекомых и металлических вкраплений.",
       about_list_2: "Полировка кузова — единственный способ удалить следы некачественных моек, мелких царапин, водного камня, потертостей, помутнений и матовости лакокрасочного покрытия.",
@@ -46,15 +41,12 @@ const resources = {
       nav_portfolio: "Portfolio",
       nav_blog: "Blog",
       nav_contacts: "Kontakty",
-      // Польские переводы для Hero
       hero_title: "Detailing Premium w Krakowie",
       hero_subtitle:
         "Profesjonalna pielęgnacja, ochrona lakieru i pranie tapicerki. Przywrócimy Twojemu autu wygląd nowości.",
       hero_btn: "Zobacz usługi",
-      // Добавленные ключи dla sekcji usług
       services_title: "Nasze usługi i ceny",
       btn_choose: "Wybierz",
-      // Переводы для Корзины
       cart_title: "Twój koszyk",
       cart_empty: "Koszyk jest na razie pusty. Przejdź na stronę główną, aby wybrać usługi.",
       cart_remove: "Usuń",
@@ -62,7 +54,6 @@ const resources = {
       cart_checkout: "Złóż zamówienie",
       cart_success_title: "🎉 Zamówienie zostało pomyślnie złożone!",
       cart_success_desc: "Nasz menedżer wkrótce skontaktuje się z Tobą w celu ustalenia szczegółów.",
-      // Sekcja "Co to jest detailing"
       about_title: "Co to jest detailing i dlaczego warto?",
       about_list_1: "To wysokiej jakości i bezpieczne mycie karoserii, usuwanie starego brudu, osadów, smoły, śladów po owadach i opiłków metalicznych.",
       about_list_2: "Polerowanie karoserii to jedyny sposób na usunięcie śladów po słabych myjniach, drobnych rys, osadów z twardej wody, zmatowień i utraty połysku lakieru.",
@@ -81,8 +72,8 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: "ru", // Язык по умолчанию
-  fallbackLng: "ru", // Запасной язык
+  lng: "ru",
+  fallbackLng: "ru",
   interpolation: {
     escapeValue: false,
   },

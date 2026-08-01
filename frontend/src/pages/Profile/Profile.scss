@@ -31,7 +31,6 @@
   }
 }
 
-/* Сайдбар с инфой юзера */
 .user-info-card {
   background-color: #1a1a1a;
   border: 1px solid #333;
@@ -83,6 +82,7 @@
       .label {
         color: #777;
       }
+      
       .value {
         color: #ddd;
         font-weight: bold;
@@ -107,7 +107,6 @@
   }
 }
 
-/* История заказов */
 .profile-orders {
   h3 {
     color: #fff;

@@ -17,7 +17,6 @@
   }
 }
 
-/* Состояние пустой корзины */
 .cart-empty {
   background-color: #1a1a1a;
   border: 1px dashed #444;
@@ -58,7 +57,6 @@
   }
 }
 
-/* Содержимое корзины (список + чек) */
 .cart-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -95,6 +93,7 @@
       font-size: 1.2rem;
       margin-bottom: 5px;
     }
+
     .item-category {
       color: #777;
       font-size: 0.9rem;
@@ -133,7 +132,6 @@
   }
 }
 
-/* Блок "Итого" справа */
 .cart-summary {
   background-color: #1a1a1a;
   border: 1px solid #333;

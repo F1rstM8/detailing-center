@@ -1,28 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"; // 1. Импортируем хук
-import { addItem } from "../../redux/cartSlice"; // 2. Импортируем экшен добавления
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/cartSlice";
 import Reviews from "../../components/Reviews/Reviews"; 
 import servicesData from "../../data/services.json"; 
 import "./Home.scss";
 
 const Home = () => {
   const popularServices = servicesData.slice(0, 3);
-  const dispatch = useDispatch(); // 3. Инициализируем dispatch
+  const dispatch = useDispatch();
 
-  // 4. Функция добавления в корзину
   const handleAddToCart = (service) => {
     dispatch(addItem({
       id: service.id,
       title: service.title,
-      price: service.price, // Берем цену из JSON
+      price: service.price,
       category: service.category || "Популярные услуги"
     }));
   };
 
   return (
     <main className="page-content home-page">
-      {/* Первый экран (Hero) */}
       <section className="hero-section">
         <div className="hero-content">
           <h1>Премиальный уход за вашим автомобилем</h1>
@@ -37,7 +35,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Блок преимуществ */}
       <section className="features-section">
         <h2>Почему выбирают нас?</h2>
         <div className="features-grid">
@@ -59,7 +56,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Блок: Популярные услуги */}
       <section className="home-services-section">
         <h2>Популярные услуги</h2>
         <div className="home-services-grid">
@@ -69,7 +65,6 @@ const Home = () => {
               <p className="desc">{service.description}</p>
               <div className="footer">
                 <span className="price">от {service.price} PLN</span>
-                {/* 5. Добавляем кнопку В корзину */}
                 <button 
                   className="add-to-cart-btn"
                   onClick={() => handleAddToCart(service)}
@@ -85,7 +80,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Вызываем наш новый компонент с отзывами */}
       <Reviews />
     </main>
   );

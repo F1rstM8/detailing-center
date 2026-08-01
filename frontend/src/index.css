@@ -1,21 +1,18 @@
-/* Полностью обнуляем отступы браузера */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Задаем темный фон на весь экран */
 body, html {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #121212;
   color: #ffffff;
   width: 100%;
   min-height: 100vh;
-  scroll-behavior: smooth; /* Добавили плавный скролл */
+  scroll-behavior: smooth;
 }
 
-/* Заставляем главный контейнер React занимать всю ширину */
 #root {
   width: 100%;
   min-height: 100vh;
@@ -23,7 +20,6 @@ body, html {
   flex-direction: column;
 }
 
-/* Класс для отступов контента на страницах */
 .page-content {
   padding: 40px;
 }

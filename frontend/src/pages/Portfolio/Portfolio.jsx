@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import portfolioItems from "../../data/portfolio.json"; // Импортируем данные из JSON
+import portfolioItems from "../../data/portfolio.json";
 import "./Portfolio.scss";
 
 const Portfolio = () => {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("Все работы");
 
-  // Вытягиваем уникальные категории для кнопок фильтра
   const categories = ["Все работы", ...new Set(portfolioItems.map(item => item.category))];
 
-  // Фильтруем массив в зависимости от выбранной категории
   const filteredItems = activeFilter === "Все работы" 
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === activeFilter);
@@ -24,7 +22,6 @@ const Portfolio = () => {
           <p>{t("portfolio_subtitle", "Оцените качество нашей работы на реальных примерах.")}</p>
         </header>
 
-        {/* Фильтры */}
         <div className="portfolio-filters">
           {categories.map((category, index) => (
             <button 
@@ -37,7 +34,6 @@ const Portfolio = () => {
           ))}
         </div>
 
-        {/* Сетка проектов */}
         <div className="portfolio-grid">
           {filteredItems.map((item) => (
             <div key={item.id} className="portfolio-card">

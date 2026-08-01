@@ -4,11 +4,9 @@ import { updateOrderStatus } from "../../redux/ordersSlice";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
-  // Достаем массив заказов из Redux
   const orders = useSelector((state) => state.orders.ordersList);
   const dispatch = useDispatch();
 
-  // Функция для смены статуса заказа
   const handleStatusChange = (id, newStatus) => {
     dispatch(updateOrderStatus({ id, status: newStatus }));
   };
@@ -23,7 +21,7 @@ const AdminDashboard = () => {
 
         <div className="admin-content">
           <h3>Текущие заявки</h3>
-          
+
           {!orders || orders.length === 0 ? (
             <p className="no-orders">Новых заявок пока нет.</p>
           ) : (
@@ -32,33 +30,43 @@ const AdminDashboard = () => {
                 <div key={order.id} className="order-card">
                   <div className="order-header">
                     <span className="order-date">{order.date}</span>
-                    <span className={`order-status status-${order.status === 'Новый' ? 'new' : 'progress'}`}>
+                    <span
+                      className={`order-status status-${order.status === "Новый" ? "new" : "progress"}`}
+                    >
                       {order.status}
                     </span>
                   </div>
-                  
+
                   <div className="order-body">
-                    <p><strong>Клиент:</strong> {order.customerName}</p>
-                    <p><strong>Телефон:</strong> {order.customerPhone}</p>
+                    <p>
+                      <strong>Клиент:</strong> {order.customerName}
+                    </p>
+                    <p>
+                      <strong>Телефон:</strong> {order.customerPhone}
+                    </p>
                     <div className="order-services">
                       <strong>Выбранные услуги:</strong>
                       <ul>
-                        {order.items.map(item => (
-                          <li key={item.id}>{item.title} — {item.price} PLN</li>
+                        {order.items.map((item) => (
+                          <li key={item.id}>
+                            {item.title} — {item.price} PLN
+                          </li>
                         ))}
                       </ul>
                     </div>
-                    <p className="order-total"><strong>Итого к оплате:</strong> {order.totalPrice} PLN</p>
+                    <p className="order-total">
+                      <strong>Итого к оплате:</strong> {order.totalPrice} PLN
+                    </p>
                   </div>
 
                   <div className="order-actions">
-                    <button 
+                    <button
                       className="btn-progress"
                       onClick={() => handleStatusChange(order.id, "В работе")}
                     >
                       В работу
                     </button>
-                    <button 
+                    <button
                       className="btn-done"
                       onClick={() => handleStatusChange(order.id, "Выполнено")}
                     >

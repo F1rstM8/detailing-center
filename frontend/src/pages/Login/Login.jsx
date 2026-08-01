@@ -14,7 +14,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Проверяем, не пытается ли войти админ (для теста)
     if (email === "admin@test.com") {
       dispatch(
         login({
@@ -26,7 +25,6 @@ const Login = () => {
       return;
     }
 
-    // Иначе логиним как обычного клиента
     dispatch(
       login({
         user: { name: email.split("@")[0], email: email, phone: "+48 000 000 000", car: "Toyota Prius+" },

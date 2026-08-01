@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  ordersList: [], // Оставляем пустым! Никакого хардкода.
+  ordersList: [],
 };
 
 const ordersSlice = createSlice({

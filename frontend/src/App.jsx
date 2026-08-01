@@ -14,7 +14,6 @@ import Portfolio from "./pages/Portfolio/Portfolio";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Contacts from "./pages/Contacts/Contacts";
 
-// Импортируем наш компонент защиты маршрутов
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const LandingPage = () => {
@@ -42,7 +41,7 @@ function App() {
             {/* === ОТКРЫТЫЕ МАРШРУТЫ (Доступны всем) === */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/services" element={<ServicesPage />} /> {/* Добавили роут для услуг */}
+            <Route path="/services" element={<ServicesPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
 
