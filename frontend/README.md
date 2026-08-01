@@ -14,5 +14,5 @@ Currently, two official plugins are available:
 
 **Тестовые доступы:**
 * **Администратор (Admin):** `admin@test.com`
-* **Менеджер (Manager):** `manager@test.com`
+* **Менеджер (Manager):** `manager@test.com`(пока не работает)
 * **Клиент (Client):** Любой другой корректный email (например, `client@test.com`)

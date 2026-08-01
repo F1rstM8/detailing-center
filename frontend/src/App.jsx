@@ -9,14 +9,13 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import Blog from "./pages/Blog/Blog";
+import ServicesPage from './pages/ServicesPage/ServicesPage'; 
 import Portfolio from "./pages/Portfolio/Portfolio";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Contacts from "./pages/Contacts/Contacts";
 
-// 1. Импортируем наш компонент защиты маршрутов
+// Импортируем наш компонент защиты маршрутов
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
-
 
 const LandingPage = () => {
   return (
@@ -43,6 +42,7 @@ function App() {
             {/* === ОТКРЫТЫЕ МАРШРУТЫ (Доступны всем) === */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/services" element={<ServicesPage />} /> {/* Добавили роут для услуг */}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
 

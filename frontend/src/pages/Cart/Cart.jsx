@@ -2,10 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeItem, clearCart } from "../../redux/cartSlice";
+import { addOrder } from "../../redux/ordersSlice"; // Подключаем отправку заказа
 import "./Cart.scss";
 
 const Cart = () => {
+  // Достаем РЕАЛЬНЫЕ товары и сумму из корзины
   const { items, totalPrice } = useSelector((state) => state.cart);
+  // Достаем данные клиента
+  const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
 
   const handleRemoveItem = (id) => {
@@ -13,8 +17,26 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    alert("Заявка успешно оформлена! Мы свяжемся с вами в ближайшее время.");
+    if (items.length === 0) return;
+
+    // Формируем реальный заказ из данных JSON, которые лежат в корзине
+    const newOrder = {
+      id: `ord-${Date.now()}`,
+      date: new Date().toLocaleDateString("ru-RU"),
+      customerName: user?.name || "Гость", // Берем имя из стейта авторизации
+      customerPhone: user?.phone || "Не указан",
+      status: "Новый",
+      items: items, // Передаем объекты услуг целиком (с правильными ценами!)
+      totalPrice: totalPrice, // Передаем правильную сумму
+    };
+
+    // Отправляем реальные данные в админку
+    dispatch(addOrder(newOrder));
+    
+    // Очищаем корзину
     dispatch(clearCart());
+    
+    alert("Заявка успешно оформлена! Можете проверить её в Панели управления.");
   };
 
   return (
@@ -29,7 +51,7 @@ const Cart = () => {
                 <div key={item.id} className="cart-item">
                   <div className="item-info">
                     <h3>{item.title}</h3>
-                    <p className="item-category">{item.category || "Услуга детейлинга"}</p>
+                    <p className="item-category">{item.category}</p>
                   </div>
                   <div className="item-actions">
                     <span className="item-price">{item.price} PLN</span>
@@ -64,8 +86,8 @@ const Cart = () => {
             <div className="empty-icon">🛒</div>
             <h3>Ваша корзина пуста</h3>
             <p>Вы еще не выбрали ни одной услуги для своего автомобиля.</p>
-            <Link to="/services" className="btn-primary">
-              Перейти к услугам
+            <Link to="/portfolio" className="btn-primary">
+              Вернуться к услугам
             </Link>
           </div>
         )}

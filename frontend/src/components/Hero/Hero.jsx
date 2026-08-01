@@ -1,18 +1,22 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next'; // 1. Импортируем хук
+import { useTranslation } from 'react-i18next'; 
+import { Link } from 'react-router-dom'; // 1. Импортируем Link для маршрутизации
 import './Hero.scss';
 
 const Hero = () => {
-  const { t } = useTranslation(); // 2. Достаем функцию перевода (здесь i18n не нужен, т.к. мы не переключаем язык кнопкой)
+  const { t } = useTranslation(); 
 
   return (
     <section className="hero">
       <div className="hero__container">
         <div className="hero__content">
-          {/* 3. Меняем жесткий текст на функцию t() */}
           <h1 dangerouslySetInnerHTML={{ __html: t('hero_title').replace('Кракове', '<span>Кракове</span>') }} />
           <p>{t('hero_subtitle')}</p>
-          <a href="#services" className="hero__btn">{t('hero_btn')}</a>
+          
+          {/* 2. Меняем обычный тег <a> на <Link>, чтобы вести на страницу полного прайс-листа */}
+          <Link to="/services" className="hero__btn">
+            {t('hero_btn')}
+          </Link>
         </div>
       </div>
     </section>

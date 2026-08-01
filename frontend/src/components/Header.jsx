@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice"; 
+import { useTranslation } from "react-i18next"; // 1. Импортируем хук перевода
 import AuthModal from "./AuthModal/AuthModal";
 import "./Header.scss";
 
 const Header = () => {
+  const { t, i18n } = useTranslation(); // 2. Инициализируем i18n
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState("login"); // Состояние для режима модалки (вход или регистрация)
+  const [authMode, setAuthMode] = useState("login");
   
-  // Достаем данные авторизации и корзины из Redux
   const { user, role, isAuthenticated } = useSelector((state) => state.auth);
   const { totalPrice } = useSelector((state) => state.cart); 
   const dispatch = useDispatch();
@@ -19,10 +21,14 @@ const Header = () => {
     dispatch(logout());
   };
 
-  // Функция для открытия модалки в нужном режиме
   const openAuthModal = (mode) => {
     setAuthMode(mode);
     setIsAuthModalOpen(true);
+  };
+
+  // 3. Функция для смены языка
+  const handleLanguageChange = (e) => {
+    i18n.changeLanguage(e.target.value);
   };
 
   return (
@@ -36,11 +42,11 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Навигация */}
+        {/* Навигация (теперь с поддержкой перевода) */}
         <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
-          <Link to="/portfolio">Портфолио</Link>
-          <Link to="/blog">Блог</Link>
-          <Link to="/contacts">Контакты</Link>
+          <Link to="/portfolio">{t("nav_portfolio")}</Link>
+          <Link to="/blog">{t("nav_blog")}</Link>
+          <Link to="/contacts">{t("nav_contacts")}</Link>
         </nav>
 
         {/* Действия (Корзина, Язык) */}
@@ -49,10 +55,15 @@ const Header = () => {
             🛒 <span className="cart-price">{totalPrice} PLN</span>
           </Link>
 
-          <select className="header__lang">
+          {/* 4. Возвращаем обработчик onChange и привязываем value к текущему языку */}
+          <select 
+            className="header__lang" 
+            onChange={handleLanguageChange} 
+            value={i18n.language}
+          >
             <option value="ru">Русский</option>
             <option value="pl">Polski</option>
-            <option value="en">English</option>
+            {/* Опцию English убрал, так как в словаре пока только ru и pl */}
           </select>
         </div>
 
@@ -101,7 +112,6 @@ const Header = () => {
 
       </div>
 
-      {/* Рендерим модальное окно с передачей начального режима */}
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
