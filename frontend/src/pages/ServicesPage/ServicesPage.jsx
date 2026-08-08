@@ -1,49 +1,24 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { addItem } from "../../redux/cartSlice";
+import { useTranslation } from "react-i18next";
 import servicesData from "../../data/services.json";
+import ServiceCard from "../../components/ServicesCard/ServiceCard";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
-  const dispatch = useDispatch();
-
-  const handleAddToCart = (service) => {
-    dispatch(addItem(service));
-    alert(`Услуга "${service.title}" добавлена в корзину!`);
-  };
+  const { t } = useTranslation();
 
   return (
     <main className="page-content services-page">
       <div className="services-container">
-        <h2>Полный прайс-лист</h2>
+        {/* Добавляем ключи для будущих переводов в i18n */}
+        <h2>{t("services_page_title", "Полный прайс-лист")}</h2>
         <p className="services-subtitle">
-          Выберите необходимые услуги для ухода за вашим автомобилем
+          {t("services_page_subtitle", "Выберите необходимые услуги для ухода за вашим автомобилем")}
         </p>
 
         <div className="services-grid">
           {servicesData.map((service) => (
-            <div key={service.id} className="service-card">
-              <div className="service-header">
-                <span className="service-category">{service.category}</span>
-                <h3>{service.title}</h3>
-              </div>
-              
-              <p className="service-desc">{service.description}</p>
-              
-              <div className="service-footer">
-                <div className="service-details">
-                  <span className="service-time">⏱ {service.time}</span>
-                  <span className="service-price">{service.price} PLN</span>
-                </div>
-                
-                <button 
-                  className="add-to-cart-btn"
-                  onClick={() => handleAddToCart(service)}
-                >
-                  Выбрать
-                </button>
-              </div>
-            </div>
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       </div>

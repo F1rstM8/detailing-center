@@ -23,3 +23,13 @@ body, html {
 .page-content {
   padding: 40px;
 }
+.error-message {
+  color: #ff4d4f;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.input-error {
+  border-color: #ff4d4f !important;
+  outline: none;
+}

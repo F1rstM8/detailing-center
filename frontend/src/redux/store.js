@@ -32,8 +32,16 @@ const store = configureStore({
 store.subscribe(() => {
   try {
     const state = store.getState();
+    
     localStorage.setItem("cartState", JSON.stringify(state.cart));
     localStorage.setItem("ordersState", JSON.stringify(state.orders));
+    
+    // Новая логика для авторизации
+    if (state.auth.isAuthenticated) {
+      localStorage.setItem("authUser", JSON.stringify(state.auth.user));
+    } else {
+      localStorage.removeItem("authUser");
+    }
   } catch (err) {
     console.error("Ошибка при сохранении данных", err);
   }

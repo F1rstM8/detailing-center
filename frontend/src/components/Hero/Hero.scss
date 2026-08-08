@@ -2,14 +2,17 @@
   position: relative;
   height: 80vh; 
   min-height: 500px;
+  
+
   display: flex;
-  flex-direction: column; /* Располагаем элементы друг под другом */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #fff;
   
-  /* Фоновая картинка с затемнением через градиент */
+  gap: 24px; 
+  
   background: linear-gradient(
     rgba(18, 18, 18, 0.7), 
     rgba(18, 18, 18, 0.9)
@@ -18,7 +21,7 @@
 
   &__title {
     font-size: 3.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 0; 
     line-height: 1.2;
     max-width: 800px;
 
@@ -34,7 +37,7 @@
   &__subtitle {
     font-size: 1.2rem;
     color: #e0e0e0;
-    margin-bottom: 30px;
+    margin-bottom: 0; 
     line-height: 1.5;
     max-width: 600px;
 
@@ -46,12 +49,16 @@
   &__btn {
     background-color: #4caf50;
     color: #fff;
-    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    text-decoration: none;
     padding: 15px 40px;
     font-size: 1.1rem;
     font-weight: bold;
     border-radius: 4px;
-    display: inline-block; /* Чтобы padding работал корректно для <a> */
+    display: inline-block;
+    
+  
+    margin-top: 20px; 
+    
     transition: background-color 0.3s ease, transform 0.3s ease;
 
     &:hover {

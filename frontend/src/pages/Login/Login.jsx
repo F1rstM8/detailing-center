@@ -1,79 +1,81 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { login } from "../../redux/authSlice";
-import "./Login.scss";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (email === "admin@test.com") {
-      dispatch(
-        login({
-          user: { name: "admin", email: "admin@test.com", phone: "+48 111 222 333", car: "Service Car" },
-          role: "admin",
-        })
-      );
-      navigate("/admin");
-      return;
-    }
-
-    dispatch(
-      login({
-        user: { name: email.split("@")[0], email: email, phone: "+48 000 000 000", car: "Toyota Prius+" },
-        role: "client",
-      })
-    );
-    navigate("/profile");
-  };
+  // Настройка Formik
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    // Правила валидации через Yup
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Неверный формат email")
+        .required("Обязательное поле"),
+      password: Yup.string()
+        .min(6, "Пароль должен содержать минимум 6 символов")
+        .required("Обязательное поле"),
+    }),
+    // Что делать при успешной отправке (когда нет ошибок валидации)
+    onSubmit: (values) => {
+      dispatch(login({ email: values.email }));
+      navigate("/profile"); // Перенаправляем в личный кабинет
+    },
+  });
 
   return (
-    <main className="page-content login-page">
-      <div className="login-container">
-        <div className="login-box">
-          <h2>Вход в систему</h2>
-          <p className="subtitle">Введите свои данные для доступа к личному кабинету</p>
-
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="admin@test.com или ваш email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="password">Пароль</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Введите пароль"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button type="submit" className="submit-btn">Войти</button>
-          </form>
-
-          <div className="login-footer">
-            <span>Нет аккаунта?</span>
-            <Link to="/register" className="register-link">Зарегистрироваться</Link>
+    <main className="page-content">
+      <div className="form-container">
+        <h2>Вход в личный кабинет</h2>
+        
+        {/* Передаем обработчик Formik в форму */}
+        <form onSubmit={formik.handleSubmit} className="auth-form">
+          
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="admin@test.com"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur} // Отслеживает, кликнул ли пользователь мимо поля
+              value={formik.values.email}
+              className={formik.touched.email && formik.errors.email ? "input-error" : ""}
+            />
+            {/* Вывод ошибки валидации */}
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error-message">{formik.errors.email}</div>
+            ) : null}
           </div>
-        </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Пароль</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Введите пароль"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className={formik.touched.password && formik.errors.password ? "input-error" : ""}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error-message">{formik.errors.password}</div>
+            ) : null}
+          </div>
+
+          <button type="submit" className="submit-btn">Войти</button>
+        </form>
       </div>
     </main>
   );

@@ -1,127 +1,111 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { login } from "../../redux/authSlice";
-import "./Register.scss";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    car: "",
-    password: "",
-  });
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Эмулируем регистрацию: сразу логиним пользователя с введенными данными
-    const newUser = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      car: formData.car,
-    };
-
-    // Передаем данные в Redux (роль - обычный клиент)
-    dispatch(login({ user: newUser, role: "client" }));
-    
-    // Перенаправляем в Личный кабинет
-    navigate("/profile");
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(2, "Имя слишком короткое")
+        .max(50, "Имя слишком длинное")
+        .required("Обязательное поле"),
+      email: Yup.string()
+        .email("Неверный формат email")
+        .required("Обязательное поле"),
+      password: Yup.string()
+        .min(6, "Пароль должен содержать минимум 6 символов")
+        .required("Обязательное поле"),
+      confirmPassword: Yup.string()
+        // Проверяем, что поле совпадает с полем password
+        .oneOf([Yup.ref('password'), null], "Пароли должны совпадать")
+        .required("Обязательное поле"),
+    }),
+    onSubmit: (values) => {
+      // Здесь в будущем будет отправка данных на бекенд (Axios / Fetch)
+      console.log("Данные регистрации:", values);
+      alert("Регистрация успешна! Теперь вы можете войти.");
+      navigate("/login");
+    },
+  });
 
   return (
-    <main className="page-content register-page">
-      <div className="register-container">
-        <div className="register-box">
-          <h2>Создать аккаунт</h2>
-          <p className="subtitle">Присоединяйтесь к нам для быстрого оформления заявок</p>
-
-          <form onSubmit={handleSubmit} className="register-form">
-            <div className="input-group">
-              <label htmlFor="name">Ваше имя</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Например, Максим"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-row">
-              <div className="input-group">
-                <label htmlFor="phone">Телефон</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="+48 000 000 000"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <label htmlFor="car">Ваш автомобиль</label>
-                <input
-                  type="text"
-                  id="car"
-                  name="car"
-                  placeholder="Марка и модель"
-                  value={formData.car}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="example@mail.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="password">Пароль</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Минимум 6 символов"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                minLength={6}
-              />
-            </div>
-
-            <button type="submit" className="submit-btn">Зарегистрироваться</button>
-          </form>
-
-          <div className="register-footer">
-            <span>Уже есть аккаунт?</span>
-            <Link to="/login" className="login-link">Войти</Link>
+    <main className="page-content">
+      <div className="form-container">
+        <h2>Регистрация</h2>
+        
+        <form onSubmit={formik.handleSubmit} className="auth-form">
+          
+          <div className="form-group">
+            <label htmlFor="name">Имя</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+            />
+            {formik.touched.name && formik.errors.name ? (
+              <div className="error-message">{formik.errors.name}</div>
+            ) : null}
           </div>
-        </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error-message">{formik.errors.email}</div>
+            ) : null}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Пароль</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error-message">{formik.errors.password}</div>
+            ) : null}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Повторите пароль</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.confirmPassword}
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <div className="error-message">{formik.errors.confirmPassword}</div>
+            ) : null}
+          </div>
+
+          <button type="submit" className="submit-btn">Зарегистрироваться</button>
+        </form>
       </div>
     </main>
   );
