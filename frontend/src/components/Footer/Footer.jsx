@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom"; // <-- 1. Импортируем Link
 import "./Footer.scss";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
+        
         <div className="footer__column">
           <h3>Детейлинг Центр</h3>
           <p>
@@ -16,10 +18,11 @@ const Footer = () => {
         <div className="footer__column">
           <h3>Навигация</h3>
           <nav className="footer__nav">
-            <a href="/#services">Услуги и цены</a>
-            <a href="/#portfolio">Портфолио</a>
-            <a href="/#blog">Блог</a>
-            <a href="/#contacts">Контакты</a>
+            {/* <-- 2. Меняем обычные <a> на <Link> для плавной навигации --> */}
+            <Link to="/services">Услуги и цены</Link>
+            <Link to="/portfolio">Портфолио</Link>
+            <Link to="/blog">Блог</Link>
+            <Link to="/contacts">Контакты</Link>
           </nav>
         </div>
 
@@ -34,11 +37,12 @@ const Footer = () => {
         <div className="footer__column">
           <h3>Мы в соцсетях</h3>
           <nav className="footer__nav">
+            {/* <-- 3. Внешнюю ссылку на Instagram оставляем как <a> --> */}
             <a
               href="https://www.instagram.com/d3_garage_pl/"
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link" /* <-- Используем класс вместо style */
+              className="social-link"
             >
               <svg
                 width="20"
@@ -58,10 +62,11 @@ const Footer = () => {
             </a>
           </nav>
         </div>
+        
       </div>
 
       <div className="footer__bottom">
-      <p>&copy; 2026 D3garage. Все права защищены.</p>
+        <p>&copy; 2026 D3garage. Все права защищены.</p>
       </div>
     </footer>
   );

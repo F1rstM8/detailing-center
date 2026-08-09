@@ -5,11 +5,20 @@
   }
 
   &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-width: 800px;
+    display: grid; // Включаем сетку
+    grid-template-columns: repeat(3, 1fr); // Ровно 3 колонки одинаковой ширины
+    gap: 30px; // Расстояние между карточками (и по вертикали, и по горизонтали)
+    max-width: 1200px; // Расширяем контейнер, чтобы карточкам было свободно
     margin: 0 auto;
+
+    // Делаем адаптивно: на планшетах по 2 в ряд, на телефонах - по 1
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -17,14 +26,41 @@
   background-color: #1e1e1e;
   border: 1px solid #333;
   border-radius: 8px;
-  padding: 25px;
+  overflow: hidden; 
   transition: border-color 0.3s ease, transform 0.3s ease;
+  
+  // Растягиваем карточку на всю высоту колонки, чтобы кнопки были на одном уровне
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     border-color: #555;
-    transform: translateX(5px);
+    transform: translateY(-5px); // Заменили сдвиг вправо на сдвиг вверх (в сетке так смотрится лучше)
+
+    .blog-post__image-wrapper img {
+      transform: scale(1.05);
+    }
+  }
+  // Стили для блока с картинкой
+  &__image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10; // Идеальные пропорции вместо жестко заданной высоты
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
   }
 
+  &__info {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; // Заставляет блок с текстом занимать все оставшееся место
+  }
   &__date {
     color: #4caf50;
     font-size: 0.9rem;
@@ -38,7 +74,8 @@
     font-size: 1.4rem;
   }
 
-  p {
+  // Переименовали просто "p" в конкретный класс
+  &__text {
     color: #aaa;
     line-height: 1.5;
     margin-bottom: 20px;

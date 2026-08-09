@@ -45,6 +45,11 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
 
+            {/* === МАРШРУТЫ ДЛЯ НАВИГАЦИИ ИЗ ШАПКИ === */}
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contacts" element={<Contacts />} />
+
             {/* === ЗАЩИЩЕННЫЕ МАРШРУТЫ (Только для авторизованных) === */}
 
             {/* 1. Уровень: Клиенты и Персонал */}

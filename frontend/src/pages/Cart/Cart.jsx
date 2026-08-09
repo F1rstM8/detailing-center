@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { removeItem, clearCart } from "../../redux/cartSlice";
 import { addOrder } from "../../redux/ordersSlice";
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.auth); 
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleRemoveItem = (id) => {
@@ -29,7 +29,7 @@ const Cart = () => {
 
     dispatch(addOrder(newOrder));
     dispatch(clearCart());
-    
+
     alert("Заявка успешно оформлена! Можете проверить её в Панели управления.");
   };
 
@@ -49,7 +49,7 @@ const Cart = () => {
                   </div>
                   <div className="item-actions">
                     <span className="item-price">{item.price} PLN</span>
-                    <button 
+                    <button
                       className="remove-btn"
                       onClick={() => handleRemoveItem(item.id)}
                     >
@@ -80,7 +80,8 @@ const Cart = () => {
             <div className="empty-icon">🛒</div>
             <h3>Ваша корзина пуста</h3>
             <p>Вы еще не выбрали ни одной услуги для своего автомобиля.</p>
-            <Link to="/portfolio" className="btn-primary">
+
+            <Link to="/services" className="btn-primary">
               Вернуться к услугам
             </Link>
           </div>

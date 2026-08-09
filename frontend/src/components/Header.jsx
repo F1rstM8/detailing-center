@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/authSlice"; 
-import { useTranslation } from "react-i18next"; // 1. Импортируем хук перевода
+import { useTranslation } from "react-i18next";
 import AuthModal from "./AuthModal/AuthModal";
 import "./Header.scss";
 
 const Header = () => {
-  const { t, i18n } = useTranslation(); // 2. Инициализируем i18n
+  const { t, i18n } = useTranslation();
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -26,10 +26,12 @@ const Header = () => {
     setIsAuthModalOpen(true);
   };
 
-  // 3. Функция для смены языка
   const handleLanguageChange = (e) => {
     i18n.changeLanguage(e.target.value);
   };
+
+  // Проверяем, имеет ли пользователь доступ к админ-панели (админ или менеджер)
+  const canAccessAdminPanel = role === "admin" || role === "manager";
 
   return (
     <header className="header">
@@ -42,11 +44,11 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Навигация (теперь с поддержкой перевода) */}
+        {/* Навигация */}
         <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
-          <Link to="/portfolio">{t("nav_portfolio")}</Link>
-          <Link to="/blog">{t("nav_blog")}</Link>
-          <Link to="/contacts">{t("nav_contacts")}</Link>
+          <Link to="/portfolio">{t("nav_portfolio", "Портфолио")}</Link>
+          <Link to="/blog">{t("nav_blog", "Блог")}</Link>
+          <Link to="/contacts">{t("nav_contacts", "Контакты")}</Link>
         </nav>
 
         {/* Действия (Корзина, Язык) */}
@@ -55,7 +57,6 @@ const Header = () => {
             🛒 <span className="cart-price">{totalPrice} PLN</span>
           </Link>
 
-          {/* 4. Возвращаем обработчик onChange и привязываем value к текущему языку */}
           <select 
             className="header__lang" 
             onChange={handleLanguageChange} 
@@ -63,7 +64,6 @@ const Header = () => {
           >
             <option value="ru">Русский</option>
             <option value="pl">Polski</option>
-            {/* Опцию English убрал, так как в словаре пока только ru и pl */}
           </select>
         </div>
 
@@ -72,15 +72,21 @@ const Header = () => {
           {isAuthenticated ? (
             <div className="user-profile">
               <Link to="/profile" className="user-name-link">
-                {user?.name} 
+                {user?.name || user?.email?.split('@')[0]} 
                 {role === "admin" && <span className="user-role">Admin</span>}
+                {role === "manager" && <span className="user-role">Manager</span>}
               </Link>
               
-              {role === "admin" && (
-                <Link to="/admin" className="admin-link">Панель управления</Link>
+              {/* Показываем ссылку и админу, и менеджеру */}
+              {canAccessAdminPanel && (
+                <Link to="/admin" className="admin-link">
+                  {t("nav_admin_panel", "Панель управления")}
+                </Link>
               )}
               
-              <button onClick={handleLogout} className="logout-btn">Выйти</button>
+              <button onClick={handleLogout} className="logout-btn">
+                {t("btn_logout", "Выйти")}
+              </button>
             </div>
           ) : (
             <div className="auth-links">
@@ -88,13 +94,13 @@ const Header = () => {
                 className="login-btn" 
                 onClick={() => openAuthModal("login")}
               >
-                Войти
+                {t("btn_login", "Войти")}
               </button>
               <button 
                 className="register-btn" 
                 onClick={() => openAuthModal("register")}
               >
-                Регистрация
+                {t("btn_register", "Регистрация")}
               </button>
             </div>
           )}
