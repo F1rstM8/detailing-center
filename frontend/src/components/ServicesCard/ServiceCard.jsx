@@ -3,14 +3,19 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
 
-const ServiceCard = ({ service }) => {
+// 1. Добавляем onShowToast в принимаемые параметры
+const ServiceCard = ({ service, onShowToast }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const handleAddToCart = () => {
+    // Добавляем в Redux
     dispatch(addItem(service));
-    // В идеале позже заменить alert на красивое уведомление (toast)
-    alert(`Услуга "${service.title}" добавлена в корзину!`); 
+    
+    // 2. Убираем alert и вызываем нашу красивую плашку
+    if (onShowToast) {
+      onShowToast(service.title);
+    }
   };
 
   return (
