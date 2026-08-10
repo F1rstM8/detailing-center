@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import servicesData from "../../data/services.json";
 import ServiceCard from "../../components/ServicesCard/ServiceCard";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
   const { t } = useTranslation();
   
-  // 1. Стейт для хранения названия добавленной услуги
+  // Стейты для данных и загрузки
+  const [servicesData, setServicesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Стейт для всплывающего уведомления (toast)
   const [toastMessage, setToastMessage] = useState(null);
 
-  // 2. Функция, которая показывает уведомление и сама его скрывает через 3 секунды
   const showToast = (serviceTitle) => {
     setToastMessage(serviceTitle);
-    
     setTimeout(() => {
       setToastMessage(null);
     }, 3000);
   };
+
+  // Загружаем услуги с json-server при открытии страницы
+  useEffect(() => {
+    fetch("http://localhost:3001/services")
+      .then((response) => response.json())
+      .then((data) => {
+        setServicesData(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Ошибка при загрузке услуг:", error);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <main className="page-content services-page">
@@ -27,19 +42,24 @@ const ServicesPage = () => {
           {t("services_page_subtitle", "Выберите необходимые услуги для ухода за вашим автомобилем")}
         </p>
 
-        <div className="services-grid">
-          {servicesData.map((service) => (
-            <ServiceCard 
-              key={service.id} 
-              service={service} 
-              // 3. Передаем функцию в карточку
-              onShowToast={showToast} 
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <div style={{ textAlign: "center", padding: "40px 0", color: "#aaa" }}>
+            Загрузка прайс-листа...
+          </div>
+        ) : (
+          <div className="services-grid">
+            {servicesData.map((service) => (
+              <ServiceCard 
+                key={service.id} 
+                service={service} 
+                onShowToast={showToast} 
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* 4. Верстка самого всплывающего уведомления */}
+      {/* Всплывающее уведомление */}
       {toastMessage && (
         <div className="toast-notification">
           <div className="toast-icon">✓</div>
