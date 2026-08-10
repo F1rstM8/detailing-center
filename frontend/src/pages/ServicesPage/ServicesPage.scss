@@ -10,64 +10,73 @@
 
     h2 {
       font-size: 2.5rem;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .services-subtitle {
       text-align: center;
       color: #aaa;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       font-size: 1.1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
+      // minmax(280px) гарантирует, что карточки не будут вылезать за пределы узких экранов телефонов
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
     }
 
     .service-card {
       background-color: #1e1e1e;
       border: 1px solid #333;
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: 12px; // Сделали углы чуть мягче
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
         transform: translateY(-5px);
         border-color: #4caf50;
+        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15); // Добавили мягкое свечение
       }
 
       .service-header {
         margin-bottom: 15px;
 
         .service-category {
-          font-size: 0.8rem;
+          font-size: 0.75rem;
           text-transform: uppercase;
           color: #4caf50;
           letter-spacing: 1px;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           display: inline-block;
+          background-color: rgba(76, 175, 80, 0.1); // Сделали категорию в виде плашки
+          padding: 4px 10px;
+          border-radius: 4px;
+          font-weight: bold;
         }
 
         h3 {
           font-size: 1.3rem;
           margin: 0;
+          line-height: 1.3;
         }
       }
 
       .service-desc {
         color: #ccc;
         font-size: 0.95rem;
-        line-height: 1.5;
+        line-height: 1.6;
         flex-grow: 1;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
       }
 
       .service-footer {
@@ -75,12 +84,12 @@
         justify-content: space-between;
         align-items: center;
         border-top: 1px solid #333;
-        padding-top: 15px;
+        padding-top: 20px;
 
         .service-details {
           display: flex;
           flex-direction: column;
-          gap: 5px;
+          gap: 4px;
 
           .service-time {
             font-size: 0.85rem;
@@ -88,7 +97,7 @@
           }
 
           .service-price {
-            font-size: 1.2rem;
+            font-size: 1.25rem; // Чуть увеличили цену
             font-weight: bold;
             color: #fff;
           }
@@ -99,13 +108,58 @@
           color: #fff;
           border: none;
           padding: 10px 20px;
-          border-radius: 4px;
-          font-size: 1rem;
+          border-radius: 6px;
+          font-size: 0.95rem;
+          font-weight: bold;
           cursor: pointer;
-          transition: background-color 0.3s;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
 
           &:hover {
             background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+          }
+          
+          &:active {
+            transform: translateY(0); // Физический эффект нажатия
+          }
+        }
+      }
+    }
+  }
+
+  /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ === */
+  @media (max-width: 768px) {
+    padding: 40px 15px; // Уменьшаем отступы по бокам
+
+    .services-container {
+      h2 {
+        font-size: 2rem;
+      }
+
+      .services-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        padding: 0 10px;
+      }
+
+      .services-grid {
+        gap: 15px;
+      }
+
+      .service-card {
+        padding: 20px;
+
+        .service-footer {
+          flex-direction: column; // Ставим элементы друг под друга
+          align-items: flex-start;
+          gap: 15px;
+
+          .add-to-cart-btn {
+            width: 100%; // Кнопка на всю ширину карточки
+            padding: 12px;
+            font-size: 1rem;
           }
         }
       }

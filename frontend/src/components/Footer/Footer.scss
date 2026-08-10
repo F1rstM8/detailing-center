@@ -1,45 +1,8 @@
 .footer {
   background-color: #0a0a0a; // Очень темный, почти черный цвет
-  color: #888;
-  padding: 40px 20px;
-  text-align: center;
-  border-top: 1px solid #1e1e1e;
-  margin-top: auto;
-
-  &__content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__links {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 25px;
-
-    a {
-      color: #e0e0e0;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: #4caf50;
-      }
-    }
-  }
-
-  &__copy {
-    font-size: 0.9rem;
-  }
-}
-.footer {
-  background-color: #0a0a0a;
   border-top: 1px solid #222;
-  padding: 40px 20px 20px;
-  margin-top: 60px;
+  padding: 50px 20px 20px;
+  margin-top: auto; // Прижимает футер к низу экрана, если контента мало
   color: #aaa;
 
   &__container {
@@ -47,45 +10,63 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: wrap; // Позволяет колонкам переноситься, если не хватает места
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 
   &__column {
     flex: 1;
-    min-width: 250px;
+    min-width: 220px;
 
     h3 {
       color: #fff;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     p {
       line-height: 1.6;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
     }
   }
 
   &__nav {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 
     a {
       color: #aaa;
       text-decoration: none;
-      transition: color 0.3s ease;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex; // Используем inline-flex для выравнивания иконок и текста
+      align-items: center;
 
       &:hover {
         color: #4caf50;
-        .social-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+        transform: translateX(5px); // Легкий сдвиг ссылки при наведении (эффект интерактива)
+      }
     }
+
+    /* Специфичные стили для соцсетей (Instagram) */
+    .social-link {
+      gap: 10px; // Расстояние между SVG-иконкой и текстом
+      
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        transform: none; // Отменяем сдвиг вправо для иконки инстаграма
+        
+        svg {
+          transform: scale(1.1); // Вместо сдвига - немного увеличиваем иконку
+        }
       }
     }
   }
@@ -94,16 +75,37 @@
     text-align: center;
     border-top: 1px solid #222;
     padding-top: 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: #777;
   }
-}
-.social-link {
-      display: flex;
+
+  /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ === */
+  @media (max-width: 768px) {
+    padding: 40px 15px 20px;
+
+    &__container {
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      text-align: center;
+      gap: 40px;
+      margin-bottom: 30px;
+    }
+
+    &__column {
+      width: 100%;
+      min-width: unset; // Сбрасываем минимальную ширину на телефоне
+    }
+
+    &__nav {
+      align-items: center; // Центрируем ссылки навигации на телефоне
       
-      /* Железобетонный отступ для иконки */
-      svg {
-        margin-right: 8px; 
+      a {
+        justify-content: center; // Убеждаемся, что текст внутри ссылки тоже по центру
+        
+        &:hover {
+          transform: none; // На телефоне hover-эффекты со сдвигом могут мешать
+        }
       }
     }
+  }
+}

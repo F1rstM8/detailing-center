@@ -1,36 +1,46 @@
+// Плавная анимация появления контента при загрузке страницы
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hero {
   position: relative;
   height: 80vh; 
   min-height: 500px;
-  
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #fff;
-  
   gap: 24px; 
+  padding: 0 20px;
   
+  // Фон с градиентным затемнением (чуть усилил контраст внизу для читаемости текста)
   background: linear-gradient(
     rgba(18, 18, 18, 0.7), 
-    rgba(18, 18, 18, 0.9)
+    rgba(18, 18, 18, 0.95)
   ), url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
-  padding: 0 20px;
+
+  // Применяем анимацию ко всему блоку
+  animation: fadeInUp 0.8s ease-out forwards;
 
   &__title {
     font-size: 3.5rem;
     margin-bottom: 0; 
     line-height: 1.2;
     max-width: 800px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); // Тень для лучшей читаемости
 
     span {
       color: #4caf50;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 2.2rem;
     }
   }
 
@@ -40,30 +50,57 @@
     margin-bottom: 0; 
     line-height: 1.5;
     max-width: 600px;
-
-    @media (max-width: 768px) {
-      font-size: 1rem;
-    }
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
   }
 
   &__btn {
     background-color: #4caf50;
     color: #fff;
     text-decoration: none;
-    padding: 15px 40px;
+    padding: 16px 44px; // Сделал кнопку чуть массивнее
     font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius: 6px; // Более мягкое скругление
     display: inline-block;
+    margin-top: 10px; // Чуть сократил отступ, так как уже работает gap
     
-  
-    margin-top: 20px; 
-    
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    // Добавил мягкое зеленое свечение
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    transition: all 0.3s ease;
 
     &:hover {
       background-color: #45a049;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.45); // Усиливаем свечение при наведении
+    }
+
+    &:active {
+      transform: translateY(0); // Эффект физического нажатия
+      box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+    }
+  }
+
+  /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ === */
+  @media (max-width: 768px) {
+    height: 70vh; // Немного уменьшаем высоту на телефонах
+    min-height: 450px;
+    padding: 0 15px;
+    gap: 20px;
+
+    &__title {
+      font-size: 2.2rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+      padding: 0 10px;
+    }
+
+    &__btn {
+      padding: 14px 24px;
+      font-size: 1rem;
+      width: 100%; // Кнопка тянется на всю ширину мобильного экрана
+      max-width: 320px; // Но не больше 320px, чтобы не выглядело растянуто
     }
   }
 }
