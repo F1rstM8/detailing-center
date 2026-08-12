@@ -1,108 +1,86 @@
-.login-page {
+.page-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 150px); /* Вычитаем высоту хедера и футера */
   padding: 40px 20px;
 }
 
-.login-container {
-  width: 100%;
-  max-width: 420px;
-}
-
-.login-box {
+.form-container {
   background-color: #1a1a1a;
+  border: 1px solid #333;
   border-radius: 12px;
   padding: 40px;
+  width: 100%;
+  max-width: 420px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border: 1px solid #333;
 
   h2 {
     color: #fff;
-    margin: 0 0 10px 0;
-    text-align: center;
-    font-size: 1.8rem;
-  }
-
-  .subtitle {
-    color: #a0a0a0;
     text-align: center;
     margin-bottom: 30px;
-    font-size: 0.95rem;
+    font-size: 1.8rem;
   }
 }
 
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
 
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-  label {
-    color: #e0e0e0;
-    font-size: 0.9rem;
-    font-weight: 500;
+    label {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: #4caf50; /* Зеленый акцент при фокусе */
+      }
+
+      &.input-error {
+        border-color: #ff5252; /* Красный при ошибке */
+      }
+    }
+
+    .error-message {
+      color: #ff5252;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
   }
 
-  input {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
+  .submit-btn {
+    margin-top: 10px;
+    background-color: #4caf50;
     color: #fff;
-    padding: 12px 16px;
+    border: none;
+    padding: 15px;
     border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-
-    &::placeholder {
-      color: #666;
-    }
-
-    &:focus {
-      border-color: #4caf50;
-      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
-    }
-  }
-}
-
-.submit-btn {
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-
-  &:hover {
-    background-color: #45a049;
-  }
-}
-
-.login-footer {
-  margin-top: 24px;
-  text-align: center;
-  color: #a0a0a0;
-  font-size: 0.95rem;
-
-  .register-link {
-    color: #4caf50;
-    text-decoration: none;
-    margin-left: 8px;
+    font-size: 1.1rem;
     font-weight: bold;
-    transition: color 0.3s;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      color: #fff;
+      background-color: #45a049;
+      transform: translateY(-2px);
     }
   }
 }

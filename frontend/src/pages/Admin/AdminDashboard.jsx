@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateOrderStatus } from "../../redux/ordersSlice";
+import { updateOrderStatus, removeOrder } from "../../redux/ordersSlice";
 import "./AdminDashboard.scss";
 
 const AdminDashboard = () => {
@@ -9,6 +9,11 @@ const AdminDashboard = () => {
 
   const handleStatusChange = (id, newStatus) => {
     dispatch(updateOrderStatus({ id, status: newStatus }));
+  };
+
+  // Убрали браузерный alert, теперь удаление происходит мгновенно
+  const handleDeleteOrder = (id) => {
+    dispatch(removeOrder(id));
   };
 
   return (
@@ -71,6 +76,12 @@ const AdminDashboard = () => {
                       onClick={() => handleStatusChange(order.id, "Выполнено")}
                     >
                       Выполнено
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteOrder(order.id)}
+                    >
+                      Удалить
                     </button>
                   </div>
                 </div>

@@ -167,4 +167,20 @@
       }
     }
   }
+  .btn-delete {
+  background-color: transparent;
+  color: #ff5252;
+  border: 1px solid #ff5252;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1; /* Если хочешь, чтобы все 3 кнопки были одинаковой ширины */
+  
+  &:hover {
+    background-color: #ff5252;
+    color: #fff;
+  }
+}
 }

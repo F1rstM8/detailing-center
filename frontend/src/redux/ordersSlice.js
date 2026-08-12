@@ -18,8 +18,13 @@ const ordersSlice = createSlice({
         order.status = status;
       }
     },
+    // Добавляем экшен удаления заказа по его id
+    removeOrder: (state, action) => {
+      state.ordersList = state.ordersList.filter((order) => order.id !== action.payload);
+    },
   },
 });
 
-export const { addOrder, updateOrderStatus } = ordersSlice.actions;
+// Не забываем добавить removeOrder в экспорт
+export const { addOrder, updateOrderStatus, removeOrder } = ordersSlice.actions;
 export default ordersSlice.reducer;

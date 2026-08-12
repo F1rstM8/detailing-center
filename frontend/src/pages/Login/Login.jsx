@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/authSlice";
+import "./Login.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
