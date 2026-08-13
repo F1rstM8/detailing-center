@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
 import Reviews from "../../components/Reviews/Reviews";
+import { useTranslation } from "react-i18next";
 import "./Home.scss";
 
 const Home = () => {
+  // Инициализируем хук перевода
+  const { t } = useTranslation();
+
   // 1. Создаем локальный стейт для услуг и статуса загрузки
   const [servicesData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +39,8 @@ const Home = () => {
         id: service.id,
         title: service.title,
         price: service.price,
-        category: service.category || "Популярные услуги",
+        // Переводим категорию по умолчанию, если она не пришла с бэкенда
+        category: service.category || t("home_popular_title"), 
       }),
     );
   };
@@ -44,73 +49,63 @@ const Home = () => {
     <main className="page-content home-page">
       <section className="hero-section">
         <div className="hero-content">
-          <h1>Премиальный уход за вашим автомобилем</h1>
-          <p>
-            Детейлинг-студия в Кракове. Мы возвращаем автомобилям заводской
-            блеск и защищаем кузов на долгие годы.
-          </p>
+          {/* Динамический перевод текста */}
+          <h1>{t("hero_title")}</h1>
+          <p>{t("hero_subtitle")}</p>
           <div className="hero-actions">
             <Link to="/services" className="btn-primary">
-              Смотреть услуги
+              {t("hero_btn_services")}
             </Link>
             <Link to="/portfolio" className="btn-secondary">
-              Наши работы
+              {t("hero_btn_portfolio")}
             </Link>
           </div>
         </div>
       </section>
 
       <section className="features-section">
-        <h2>Почему выбирают нас?</h2>
+        <h2>{t("home_features_title")}</h2>
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon">✨</div>
-            <h3>Премиальные материалы</h3>
-            <p>
-              Используем только проверенную химию и керамику от лучших мировых
-              брендов.
-            </p>
+            <h3>{t("feature1_title")}</h3>
+            <p>{t("feature1_desc")}</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">⏱️</div>
-            <h3>Соблюдение сроков</h3>
-            <p>
-              Ценим ваше время. Отдаем готовый автомобиль точно в оговоренный
-              день и час.
-            </p>
+            <h3>{t("feature2_title")}</h3>
+            <p>{t("feature2_desc")}</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">🛡️</div>
-            <h3>Гарантия качества</h3>
-            <p>
-              Предоставляем официальную гарантию на защитные покрытия и оклейку
-              пленкой.
-            </p>
+            <h3>{t("feature3_title")}</h3>
+            <p>{t("feature3_desc")}</p>
           </div>
         </div>
       </section>
 
       <section className="home-services-section">
-        <h2>Популярные услуги</h2>
+        <h2>{t("home_popular_title")}</h2>
         
         {/* 3. Условный рендеринг: показываем текст загрузки, пока данные летят с сервера */}
         {isLoading ? (
           <div style={{ textAlign: "center", color: "#aaa", padding: "40px 0" }}>
-            Загрузка услуг...
+            {t("loading_services")}
           </div>
         ) : (
           <div className="home-services-grid">
             {popularServices.map((service) => (
               <div key={service.id} className="home-service-card">
+                {/* Названия и описания услуг берутся из БД, их оставляем как есть */}
                 <h3>{service.title}</h3>
                 <p className="desc">{service.description}</p>
                 <div className="footer">
-                  <span className="price">от {service.price} PLN</span>
+                  <span className="price">{t("price_from")} {service.price} PLN</span>
                   <button
                     className="add-to-cart-btn"
                     onClick={() => handleAddToCart(service)}
                   >
-                    В корзину
+                    {t("btn_add_to_cart")}
                   </button>
                 </div>
               </div>
@@ -120,7 +115,7 @@ const Home = () => {
 
         <div className="home-services-action">
           <Link to="/services" className="btn-primary">
-            Смотреть весь прайс-лист
+            {t("home_all_services_btn")}
           </Link>
         </div>
       </section>

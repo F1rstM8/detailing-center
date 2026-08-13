@@ -30,8 +30,8 @@ const Header = () => {
     i18n.changeLanguage(e.target.value);
   };
 
-  // Проверяем, имеет ли пользователь доступ к админ-панели (админ или менеджер)
-  const canAccessAdminPanel = role === "admin" || role === "manager";
+  // Проверяем, является ли пользователь администратором (менеджера убрали)
+  const isAdmin = role === "admin";
 
   return (
     <header className="header">
@@ -72,13 +72,16 @@ const Header = () => {
           {isAuthenticated ? (
             <div className="user-profile">
               <Link to="/profile" className="user-name-link">
-                {user?.name || user?.email?.split('@')[0]} 
-                {role === "admin" && <span className="user-role">Admin</span>}
-                {role === "manager" && <span className="user-role">Manager</span>}
+                {/* Если админ - показываем только бейдж, иначе - имя пользователя */}
+                {isAdmin ? (
+                  <span className="user-role">ADMIN</span>
+                ) : (
+                  user?.name || user?.email?.split('@')[0]
+                )}
               </Link>
               
-              {/* Показываем ссылку и админу, и менеджеру */}
-              {canAccessAdminPanel && (
+              {/* Показываем ссылку только админу */}
+              {isAdmin && (
                 <Link to="/admin" className="admin-link">
                   {t("nav_admin_panel", "Панель управления")}
                 </Link>
