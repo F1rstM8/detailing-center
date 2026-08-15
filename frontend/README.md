@@ -17,6 +17,12 @@ Currently, two official plugins are available:
 - **Менеджер (Manager):** `manager@test.com`(пока не работает)
 - **Клиент (Client):** Любой другой корректный email (например, `client@test.com`)
 
+## инструкция запуска
+
+## 1 консоль cd frontend,npm run dev
+
+## 2 консоль cd sever,npm start
+
 ## 🚀 Roadmap / Планы по развитию
 
 хеддер
