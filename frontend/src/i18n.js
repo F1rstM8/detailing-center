@@ -57,10 +57,17 @@ const resources = {
       blog_page_title: "Блог о детейлинге",
       loading_posts: "Загрузка статей...",
       blog_read_more: "Читать далее →",
-      blog_hide: "Скрыть", // <-- Добавили это
+      blog_hide: "Скрыть",
 
-      // --- КОРЗИНА ---
+      // --- КОРЗИНА И ОФОРМЛЕНИЕ ЗАКАЗА ---
       cart_title: "Ваша корзина",
+      cart_page_title: "Ваша заявка", // Добавлено для заголовка страницы
+      cart_checkout_title: "Оформление", // Добавлено для блока справа
+      cart_items_count: "Количество услуг:", // Добавлено
+      cart_pcs: "шт.", // Добавлено
+      cart_total_pay: "К оплате:", // Добавлено
+      cart_auth_required: "Оформление заказа доступно только зарегистрированным пользователям.", // Добавлено
+      cart_login_btn: "Войти в аккаунт", // Добавлено
       cart_empty: "Корзина пока пуста. Перейдите на главную страницу, чтобы выбрать услуги.",
       cart_remove: "Удалить",
       cart_total: "Итого к оплате",
@@ -205,14 +212,22 @@ const resources = {
       filter_all_services: "Wszystkie usługi",
       alert_service_added: "Usługa dodana:",
       add_to_cart: "Do koszyka",
-     // --- BLOG (Блог) ---
+      
+      // --- BLOG (Блог) ---
       blog_page_title: "Blog o detailingu",
       loading_posts: "Ładowanie artykułów...",
       blog_read_more: "Czytaj dalej →",
-      blog_hide: "Zwiń", // <-- Добавили это (в переводе "Свернуть/Скрыть")
+      blog_hide: "Zwiń",
       
-      // --- KOSZYK ---
+      // --- KOSZYK I ZAMÓWIENIE ---
       cart_title: "Twój koszyk",
+      cart_page_title: "Twoje zgłoszenie", // Добавлено
+      cart_checkout_title: "Podsumowanie", // Добавлено
+      cart_items_count: "Ilość usług:", // Добавлено
+      cart_pcs: "szt.", // Добавлено
+      cart_total_pay: "Do zapłaty:", // Добавлено
+      cart_auth_required: "Złożenie zamówienia jest dostępne tylko dla zalogowanych użytkowników.", // Добавлено
+      cart_login_btn: "Zaloguj się na konto", // Добавлено
       cart_empty: "Koszyk jest na razie pusty. Przejdź na stronę główną, aby wybrać usługi.",
       cart_remove: "Usuń",
       cart_total: "Razem do zapłaty",

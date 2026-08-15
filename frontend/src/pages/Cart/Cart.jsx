@@ -5,13 +5,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { removeItem, clearCart } from "../../redux/cartSlice";
 import { addOrder } from "../../redux/ordersSlice";
+import { useTranslation } from "react-i18next"; // <-- Добавили импорт
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  // Достаем данные пользователя (если он не авторизован, тут будет null)
   const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
+  const { t } = useTranslation(); // <-- Добавили хук
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -20,14 +21,15 @@ const Cart = () => {
     dispatch(removeItem(id));
   };
 
+  // Валидация тоже с поддержкой перевода!
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(2, "Имя должно содержать минимум 2 символа")
-      .required("Поле обязательно для заполнения"),
+      .min(2, t("val_name_min", "Имя должно содержать минимум 2 символа"))
+      .required(t("val_required", "Обязательное поле")),
     phone: Yup.string()
-      .matches(/^[+0-9() -]{9,15}$/, "Введите корректный номер телефона")
-      .required("Телефон обязателен для связи"),
-    comment: Yup.string().max(200, "Комментарий не должен превышать 200 символов"),
+      .matches(/^[+0-9() -]{9,15}$/, t("val_phone_format", "Введите корректный номер телефона"))
+      .required(t("val_required", "Обязательное поле")),
+    comment: Yup.string().max(200, t("val_comment_max", "Комментарий не должен превышать 200 символов")),
   });
 
   const formik = useFormik({
@@ -61,6 +63,7 @@ const Cart = () => {
     },
   });
 
+  // Экран успешного оформления
   if (isSuccess) {
     return (
       <main className="page-content cart-page">
@@ -72,14 +75,14 @@ const Cart = () => {
                 <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
               </svg>
             </div>
-            <h2>Заявка успешно оформлена!</h2>
-            <p>Мы свяжемся с вами в ближайшее время. Ваша заявка сохранена в профиле.</p>
+            <h2>{t("cart_success_title", "Заявка успешно оформлена!")}</h2>
+            <p>{t("cart_success_desc", "Мы свяжемся с вами в ближайшее время. Ваша заявка сохранена в профиле.")}</p>
             <div className="success-actions">
               <Link to="/profile" className="btn-primary" onClick={() => setIsSuccess(false)}>
-                Перейти в профиль
+                {t("btn_to_profile", "Перейти в профиль")}
               </Link>
               <Link to="/services" className="btn-secondary" onClick={() => setIsSuccess(false)}>
-                Вернуться к услугам
+                {t("btn_back_to_services", "Вернуться к услугам")}
               </Link>
             </div>
           </div>
@@ -91,7 +94,7 @@ const Cart = () => {
   return (
     <main className="page-content cart-page">
       <div className="cart-container">
-        <h2>Ваша заявка</h2>
+        <h2>{t("cart_page_title", "Ваша заявка")}</h2>
 
         {items && items.length > 0 ? (
           <div className="cart-content">
@@ -116,24 +119,22 @@ const Cart = () => {
             </div>
 
             <div className="cart-summary">
-              <h3>Оформление</h3>
+              <h3>{t("cart_checkout_title", "Оформление")}</h3>
               
               <div className="summary-row">
-                <span>Количество услуг:</span>
-                <span>{items.length} шт.</span>
+                <span>{t("cart_items_count", "Количество услуг:")}</span>
+                <span>{items.length} {t("cart_pcs", "шт.")}</span>
               </div>
               <div className="summary-row total">
-                <span>К оплате:</span>
+                <span>{t("cart_total_pay", "К оплате:")}</span>
                 <span>{totalPrice} PLN</span>
               </div>
 
-              {/* УСЛОВНЫЙ РЕНДЕР: Если пользователя нет, просим войти. Если есть - показываем форму */}
               {!user ? (
                 <div className="auth-required-message">
-                  <p>Оформление заказа доступно только зарегистрированным пользователям.</p>
-                  {/* Замените "/login" на ваш путь к странице авторизации, если он другой */}
+                  <p>{t("cart_auth_required", "Оформление заказа доступно только зарегистрированным пользователям.")}</p>
                   <Link to="/login" className="btn-primary login-link">
-                    Войти в аккаунт
+                    {t("cart_login_btn", "Войти в аккаунт")}
                   </Link>
                 </div>
               ) : (
@@ -142,7 +143,7 @@ const Cart = () => {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Ваше имя"
+                      placeholder={t("auth_name", "Ваше имя")}
                       value={formik.values.name}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -171,12 +172,15 @@ const Cart = () => {
                   <div className="form-group">
                     <textarea
                       name="comment"
-                      placeholder="Марка авто или пожелания..."
+                      placeholder={t("cart_comment_placeholder", "Марка авто или пожелания...")}
                       value={formik.values.comment}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       rows="2"
                     />
+                    {formik.touched.comment && formik.errors.comment && (
+                      <span className="error-text">{formik.errors.comment}</span>
+                    )}
                   </div>
                   
                   <button 
@@ -184,7 +188,7 @@ const Cart = () => {
                     className={`checkout-btn ${isProcessing ? "processing" : ""}`} 
                     disabled={isProcessing}
                   >
-                    {isProcessing ? "" : "Оформить заказ"}
+                    {isProcessing ? "" : t("cart_checkout", "Оформить заказ")}
                   </button>
                 </form>
               )}
@@ -193,10 +197,10 @@ const Cart = () => {
         ) : (
           <div className="cart-empty">
             <div className="empty-icon">🛒</div>
-            <h3>Ваша корзина пуста</h3>
-            <p>Вы еще не выбрали ни одной услуги для своего автомобиля.</p>
+            <h3>{t("cart_empty_title", "Ваша корзина пуста")}</h3>
+            <p>{t("cart_empty", "Вы еще не выбрали ни одной услуги для своего автомобиля.")}</p>
             <Link to="/services" className="btn-primary">
-              Вернуться к услугам
+              {t("btn_back_to_services", "Вернуться к услугам")}
             </Link>
           </div>
         )}

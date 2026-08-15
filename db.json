@@ -1,0 +1,152 @@
+{
+  "services": [
+    {
+      "id": "s1",
+      "title_ru": "Комплексная химчистка салона",
+      "title_pl": "Kompleksowe czyszczenie wnętrza",
+      "category_ru": "Интерьер",
+      "category_pl": "Wnętrze",
+      "description_ru": "Глубокая очистка всех поверхностей: сиденья, пол, потолок, пластик. Нанесение защитного кондиционера на кожу.",
+      "description_pl": "Głębokie czyszczenie wszystkich powierzchni: siedzenia, podłoga, podsufitka, plastik. Nałożenie odżywki ochronnej na skórę.",
+      "price": 600,
+      "time_ru": "1-2 дня",
+      "time_pl": "1-2 dni"
+    },
+    {
+      "id": "s2",
+      "title_ru": "Полировка кузова (Восстановительная)",
+      "title_pl": "Polerowanie karoserii (Rewitalizujące)",
+      "category_ru": "Экстерьер",
+      "category_pl": "Nadwozie",
+      "description_ru": "Удаление до 95% царапин, голограмм и потертостей. Возвращение заводского блеска ЛКП.",
+      "description_pl": "Usunięcie do 95% zarysowań, hologramów i zmatowień. Przywrócenie fabrycznego blasku lakieru.",
+      "price": 1200,
+      "time_ru": "2-3 дня",
+      "time_pl": "2-3 dni"
+    },
+    {
+      "id": "s3",
+      "title_ru": "Керамическое покрытие (2 слоя)",
+      "title_pl": "Powłoka ceramiczna (2 warstwy)",
+      "category_ru": "Защита",
+      "category_pl": "Ochrona",
+      "description_ru": "Нанесение премиальной керамики. Мощный гидрофобный эффект, защита от реагентов и мелких царапин.",
+      "description_pl": "Aplikacja ceramiki premium. Silny efekt hydrofobowy, ochrona przed chemią drogową i drobnymi zarysowaniami.",
+      "price": 1500,
+      "time_ru": "1 день",
+      "time_pl": "1 dzień"
+    },
+    {
+      "id": "s4",
+      "title_ru": "Оклейка зон риска полиуретаном",
+      "title_pl": "Oklejanie stref ryzyka folią PPF",
+      "category_ru": "Пленка",
+      "category_pl": "Folia",
+      "description_ru": "Бронирование капота, бампера, крыльев, фар и зеркал антигравийной пленкой (PPF).",
+      "description_pl": "Zabezpieczenie maski, zderzaka, błotników, reflektorów i lusterek folią antyodpryskową (PPF).",
+      "price": 2500,
+      "time_ru": "2 дня",
+      "time_pl": "2 dni"
+    },
+    {
+      "id": "s5",
+      "title_ru": "Мойка двигателя диэлектриком",
+      "title_pl": "Mycie silnika dielektrykiem",
+      "category_ru": "Детейлинг-мойка",
+      "category_pl": "Mycie detailingowe",
+      "description_ru": "Безопасная очистка подкапотного пространства специальным диэлектрическим составом и консервация.",
+      "description_pl": "Bezpieczne czyszczenie komory silnika specjalnym preparatem dielektrycznym oraz konserwacja.",
+      "price": 250,
+      "time_ru": "3 часа",
+      "time_pl": "3 godziny"
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 1,
+      "title": "BMW M5",
+      "category_ru": "Керамическое покрытие",
+      "category_pl": "Powłoka ceramiczna",
+      "image": "https://images.unsplash.com/photo-1619682817481-e994891cd1f5?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": 2,
+      "title": "Porsche 911",
+      "category_ru": "Полная оклейка пленкой",
+      "category_pl": "Pełne oklejanie folią",
+      "image": "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": 3,
+      "title": "Audi RS6",
+      "category_ru": "Химчистка салона",
+      "category_pl": "Czyszczenie wnętrza",
+      "image": "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": 4,
+      "title": "Mercedes-Benz G-Class",
+      "category_ru": "Антихром и полировка",
+      "category_pl": "Dechroming i polerowanie",
+      "image": "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=800"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "date": "05.08.2026",
+      "image": "https://spb.okleyka.pro/upload/iblock/5e6/8sozdccjkdn9vnq2g2rd3b4pn35weuc3/keramika-giyon-matte-matovaya-kvarcevaya-zashchita-avto-deteyling-okleyka-pro-1.JPG",
+      "title_ru": "Керамическое покрытие: Зачем оно нужно и почему это лучше воска?",
+      "title_pl": "Powłoka ceramiczna: Dlaczego jest potrzebna i dlaczego jest lepsza od wosku?",
+      "excerpt_ru": "Разбираем, как работает премиальная керамика. Почему это не просто красивый гидрофобный блеск, но и мощная защита лака от реагентов и мелких царапин.",
+      "excerpt_pl": "Wyjaśniamy, jak działa ceramika premium. Dlaczego to nie tylko piękny hydrofobowy połysk, ale także potężna ochrona lakieru przed chemią drogową i drobnymi zarysowaniami.",
+      "content_ru": "Многие автовладельцы путают керамику с обычным воском. В отличие от воска, который смывается через пару моек, керамическое покрытие кристаллизуется в порах лака. Это создает прочный защитный слой, который отталкивает воду, грязь и защищает цвет от выгорания на солнце. Мы наносим керамику в 2 слоя, что гарантирует долгий срок службы и зеркальный блеск вашего автомобиля.",
+      "content_pl": "Wielu właścicieli samochodów myli ceramikę ze zwykłym woskiem. W przeciwieństwie do wosku, który zmywa się po kilku myciach, powłoka ceramiczna krystalizuje się w porach lakieru. Tworzy to trwałą warstwę ochronną, która odpycha wodę, brud i chroni kolor przed blaknięciem na słońcu. Aplikujemy ceramikę w 2 warstwach, co gwarantuje długą żywotność i lustrzany połysk Twojego samochodu."
+    },
+    {
+      "id": 2,
+      "date": "28.07.2026",
+      "image": "https://maxivinyl.ru/wp-content/uploads/photo-gallery/%D0%9E%D0%BA%D0%BB%D0%B5%D0%B9%D0%BA%D0%B0_%D0%B7%D0%BE%D0%BD_%D1%80%D0%B8%D1%81%D0%BA%D0%B0_%D0%BF%D1%80%D0%BE%D0%B7%D1%80%D0%B0%D1%87%D0%BD%D0%BE%D0%B9_%D0%B3%D0%BB%D1%8F%D0%BD%D1%86%D0%B5%D0%B2%D0%BE%D0%B9_%D0%BF%D0%BE%D0%BB%D0%B8%D1%83%D1%80%D0%B5%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BE%D0%B9_%D0%BF%D0%BB%D0%B5%D0%BD%D0%BA%D0%BE%D0%B9_gac_s7_-_1.JPG",
+      "title_ru": "Оклейка зон риска полиуретаном (PPF): Спасение от сколов на трассе",
+      "title_pl": "Oklejanie stref ryzyka folią PPF: Ratunek przed odpryskami na trasie",
+      "excerpt_ru": "Что такое антигравийная пленка? Показываем на примерах, как бронирование капота, бампера и фар спасает кузов от летящих камней и пескоструя.",
+      "excerpt_pl": "Czym jest folia antyodpryskowa? Pokazujemy na przykładach, jak zabezpieczenie maski, zderzaka i reflektorów ratuje karoserię przed latającymi kamieniami i piaskowaniem.",
+      "content_ru": "Полиуретановая пленка (PPF) — это единственный 100% способ защитить кузов от физических повреждений. Камни на трассе, притертости на парковке, ветки — пленка принимает весь удар на себя. Главная фишка качественного полиуретана в том, что мелкие царапины на нем затягиваются сами при нагреве от солнца или горячей воды. Мы оклеиваем самые уязвимые места: капот, бампер, крылья, фары и зеркала.",
+      "content_pl": "Folia poliuretanowa (PPF) to jedyny w 100% pewny sposób na ochronę karoserii przed uszkodzeniami mechanicznymi. Kamienie na trasie, otarcia na parkingu, gałęzie — folia przyjmuje całe uderzenie na siebie. Główną zaletą wysokiej jakości poliuretanu jest to, że drobne rysy na nim same się goją pod wpływem ciepła od słońca lub gorącej wody. Oklejamy najbardziej narażone miejsca: maskę, zderzak, błotniki, reflektory i lusterka."
+    },
+    {
+      "id": 3,
+      "date": "15.07.2026",
+      "image": "https://friendsmasters.ru/wp-content/uploads/2023/05/polnaya-himchistka-salona.jpg",
+      "title_ru": "Комплексная химчистка салона: Как мы возвращаем состояние нового авто",
+      "title_pl": "Kompleksowe czyszczenie wnętrza: Jak przywracamy stan nowego auta",
+      "excerpt_ru": "Обычный пылесос не справляется с въевшейся грязью. Подробно описываем этапы нашей химчистки: от сухой уборки торнадором до консервации кожи.",
+      "excerpt_pl": "Zwykły odkurzacz nie poradzi sobie z uciążliwym brudem. Szczegółowo opisujemy etapy naszego czyszczenia: od odkurzania tornadorem po konserwację skóry.",
+      "content_ru": "Профессиональная химчистка — это не просто протирка пыли. Мы разбираем сиденья (при необходимости), используем биоразлагаемую гипоаллергенную химию и мощные экстракторы. Процесс включает глубокую очистку пола, потолка, пластика и обивки. В финале все элементы обрабатываются защитными кондиционерами: пластик получает матовый антистатический эффект, а кожа становится мягкой и защищенной от трещин.",
+      "content_pl": "Profesjonalne czyszczenie to nie tylko wycieranie kurzu. Demontujemy fotele (jeśli to konieczne), używamy biodegradowalnej, hipoalergicznej chemii i potężnych odkurzaczy ekstrakcyjnych. Proces obejmuje głębokie czyszczenie podłogi, podsufitki, plastików i tapicerki. Na koniec wszystkie elementy są zabezpieczane odżywkami: plastik zyskuje matowy efekt antystatyczny, a skóra staje się miękka i chroniona przed pękaniem."
+    },
+    {
+      "id": 4,
+      "date": "02.07.2026",
+      "image": "https://static.tildacdn.com/tild3832-3162-4339-a361-636333633263/001.jpg",
+      "title_ru": "Восстановительная полировка: Можно ли убрать царапины без покраски?",
+      "title_pl": "Polerowanie rewitalizujące: Czy można usunąć rysy bez lakierowania?",
+      "excerpt_ru": "Развеиваем мифы о полировке кузова. Как мы убираем до 95% «паутинки», голограмм и потертостей, сохраняя при этом заводскую толщину лака.",
+      "excerpt_pl": "Obalamy mity o polerowaniu karoserii. Jak usuwamy do 95% «pajęczyn», hologramów i zmatowień, zachowując fabryczną grubość lakieru.",
+      "content_ru": "Со временем кузов покрывается мелкой «паутинкой» от неправильных моек, щетки для снега и пыли. Автомобиль теряет цвет и становится матовым. Восстановительная полировка позволяет снять микроскопический слой лака (всего пару микрон), чтобы добраться до неповрежденной поверхности. Мы используем роторные и эксцентриковые машинки с разными пастами, чтобы вернуть кузову идеальный зеркальный блеск без вреда для ЛКП.",
+      "content_pl": "Z biegiem czasu karoseria pokrywa się drobną «pajęczyną» od niewłaściwego mycia, szczotek do śniegu i kurzu. Samochód traci kolor i staje się matowy. Polerowanie rewitalizujące pozwala usunąć mikroskopijną warstwę lakieru (zaledwie kilka mikronów), aby dotrzeć do nieuszkodzonej powierzchni. Używamy maszyn rotacyjnych i dual action z różnymi pastami, aby przywrócić idealny lustrzany połysk bez szkody dla powłoki lakierniczej."
+    },
+    {
+      "id": 5,
+      "date": "20.06.2026",
+      "image": "https://ir.ozone.ru/s3/multimedia-n/w500/6681400151.jpg",
+      "title_ru": "Мойка двигателя диэлектриком: Безопасность превыше всего",
+      "title_pl": "Mycie silnika dielektrykiem: Bezpieczeństwo przede wszystkim",
+      "excerpt_ru": "Почему нельзя мыть подкапотное пространство обычным аппаратом высокого давления и как диэлектрические составы защищают электрику автомобиля.",
+      "excerpt_pl": "Dlaczego nie wolno myć komory silnika zwykłą myjką ciśnieniową i jak preparaty dielektryczne chronią elektrykę samochodu.",
+      "content_ru": "Мойка двигателя водой под давлением — огромный риск залить генератор, катушки зажигания или блок управления (ЭБУ). Мы используем специализированный диэлектрический гель, который не проводит ток. Он расщепляет масло, грязь и пыль, после чего аккуратно смывается паром или слабой струей воды. В конце подкапотное пространство сушится турбосушкой и покрывается специальным термостойким консервантом.",
+      "content_pl": "Mycie silnika wodą pod ciśnieniem to ogromne ryzyko zalania alternatora, cewek zapłonowych czy modułu sterującego (ECU). Używamy specjalistycznego żelu dielektrycznego, który nie przewodzi prądu. Rozpuszcza on olej, brud i kurz, a następnie jest delikatnie spłukiwany parą lub słabym strumieniem wody. Na koniec komora silnika jest osuszana dmuchawą i zabezpieczana specjalnym konserwantem odpornym na wysokie temperatury."
+    }
+  ],
+  "orders": []
+}
