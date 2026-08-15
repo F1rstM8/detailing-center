@@ -30,8 +30,13 @@ const Header = () => {
     i18n.changeLanguage(e.target.value);
   };
 
-  // Проверяем, является ли пользователь администратором (менеджера убрали)
+  // Проверяем, является ли пользователь администратором
   const isAdmin = role === "admin";
+
+  // Динамический перевод имени пользователя (для мок-данных)
+  const displayName = (user?.name === "Постоянный клиент" || user?.name === "Stały klient")
+    ? t("mock_client_name", "Постоянный клиент")
+    : (user?.name || user?.email?.split('@')[0]);
 
   return (
     <header className="header">
@@ -72,11 +77,11 @@ const Header = () => {
           {isAuthenticated ? (
             <div className="user-profile">
               <Link to="/profile" className="user-name-link">
-                {/* Если админ - показываем только бейдж, иначе - имя пользователя */}
+                {/* Если админ - показываем только бейдж, иначе - переведенное имя */}
                 {isAdmin ? (
                   <span className="user-role">ADMIN</span>
                 ) : (
-                  user?.name || user?.email?.split('@')[0]
+                  displayName
                 )}
               </Link>
               

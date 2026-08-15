@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"; // <-- Хук перевода
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/authSlice"; 
-import { removeOrder } from "../../redux/ordersSlice"; // Импортируем наш новый экшен
+import { removeOrder } from "../../redux/ordersSlice";
 import "./Profile.scss";
 
 const Profile = () => {
@@ -15,11 +15,20 @@ const Profile = () => {
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
 
   const currentUser = {
-    name: user?.name || "Гость",
+    name: user?.name || t("profile_guest", "Гость"),
     phone: user?.phone || "+48 000 000 000",
     email: user?.email || "guest@example.com",
-    car: user?.car || "Не указан"
+    car: user?.car || t("mock_car_status", "Не указан")
   };
+
+  // Динамический перевод заглушек, если пользователь сменил язык после входа
+  const displayName = (currentUser.name === "Постоянный клиент" || currentUser.name === "Stały klient")
+    ? t("mock_client_name", "Постоянный клиент")
+    : currentUser.name;
+    
+  const displayCar = (currentUser.car === "Не указан" || currentUser.car === "Nie podano")
+    ? t("mock_car_status", "Не указан")
+    : currentUser.car;
 
   // Проверяем, является ли текущий пользователь админом
   const isAdmin = currentUser.email === "admin@test.com";
@@ -35,8 +44,19 @@ const Profile = () => {
   };
 
   const handleDeleteOrder = (orderId) => {
-    if (window.confirm("Вы уверены, что хотите безвозвратно удалить этот заказ?")) {
+    // Перевод всплывающего окна подтверждения
+    if (window.confirm(t("profile_delete_confirm", "Вы уверены, что хотите безвозвратно удалить этот заказ?"))) {
       dispatch(removeOrder(orderId));
+    }
+  };
+
+  // Функция для перевода статусов заказа
+  const translateStatus = (status) => {
+    switch(status) {
+      case 'Новый': return t("status_new", "Новый");
+      case 'В работе': return t("status_progress", "В работе");
+      case 'Выполнено': return t("status_done", "Выполнено");
+      default: return status;
     }
   };
 
@@ -52,9 +72,9 @@ const Profile = () => {
           <aside className="profile-sidebar">
             <div className="user-info-card">
               <div className="user-avatar" style={isAdmin ? { background: "linear-gradient(135deg, #ff9800, #f57c00)", boxShadow: "0 4px 15px rgba(255, 152, 0, 0.3)" } : {}}>
-                {isAdmin ? "А" : currentUser.name.charAt(0)}
+                {isAdmin ? "А" : displayName.charAt(0)}
               </div>
-              <h3>{isAdmin ? "Администратор" : currentUser.name}</h3>
+              <h3>{isAdmin ? t("profile_admin", "Администратор") : displayName}</h3>
               <p className="user-phone">{currentUser.phone}</p>
               
               <div className="user-details">
@@ -64,24 +84,24 @@ const Profile = () => {
                 </div>
                 {!isAdmin && (
                   <div className="detail-item">
-                    <span className="label">Автомобиль:</span>
-                    <span className="value">{currentUser.car}</span>
+                    <span className="label">{t("profile_car", "Автомобиль:")}</span>
+                    <span className="value">{displayCar}</span>
                   </div>
                 )}
               </div>
 
               <button className="logout-btn" onClick={handleLogout}>
-                Выйти
+                {t("btn_logout", "Выйти")}
               </button>
             </div>
           </aside>
 
           <section className="profile-orders">
-            <h3>{isAdmin ? "Все заявки (Панель управления)" : "Мои заявки и автомобили"}</h3>
+            <h3>{isAdmin ? t("profile_all_orders", "Все заявки (Панель управления)") : t("profile_my_orders", "Мои заявки и автомобили")}</h3>
             
             {displayedOrders.length === 0 ? (
               <div className="no-orders">
-                <p>{isAdmin ? "В системе пока нет заказов." : "У вас пока нет активных заявок."}</p>
+                <p>{isAdmin ? t("profile_no_orders_admin", "В системе пока нет заказов.") : t("profile_no_orders", "У вас пока нет активных заявок.")}</p>
               </div>
             ) : (
               <div className="orders-list">
@@ -89,14 +109,14 @@ const Profile = () => {
                   <div key={order.id} className="order-card">
                     <div className="order-header">
                       <div className="order-meta">
-                        <span className="order-date">От {order.date}</span>
+                        <span className="order-date">{t("profile_order_from", "От")} {order.date}</span>
                         {/* Админ видит, чей это заказ */}
                         {isAdmin && (
                           <span className="order-customer">👤 {order.customerName} ({order.customerPhone})</span>
                         )}
                       </div>
                       <span className={`status-badge ${order.status === 'Новый' ? 'status-new' : 'status-progress'}`}>
-                        {order.status}
+                        {translateStatus(order.status)}
                       </span>
                     </div>
                     
@@ -109,7 +129,7 @@ const Profile = () => {
                     </div>
 
                     <div className="order-footer">
-                      <span className="order-total">Итого: {order.totalPrice} PLN</span>
+                      <span className="order-total">{t("profile_order_total", "Итого:")} {order.totalPrice} PLN</span>
                       
                       {/* Кнопка удаления доступна только админу */}
                       {isAdmin && (
@@ -117,7 +137,7 @@ const Profile = () => {
                           className="delete-order-btn"
                           onClick={() => handleDeleteOrder(order.id)}
                         >
-                          Удалить заказ
+                          {t("btn_delete", "Удалить")}
                         </button>
                       )}
                     </div>

@@ -7,11 +7,16 @@ import { useTranslation } from "react-i18next";
 import "./Home.scss";
 
 const Home = () => {
-  // Достаем i18n, чтобы знать текущий язык
   const { t, i18n } = useTranslation();
 
   const [servicesData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Храним ID услуг для анимации кнопки
+  const [addedItems, setAddedItems] = useState({});
+  
+  // Состояние строки для всплывающего уведомления
+  const [toastMessage, setToastMessage] = useState(null);
   
   const dispatch = useDispatch();
 
@@ -29,19 +34,31 @@ const Home = () => {
   }, []);
 
   const popularServices = servicesData.slice(0, 3);
-  
-  // Определяем текущий язык
   const currentLang = i18n.language;
 
   const handleAddToCart = (service, serviceTitle, serviceCategory) => {
     dispatch(
       addItem({
         id: service.id,
-        title: serviceTitle, // Передаем переведенный тайтл
+        title: serviceTitle, 
         price: service.price,
         category: serviceCategory || t("home_popular_title"), 
       }),
     );
+
+    // 1. Анимация кнопки
+    setAddedItems((prev) => ({ ...prev, [service.id]: true }));
+    setTimeout(() => {
+      setAddedItems((prev) => ({ ...prev, [service.id]: false }));
+    }, 1500);
+
+    // 2. Устанавливаем сообщение для Toast
+    setToastMessage(serviceTitle);
+    
+    // Очищаем сообщение через 3 секунды (блок скроется)
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
   };
 
   return (
@@ -89,10 +106,11 @@ const Home = () => {
         ) : (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              // Достаем правильные поля в зависимости от языка
               const serviceTitle = currentLang === 'pl' && service.title_pl ? service.title_pl : service.title_ru;
               const serviceDesc = currentLang === 'pl' && service.description_pl ? service.description_pl : service.description_ru;
               const serviceCategory = currentLang === 'pl' && service.category_pl ? service.category_pl : service.category_ru;
+              
+              const isAdded = addedItems[service.id];
 
               return (
                 <div key={service.id} className="home-service-card">
@@ -101,10 +119,11 @@ const Home = () => {
                   <div className="footer">
                     <span className="price">{t("price_from")} {service.price} PLN</span>
                     <button
-                      className="add-to-cart-btn"
+                      className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
                       onClick={() => handleAddToCart(service, serviceTitle, serviceCategory)}
+                      disabled={isAdded}
                     >
-                      {t("btn_add_to_cart")}
+                      {isAdded ? t("btn_added_to_cart", "В корзине!") : t("btn_add_to_cart", "В корзину")}
                     </button>
                   </div>
                 </div>
@@ -121,6 +140,16 @@ const Home = () => {
       </section>
 
       <Reviews />
+
+      {/* --- Твой формат всплывающего уведомления --- */}
+      {toastMessage && (
+        <div className="toast-notification">
+          <div className="toast-icon">✓</div>
+          <div className="toast-text">
+            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong> {t("toast_added", "добавлена в корзину!")}
+          </div>
+        </div>
+      )}
     </main>
   );
 };
