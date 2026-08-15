@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
 
-// 1. Добавляем onShowToast в принимаемые параметры
 const ServiceCard = ({ service, onShowToast }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -12,25 +11,33 @@ const ServiceCard = ({ service, onShowToast }) => {
     // Добавляем в Redux
     dispatch(addItem(service));
     
-    // 2. Убираем alert и вызываем нашу красивую плашку
+    // Вызываем плашку уведомления
     if (onShowToast) {
-      onShowToast(service.title);
+      onShowToast(service.title || t("service_default_title", "Услуга"));
     }
   };
 
   return (
     <div className="service-card">
       <div className="service-header">
-        <span className="service-category">{service.category}</span>
-        <h3>{service.title}</h3>
+        <span className="service-category">
+          {service.category || t("service_default_category", "Услуга")}
+        </span>
+        <h3>{service.title || t("service_loading", "Загрузка...")}</h3>
       </div>
       
-      <p className="service-desc">{service.description}</p>
+      <p className="service-desc">
+        {service.description || t("service_no_desc", "Описание скоро появится")}
+      </p>
       
       <div className="service-footer">
         <div className="service-details">
-          <span className="service-time">⏱ {service.time}</span>
-          <span className="service-price">{service.price} PLN</span>
+          <span className="service-time">
+            ⏱ {service.time || "--"}
+          </span>
+          <span className="service-price">
+            {service.price ? `${service.price} PLN` : "0 PLN"}
+          </span>
         </div>
         
         <button 

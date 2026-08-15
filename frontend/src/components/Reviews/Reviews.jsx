@@ -1,25 +1,41 @@
 import React from "react";
-import reviewsData from "./reviews.json"; // Импортируем данные из JSON
-import "./Reviews.scss";
+import { useTranslation } from "react-i18next";
+import "./Reviews.scss"; // Твой файл стилей
 
 const Reviews = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="reviews-section">
-      <h2>Отзывы клиентов</h2>
+      <h2>{t("reviews_title")}</h2>
       <div className="reviews-grid">
-        {reviewsData.map((review) => (
-          <div key={review.id} className="review-card">
-            <div className="review-header">
-              <div className="avatar">{review.avatar}</div>
-              <div>
-                <h4>{review.name}</h4>
-                <span>{review.car}</span>
-              </div>
+        
+        {/* Отзыв 1 */}
+        <div className="review-card">
+          <div className="review-header">
+            <div className="avatar">A</div>
+            <div className="user-info">
+              <h4>{t("review1_name")}</h4>
+              <span>Toyota Prius+</span> {/* Марку машины можно не переводить */}
             </div>
-            <p className="review-text">"{review.text}"</p>
-            <div className="rating">{review.rating}</div>
           </div>
-        ))}
+          <p>{t("review1_text")}</p>
+          <div className="stars">★★★★★</div>
+        </div>
+
+        {/* Отзыв 2 */}
+        <div className="review-card">
+          <div className="review-header">
+            <div className="avatar">M</div>
+            <div className="user-info">
+              <h4>{t("review2_name")}</h4>
+              <span>Volkswagen Golf</span>
+            </div>
+          </div>
+          <p>{t("review2_text")}</p>
+          <div className="stars">★★★★★</div>
+        </div>
+
       </div>
     </section>
   );

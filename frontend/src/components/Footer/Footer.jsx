@@ -1,43 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom"; // <-- 1. Импортируем Link
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Footer.scss";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="footer__container">
         
         <div className="footer__column">
-          <h3>Детейлинг Центр</h3>
-          <p>
-            Премиальный уход за вашим автомобилем. Мы используем только лучшую
-            автохимию и даем гарантию на все виды работ.
-          </p>
+          <h3>{t("footer_about_title")}</h3>
+          <p>{t("footer_about_text")}</p>
         </div>
 
         <div className="footer__column">
-          <h3>Навигация</h3>
+          <h3>{t("footer_nav_title")}</h3>
           <nav className="footer__nav">
-            {/* <-- 2. Меняем обычные <a> на <Link> для плавной навигации --> */}
-            <Link to="/services">Услуги и цены</Link>
-            <Link to="/portfolio">Портфолио</Link>
-            <Link to="/blog">Блог</Link>
-            <Link to="/contacts">Контакты</Link>
+            <Link to="/services">{t("nav_services")}</Link>
+            <Link to="/portfolio">{t("nav_portfolio")}</Link>
+            <Link to="/blog">{t("nav_blog")}</Link>
+            <Link to="/contacts">{t("nav_contacts")}</Link>
           </nav>
         </div>
 
         <div className="footer__column">
-          <h3>Режим работы</h3>
-          <p>Понедельник - Пятница: 09:00 - 20:00</p>
-          <p>Суббота - Воскресенье: 10:00 - 18:00</p>
-          <p>Без перерывов</p>
+          <h3>{t("footer_schedule_title")}</h3>
+          <p>{t("footer_schedule_weekdays")}</p>
+          <p>{t("footer_schedule_weekends")}</p>
+          <p>{t("footer_schedule_no_breaks")}</p>
         </div>
 
-        {/* Новая колонка для социальных сетей */}
         <div className="footer__column">
-          <h3>Мы в соцсетях</h3>
+          <h3>{t("footer_socials_title")}</h3>
           <nav className="footer__nav">
-            {/* <-- 3. Внешнюю ссылку на Instagram оставляем как <a> --> */}
             <a
               href="https://www.instagram.com/d3_garage_pl/"
               target="_blank"
@@ -66,7 +63,7 @@ const Footer = () => {
       </div>
 
       <div className="footer__bottom">
-        <p>&copy; 2026 D3garage. Все права защищены.</p>
+        <p>{t("footer_copyright")}</p>
       </div>
     </footer>
   );

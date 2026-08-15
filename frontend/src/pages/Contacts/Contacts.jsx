@@ -1,16 +1,16 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./Contacts.scss";
 
 const Contacts = () => {
+  const { t } = useTranslation();
+
   return (
     <main className="page-content contacts-page">
       <div className="contacts-container">
         <header className="contacts-header">
-          <h2>Наши контакты</h2>
-          <p>
-            Мы всегда на связи и готовы привести ваш автомобиль в идеальное
-            состояние.
-          </p>
+          <h2>{t("contacts_title")}</h2>
+          <p>{t("contacts_subtitle")}</p>
         </header>
 
         <div className="contacts-content">
@@ -18,32 +18,34 @@ const Contacts = () => {
             <div className="info-card">
               <div className="card-icon">📍</div>
               <div className="card-text">
-                <h3>Адрес студии</h3>
+                <h3>{t("contacts_address_title")}</h3>
                 <p>ul. Długa 15, 31-147 Kraków</p>
-                <p>Польша</p>
+                <p>{t("contacts_country")}</p>
               </div>
             </div>
 
             <div className="info-card">
               <div className="card-icon">📞</div>
               <div className="card-text">
-                <h3>Телефон</h3>
+                <h3>{t("contacts_phone_title")}</h3>
                 <p>+48 123 456 789</p>
-                <p>Пн-Сб, с 09:00 до 20:00</p>
+                <p>{t("contacts_working_hours_short")}</p>
               </div>
             </div>
 
             <div className="info-card">
               <div className="card-icon">✉️</div>
               <div className="card-text">
-                <h3>Email и Соцсети</h3>
+                <h3>{t("contacts_email_title")}</h3>
                 <p>hello@detailing-krakow.pl</p>
                 <div className="social-links">
-                  <a href="#" className="social-link">
+                  <a 
+                    href="https://www.instagram.com/d3_garage_pl/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="social-link"
+                  >
                     Instagram
-                  </a>
-                  <a href="#" className="social-link">
-                    Facebook
                   </a>
                 </div>
               </div>

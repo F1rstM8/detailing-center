@@ -7,22 +7,20 @@ import { useTranslation } from "react-i18next";
 import "./Home.scss";
 
 const Home = () => {
-  // Инициализируем хук перевода
-  const { t } = useTranslation();
+  // Достаем i18n, чтобы знать текущий язык
+  const { t, i18n } = useTranslation();
 
-  // 1. Создаем локальный стейт для услуг и статуса загрузки
   const [servicesData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
   const dispatch = useDispatch();
 
-  // 2. Получаем данные с сервера при первой загрузке страницы
   useEffect(() => {
     fetch("http://localhost:3001/services")
       .then((response) => response.json())
       .then((data) => {
-        setServicesData(data); // Сохраняем скачанные услуги в стейт
-        setIsLoading(false);   // Отключаем лоадер
+        setServicesData(data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Ошибка при загрузке популярных услуг:", error);
@@ -30,17 +28,18 @@ const Home = () => {
       });
   }, []);
 
-  // Высчитываем популярные услуги (берем первые 3) только после того, как данные загрузились
   const popularServices = servicesData.slice(0, 3);
+  
+  // Определяем текущий язык
+  const currentLang = i18n.language;
 
-  const handleAddToCart = (service) => {
+  const handleAddToCart = (service, serviceTitle, serviceCategory) => {
     dispatch(
       addItem({
         id: service.id,
-        title: service.title,
+        title: serviceTitle, // Передаем переведенный тайтл
         price: service.price,
-        // Переводим категорию по умолчанию, если она не пришла с бэкенда
-        category: service.category || t("home_popular_title"), 
+        category: serviceCategory || t("home_popular_title"), 
       }),
     );
   };
@@ -49,15 +48,11 @@ const Home = () => {
     <main className="page-content home-page">
       <section className="hero-section">
         <div className="hero-content">
-          {/* Динамический перевод текста */}
           <h1>{t("hero_title")}</h1>
           <p>{t("hero_subtitle")}</p>
           <div className="hero-actions">
             <Link to="/services" className="btn-primary">
-              {t("hero_btn_services")}
-            </Link>
-            <Link to="/portfolio" className="btn-secondary">
-              {t("hero_btn_portfolio")}
+              {t("hero_btn")}
             </Link>
           </div>
         </div>
@@ -87,29 +82,34 @@ const Home = () => {
       <section className="home-services-section">
         <h2>{t("home_popular_title")}</h2>
         
-        {/* 3. Условный рендеринг: показываем текст загрузки, пока данные летят с сервера */}
         {isLoading ? (
           <div style={{ textAlign: "center", color: "#aaa", padding: "40px 0" }}>
             {t("loading_services")}
           </div>
         ) : (
           <div className="home-services-grid">
-            {popularServices.map((service) => (
-              <div key={service.id} className="home-service-card">
-                {/* Названия и описания услуг берутся из БД, их оставляем как есть */}
-                <h3>{service.title}</h3>
-                <p className="desc">{service.description}</p>
-                <div className="footer">
-                  <span className="price">{t("price_from")} {service.price} PLN</span>
-                  <button
-                    className="add-to-cart-btn"
-                    onClick={() => handleAddToCart(service)}
-                  >
-                    {t("btn_add_to_cart")}
-                  </button>
+            {popularServices.map((service) => {
+              // Достаем правильные поля в зависимости от языка
+              const serviceTitle = currentLang === 'pl' && service.title_pl ? service.title_pl : service.title_ru;
+              const serviceDesc = currentLang === 'pl' && service.description_pl ? service.description_pl : service.description_ru;
+              const serviceCategory = currentLang === 'pl' && service.category_pl ? service.category_pl : service.category_ru;
+
+              return (
+                <div key={service.id} className="home-service-card">
+                  <h3>{serviceTitle}</h3>
+                  <p className="desc">{serviceDesc}</p>
+                  <div className="footer">
+                    <span className="price">{t("price_from")} {service.price} PLN</span>
+                    <button
+                      className="add-to-cart-btn"
+                      onClick={() => handleAddToCart(service, serviceTitle, serviceCategory)}
+                    >
+                      {t("btn_add_to_cart")}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 

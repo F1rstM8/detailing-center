@@ -4,14 +4,14 @@ import ServiceCard from "../../components/ServicesCard/ServiceCard";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   
-  // Стейты для данных и загрузки
   const [servicesData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
-  // Стейт для всплывающего уведомления (toast)
   const [toastMessage, setToastMessage] = useState(null);
+
+  // Безопасно получаем язык (обрезаем до 'ru' или 'pl')
+  const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
 
   const showToast = (serviceTitle) => {
     setToastMessage(serviceTitle);
@@ -20,11 +20,12 @@ const ServicesPage = () => {
     }, 3000);
   };
 
-  // Загружаем услуги с json-server при открытии страницы
+  // Загружаем услуги с защитой от кэша
   useEffect(() => {
-    fetch("http://localhost:3001/services")
+    fetch(`http://localhost:3001/services?_t=${Date.now()}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("🛑 РЕАЛЬНЫЕ ДАННЫЕ УСЛУГ:", data);
         setServicesData(data);
         setIsLoading(false);
       })
@@ -33,6 +34,13 @@ const ServicesPage = () => {
         setIsLoading(false);
       });
   }, []);
+
+  // Функция для подстановки текста в зависимости от языка с надежным фоллбэком
+  const getLocalizedField = (item, fieldName) => {
+    const localizedKey = `${fieldName}_${currentLang}`;
+    // Проверяем языковой ключ, затем базовый, затем пробуем русский, и в крайнем случае пустую строку
+    return item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || "";
+  };
 
   return (
     <main className="page-content services-page">
@@ -48,13 +56,24 @@ const ServicesPage = () => {
           </div>
         ) : (
           <div className="services-grid">
-            {servicesData.map((service) => (
-              <ServiceCard 
-                key={service.id} 
-                service={service} 
-                onShowToast={showToast} 
-              />
-            ))}
+            {servicesData.map((service) => {
+              // Формируем безопасный объект для ServiceCard с переведенными полями
+              const localizedService = {
+                ...service,
+                title: getLocalizedField(service, "title"),
+                description: getLocalizedField(service, "description"),
+                category: getLocalizedField(service, "category"),
+                time: getLocalizedField(service, "time"),
+              };
+
+              return (
+                <ServiceCard 
+                  key={service.id} 
+                  service={localizedService} 
+                  onShowToast={showToast} 
+                />
+              );
+            })}
           </div>
         )}
       </div>
