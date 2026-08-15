@@ -13,7 +13,6 @@ const cartSlice = createSlice({
       const item = action.payload;
       const existingItem = state.items.find((i) => i.id === item.id);
       
-      // Если услуга уже в корзине, не добавляем второй раз
       if (!existingItem) {
         state.items.push(item);
         state.totalPrice += item.price;

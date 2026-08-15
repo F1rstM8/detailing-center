@@ -1,41 +1,44 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./Reviews.scss"; // Твой файл стилей
+import "./Reviews.scss";
 
 const Reviews = () => {
   const { t } = useTranslation();
+
+  const reviewsData = [
+    {
+      avatar: "A",
+      nameKey: "review1_name",
+      car: "Toyota Prius+",
+      textKey: "review1_text",
+      stars: "★★★★★",
+    },
+    {
+      avatar: "M",
+      nameKey: "review2_name",
+      car: "Volkswagen Golf",
+      textKey: "review2_text",
+      stars: "★★★★★",
+    },
+  ];
 
   return (
     <section className="reviews-section">
       <h2>{t("reviews_title")}</h2>
       <div className="reviews-grid">
-        
-        {/* Отзыв 1 */}
-        <div className="review-card">
-          <div className="review-header">
-            <div className="avatar">A</div>
-            <div className="user-info">
-              <h4>{t("review1_name")}</h4>
-              <span>Toyota Prius+</span> {/* Марку машины можно не переводить */}
+        {reviewsData.map((review, index) => (
+          <div className="review-card" key={index}>
+            <div className="review-header">
+              <div className="avatar">{review.avatar}</div>
+              <div className="user-info">
+                <h4>{t(review.nameKey)}</h4>
+                <span>{review.car}</span>
+              </div>
             </div>
+            <p>{t(review.textKey)}</p>
+            <div className="stars">{review.stars}</div>
           </div>
-          <p>{t("review1_text")}</p>
-          <div className="stars">★★★★★</div>
-        </div>
-
-        {/* Отзыв 2 */}
-        <div className="review-card">
-          <div className="review-header">
-            <div className="avatar">M</div>
-            <div className="user-info">
-              <h4>{t("review2_name")}</h4>
-              <span>Volkswagen Golf</span>
-            </div>
-          </div>
-          <p>{t("review2_text")}</p>
-          <div className="stars">★★★★★</div>
-        </div>
-
+        ))}
       </div>
     </section>
   );

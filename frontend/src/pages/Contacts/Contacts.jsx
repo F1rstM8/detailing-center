@@ -5,6 +5,25 @@ import "./Contacts.scss";
 const Contacts = () => {
   const { t } = useTranslation();
 
+  const contactCards = [
+    {
+      icon: "📍",
+      titleKey: "contacts_address_title",
+      lines: ["ul. Długa 15, 31-147 Kraków", t("contacts_country")],
+    },
+    {
+      icon: "📞",
+      titleKey: "contacts_phone_title",
+      lines: ["+48 123 456 789", t("contacts_working_hours_short")],
+    },
+    {
+      icon: "✉️",
+      titleKey: "contacts_email_title",
+      lines: ["hello@detailing-krakow.pl"],
+      isEmailCard: true,
+    },
+  ];
+
   return (
     <main className="page-content contacts-page">
       <div className="contacts-container">
@@ -15,41 +34,29 @@ const Contacts = () => {
 
         <div className="contacts-content">
           <div className="contacts-info">
-            <div className="info-card">
-              <div className="card-icon">📍</div>
-              <div className="card-text">
-                <h3>{t("contacts_address_title")}</h3>
-                <p>ul. Długa 15, 31-147 Kraków</p>
-                <p>{t("contacts_country")}</p>
-              </div>
-            </div>
-
-            <div className="info-card">
-              <div className="card-icon">📞</div>
-              <div className="card-text">
-                <h3>{t("contacts_phone_title")}</h3>
-                <p>+48 123 456 789</p>
-                <p>{t("contacts_working_hours_short")}</p>
-              </div>
-            </div>
-
-            <div className="info-card">
-              <div className="card-icon">✉️</div>
-              <div className="card-text">
-                <h3>{t("contacts_email_title")}</h3>
-                <p>hello@detailing-krakow.pl</p>
-                <div className="social-links">
-                  <a 
-                    href="https://www.instagram.com/d3_garage_pl/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="social-link"
-                  >
-                    Instagram
-                  </a>
+            {contactCards.map((card, index) => (
+              <div className="info-card" key={index}>
+                <div className="card-icon">{card.icon}</div>
+                <div className="card-text">
+                  <h3>{t(card.titleKey)}</h3>
+                  {card.lines.map((line, lineIndex) => (
+                    <p key={lineIndex}>{line}</p>
+                  ))}
+                  {card.isEmailCard && (
+                    <div className="social-links">
+                      <a 
+                        href="https://www.instagram.com/d3_garage_pl/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-link"
+                      >
+                        Instagram
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
+            ))}
           </div>
 
           <div className="contacts-map">

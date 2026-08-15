@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 150px); /* Вычитаем высоту хедера и футера */
+  min-height: calc(100vh - 150px);
   padding: 40px 20px;
 }
 
@@ -51,11 +51,11 @@
       box-sizing: border-box;
 
       &:focus {
-        border-color: #4caf50; /* Зеленый акцент при фокусе */
+        border-color: #4caf50;
       }
 
       &.input-error {
-        border-color: #ff5252; /* Красный при ошибке */
+        border-color: #ff5252;
       }
     }
 

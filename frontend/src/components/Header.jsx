@@ -30,33 +30,36 @@ const Header = () => {
     i18n.changeLanguage(e.target.value);
   };
 
-  // Проверяем, является ли пользователь администратором
   const isAdmin = role === "admin";
 
-  // Динамический перевод имени пользователя (для мок-данных)
   const displayName = (user?.name === "Постоянный клиент" || user?.name === "Stały klient")
     ? t("mock_client_name", "Постоянный клиент")
     : (user?.name || user?.email?.split('@')[0]);
+
+  const navLinks = [
+    { to: "/portfolio", key: "nav_portfolio", defaultText: "Портфолио" },
+    { to: "/blog", key: "nav_blog", defaultText: "Блог" },
+    { to: "/contacts", key: "nav_contacts", defaultText: "Контакты" },
+  ];
 
   return (
     <header className="header">
       <div className="header__container">
         
-        {/* Логотип */}
         <div className="header__logo">
           <Link to="/" className="header__logo-link">
             <span>d3garage</span>
           </Link>
         </div>
 
-        {/* Навигация */}
         <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
-          <Link to="/portfolio">{t("nav_portfolio", "Портфолио")}</Link>
-          <Link to="/blog">{t("nav_blog", "Блог")}</Link>
-          <Link to="/contacts">{t("nav_contacts", "Контакты")}</Link>
+          {navLinks.map((link) => (
+            <Link key={link.to} to={link.to}>
+              {t(link.key, link.defaultText)}
+            </Link>
+          ))}
         </nav>
 
-        {/* Действия (Корзина, Язык) */}
         <div className="header__actions">
           <Link to="/cart" className="header__cart">
             🛒 <span className="cart-price">{totalPrice} PLN</span>
@@ -72,12 +75,10 @@ const Header = () => {
           </select>
         </div>
 
-        {/* Авторизация и профиль */}
         <div className="header__auth">
           {isAuthenticated ? (
             <div className="user-profile">
               <Link to="/profile" className="user-name-link">
-                {/* Если админ - показываем только бейдж, иначе - переведенное имя */}
                 {isAdmin ? (
                   <span className="user-role">ADMIN</span>
                 ) : (
@@ -85,7 +86,6 @@ const Header = () => {
                 )}
               </Link>
               
-              {/* Показываем ссылку только админу */}
               {isAdmin && (
                 <Link to="/admin" className="admin-link">
                   {t("nav_admin_panel", "Панель управления")}
@@ -114,7 +114,6 @@ const Header = () => {
           )}
         </div>
 
-        {/* Бургер-меню для мобилок */}
         <div 
           className="header__burger" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}

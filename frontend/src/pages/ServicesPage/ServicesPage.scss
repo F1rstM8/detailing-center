@@ -27,7 +27,6 @@
 
     .services-grid {
       display: grid;
-      // minmax(280px) гарантирует, что карточки не будут вылезать за пределы узких экранов телефонов
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
@@ -35,7 +34,7 @@
     .service-card {
       background-color: #1e1e1e;
       border: 1px solid #333;
-      border-radius: 12px; // Сделали углы чуть мягче
+      border-radius: 12px;
       padding: 24px;
       display: flex;
       flex-direction: column;
@@ -45,7 +44,7 @@
       &:hover {
         transform: translateY(-5px);
         border-color: #4caf50;
-        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15); // Добавили мягкое свечение
+        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
       }
 
       .service-header {
@@ -58,7 +57,7 @@
           letter-spacing: 1px;
           margin-bottom: 10px;
           display: inline-block;
-          background-color: rgba(76, 175, 80, 0.1); // Сделали категорию в виде плашки
+          background-color: rgba(76, 175, 80, 0.1);
           padding: 4px 10px;
           border-radius: 4px;
           font-weight: bold;
@@ -97,7 +96,7 @@
           }
 
           .service-price {
-            font-size: 1.25rem; // Чуть увеличили цену
+            font-size: 1.25rem;
             font-weight: bold;
             color: #fff;
           }
@@ -122,16 +121,15 @@
           }
           
           &:active {
-            transform: translateY(0); // Физический эффект нажатия
+            transform: translateY(0);
           }
         }
       }
     }
   }
 
-  /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ === */
   @media (max-width: 768px) {
-    padding: 40px 15px; // Уменьшаем отступы по бокам
+    padding: 40px 15px;
 
     .services-container {
       h2 {
@@ -152,12 +150,12 @@
         padding: 20px;
 
         .service-footer {
-          flex-direction: column; // Ставим элементы друг под друга
+          flex-direction: column;
           align-items: flex-start;
           gap: 15px;
 
           .add-to-cart-btn {
-            width: 100%; // Кнопка на всю ширину карточки
+            width: 100%;
             padding: 12px;
             font-size: 1rem;
           }
@@ -167,7 +165,6 @@
   }
 }
 
-/* === ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) === */
 .toast-notification {
   position: fixed;
   bottom: 30px;
@@ -182,8 +179,6 @@
   align-items: center;
   gap: 12px;
   z-index: 1000;
-  
-  // Плавная анимация появления
   animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 
   .toast-icon {
@@ -210,7 +205,6 @@
   }
 }
 
-// Ключевые кадры для анимации выезда справа (на ПК)
 @keyframes slideInRight {
   from {
     transform: translateX(120%);
@@ -222,17 +216,15 @@
   }
 }
 
-/* === АДАПТАЦИЯ УВЕДОМЛЕНИЯ ПОД ТЕЛЕФОНЫ === */
 @media (max-width: 768px) {
   .toast-notification {
     bottom: 20px;
     left: 20px;
-    right: 20px; // Растягиваем на всю ширину экрана с отступами
+    right: 20px;
     animation: slideInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 }
 
-// На телефонах лучше выезжать снизу
 @keyframes slideInUp {
   from {
     transform: translateY(120%);

@@ -5,14 +5,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { removeItem, clearCart } from "../../redux/cartSlice";
 import { addOrder } from "../../redux/ordersSlice";
-import { useTranslation } from "react-i18next"; // <-- Добавили импорт
+import { useTranslation } from "react-i18next";
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
-  const { t } = useTranslation(); // <-- Добавили хук
+  const { t } = useTranslation();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -21,7 +21,6 @@ const Cart = () => {
     dispatch(removeItem(id));
   };
 
-  // Валидация тоже с поддержкой перевода!
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(2, t("val_name_min", "Имя должно содержать минимум 2 символа"))
@@ -63,7 +62,6 @@ const Cart = () => {
     },
   });
 
-  // Экран успешного оформления
   if (isSuccess) {
     return (
       <main className="page-content cart-page">

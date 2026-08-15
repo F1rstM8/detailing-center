@@ -11,13 +11,9 @@ const Home = () => {
 
   const [servicesData, setServicesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
-  // Храним ID услуг для анимации кнопки
   const [addedItems, setAddedItems] = useState({});
-  
-  // Состояние строки для всплывающего уведомления
   const [toastMessage, setToastMessage] = useState(null);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +24,7 @@ const Home = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Ошибка при загрузке популярных услуг:", error);
+        console.error("Error loading popular services:", error);
         setIsLoading(false);
       });
   }, []);
@@ -40,26 +36,29 @@ const Home = () => {
     dispatch(
       addItem({
         id: service.id,
-        title: serviceTitle, 
+        title: serviceTitle,
         price: service.price,
-        category: serviceCategory || t("home_popular_title"), 
+        category: serviceCategory || t("home_popular_title"),
       }),
     );
 
-    // 1. Анимация кнопки
     setAddedItems((prev) => ({ ...prev, [service.id]: true }));
     setTimeout(() => {
       setAddedItems((prev) => ({ ...prev, [service.id]: false }));
     }, 1500);
 
-    // 2. Устанавливаем сообщение для Toast
     setToastMessage(serviceTitle);
-    
-    // Очищаем сообщение через 3 секунды (блок скроется)
+
     setTimeout(() => {
       setToastMessage(null);
     }, 3000);
   };
+
+  const featureCards = [
+    { icon: "✨", titleKey: "feature1_title", descKey: "feature1_desc" },
+    { icon: "⏱️", titleKey: "feature2_title", descKey: "feature2_desc" },
+    { icon: "🛡️", titleKey: "feature3_title", descKey: "feature3_desc" },
+  ];
 
   return (
     <main className="page-content home-page">
@@ -78,38 +77,39 @@ const Home = () => {
       <section className="features-section">
         <h2>{t("home_features_title")}</h2>
         <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">✨</div>
-            <h3>{t("feature1_title")}</h3>
-            <p>{t("feature1_desc")}</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">⏱️</div>
-            <h3>{t("feature2_title")}</h3>
-            <p>{t("feature2_desc")}</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">🛡️</div>
-            <h3>{t("feature3_title")}</h3>
-            <p>{t("feature3_desc")}</p>
-          </div>
+          {featureCards.map((feature, index) => (
+            <div className="feature-card" key={index}>
+              <div className="feature-icon">{feature.icon}</div>
+              <h3>{t(feature.titleKey)}</h3>
+              <p>{t(feature.descKey)}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="home-services-section">
         <h2>{t("home_popular_title")}</h2>
-        
+
         {isLoading ? (
-          <div style={{ textAlign: "center", color: "#aaa", padding: "40px 0" }}>
-            {t("loading_services")}
+          <div className="home-services-loader">
+            {t("loading_services", "Загрузка услуг...")}
           </div>
         ) : (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              const serviceTitle = currentLang === 'pl' && service.title_pl ? service.title_pl : service.title_ru;
-              const serviceDesc = currentLang === 'pl' && service.description_pl ? service.description_pl : service.description_ru;
-              const serviceCategory = currentLang === 'pl' && service.category_pl ? service.category_pl : service.category_ru;
-              
+              const serviceTitle =
+                currentLang === "pl" && service.title_pl
+                  ? service.title_pl
+                  : service.title_ru;
+              const serviceDesc =
+                currentLang === "pl" && service.description_pl
+                  ? service.description_pl
+                  : service.description_ru;
+              const serviceCategory =
+                currentLang === "pl" && service.category_pl
+                  ? service.category_pl
+                  : service.category_ru;
+
               const isAdded = addedItems[service.id];
 
               return (
@@ -117,13 +117,19 @@ const Home = () => {
                   <h3>{serviceTitle}</h3>
                   <p className="desc">{serviceDesc}</p>
                   <div className="footer">
-                    <span className="price">{t("price_from")} {service.price} PLN</span>
+                    <span className="price">
+                      {t("price_from")} {service.price} PLN
+                    </span>
                     <button
                       className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
-                      onClick={() => handleAddToCart(service, serviceTitle, serviceCategory)}
+                      onClick={() =>
+                        handleAddToCart(service, serviceTitle, serviceCategory)
+                      }
                       disabled={isAdded}
                     >
-                      {isAdded ? t("btn_added_to_cart", "В корзине!") : t("btn_add_to_cart", "В корзину")}
+                      {isAdded
+                        ? t("btn_added_to_cart", "В корзине!")
+                        : t("btn_add_to_cart", "В корзину")}
                     </button>
                   </div>
                 </div>
@@ -141,12 +147,12 @@ const Home = () => {
 
       <Reviews />
 
-      {/* --- Твой формат всплывающего уведомления --- */}
       {toastMessage && (
         <div className="toast-notification">
           <div className="toast-icon">✓</div>
           <div className="toast-text">
-            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong> {t("toast_added", "добавлена в корзину!")}
+            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong>{" "}
+            {t("toast_added", "добавлена в корзину!")}
           </div>
         </div>
       )}

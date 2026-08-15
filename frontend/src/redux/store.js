@@ -13,7 +13,7 @@ const loadState = () => {
       orders: ordersState ? JSON.parse(ordersState) : undefined,
     };
   } catch (err) {
-    console.error("Ошибка при загрузке данных", err);
+    console.error("Error loading state from localStorage", err);
     return undefined;
   }
 };
@@ -36,14 +36,13 @@ store.subscribe(() => {
     localStorage.setItem("cartState", JSON.stringify(state.cart));
     localStorage.setItem("ordersState", JSON.stringify(state.orders));
     
-    // Новая логика для авторизации
     if (state.auth.isAuthenticated) {
       localStorage.setItem("authUser", JSON.stringify(state.auth.user));
     } else {
       localStorage.removeItem("authUser");
     }
   } catch (err) {
-    console.error("Ошибка при сохранении данных", err);
+    console.error("Error saving state to localStorage", err);
   }
 });
 

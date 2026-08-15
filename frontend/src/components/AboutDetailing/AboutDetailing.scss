@@ -1,18 +1,8 @@
 .about-detailing {
-  /* Меняем цвет на прозрачный, чтобы блок полностью слился с общим фоном сайта */
   background-color: transparent; 
-  /* Убираем нижнюю рамку, чтобы не было лишних линий между секциями */
   border-bottom: none; 
-  
   padding: 80px 20px;
   color: #fff;
-
-  &__container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* ... весь остальной код ниже оставляем без изменений ... */
 
   &__container {
     max-width: 1200px;
@@ -47,7 +37,7 @@
         justify-content: center;
         min-width: 26px;
         height: 26px;
-        border: 2px solid #4caf50; // Акцентный цвет (зеленый)
+        border: 2px solid #4caf50;
         color: #4caf50;
         border-radius: 50%;
         font-size: 0.85rem;
@@ -74,12 +64,11 @@
       text-align: center;
       transition: transform 0.3s ease;
 
-      /* Обертка для зум-анимации */
       &__img-wrapper {
         width: 100%;
         height: 240px;
         border-radius: 14px;
-        overflow: hidden; // Прячет вылезающую при зуме картинку
+        overflow: hidden;
         margin-bottom: 20px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         border: 1px solid #333;
@@ -88,7 +77,6 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
-          /* Плавность трансформации */
           transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
         }
       }
@@ -107,13 +95,12 @@
         margin: 0;
       }
 
-      /* 🔥 ЭФФЕКТЫ ПРИ НАВЕДЕНИИ НА КАРТОЧКУ 🔥 */
       &:hover {
-        transform: translateY(-6px); // Карточка слегка приподнимается
+        transform: translateY(-6px);
 
         .about-card__img-wrapper img {
-          transform: scale(1.08); // Плавный зум картинки
-          filter: brightness(1.12); // Карточка становится чуть ярче
+          transform: scale(1.08);
+          filter: brightness(1.12);
         }
       }
     }
@@ -124,7 +111,7 @@
 
     .about-btn {
       display: inline-block;
-      background-color: #4caf50; // Единая зеленая кнопка
+      background-color: #4caf50;
       color: #fff;
       text-decoration: none;
       padding: 16px 36px;

@@ -8,10 +8,8 @@ const ServiceCard = ({ service, onShowToast }) => {
   const { t } = useTranslation();
 
   const handleAddToCart = () => {
-    // Добавляем в Redux
     dispatch(addItem(service));
     
-    // Вызываем плашку уведомления
     if (onShowToast) {
       onShowToast(service.title || t("service_default_title", "Услуга"));
     }

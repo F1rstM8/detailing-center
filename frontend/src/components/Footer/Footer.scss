@@ -1,8 +1,8 @@
 .footer {
-  background-color: #0a0a0a; // Очень темный, почти черный цвет
+  background-color: #0a0a0a;
   border-top: 1px solid #222;
   padding: 50px 20px 20px;
-  margin-top: auto; // Прижимает футер к низу экрана, если контента мало
+  margin-top: auto;
   color: #aaa;
 
   &__container {
@@ -10,7 +10,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; // Позволяет колонкам переноситься, если не хватает места
+    flex-wrap: wrap;
     gap: 30px;
     margin-bottom: 40px;
   }
@@ -44,28 +44,27 @@
       text-decoration: none;
       font-size: 0.95rem;
       transition: all 0.3s ease;
-      display: inline-flex; // Используем inline-flex для выравнивания иконок и текста
+      display: inline-flex;
       align-items: center;
 
       &:hover {
         color: #4caf50;
-        transform: translateX(5px); // Легкий сдвиг ссылки при наведении (эффект интерактива)
+        transform: translateX(5px);
       }
     }
 
-    /* Специфичные стили для соцсетей (Instagram) */
     .social-link {
-      gap: 10px; // Расстояние между SVG-иконкой и текстом
+      gap: 10px;
       
       svg {
         transition: transform 0.3s ease;
       }
 
       &:hover {
-        transform: none; // Отменяем сдвиг вправо для иконки инстаграма
+        transform: none;
         
         svg {
-          transform: scale(1.1); // Вместо сдвига - немного увеличиваем иконку
+          transform: scale(1.1);
         }
       }
     }
@@ -79,7 +78,6 @@
     color: #777;
   }
 
-  /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ === */
   @media (max-width: 768px) {
     padding: 40px 15px 20px;
 
@@ -93,17 +91,17 @@
 
     &__column {
       width: 100%;
-      min-width: unset; // Сбрасываем минимальную ширину на телефоне
+      min-width: unset;
     }
 
     &__nav {
-      align-items: center; // Центрируем ссылки навигации на телефоне
+      align-items: center;
       
       a {
-        justify-content: center; // Убеждаемся, что текст внутри ссылки тоже по центру
+        justify-content: center;
         
         &:hover {
-          transform: none; // На телефоне hover-эффекты со сдвигом могут мешать
+          transform: none;
         }
       }
     }

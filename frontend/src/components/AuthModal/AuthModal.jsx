@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
-import { useTranslation } from "react-i18next"; // <-- Импортируем хук перевода
+import { useTranslation } from "react-i18next";
 import "./AuthModal.scss";
 
 const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const dispatch = useDispatch();
-  const { t } = useTranslation(); // <-- Инициализируем хук
+  const { t } = useTranslation();
   
-  // Устанавливаем режим в зависимости от того, на какую кнопку нажали
   const [isLoginMode, setIsLoginMode] = useState(initialMode === "login");
 
-  // Синхронизируем состояние при каждом открытии модалки
   useEffect(() => {
     if (isOpen) {
       setIsLoginMode(initialMode === "login");
     }
   }, [isOpen, initialMode]);
 
-  // Состояния полей формы
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -29,7 +26,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Формируем данные пользователя
     const userData = {
       id: Date.now(),
       email,
@@ -47,7 +43,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-btn" onClick={onClose}>✕</button>
 
-        {/* Переводим заголовок в зависимости от режима */}
         <h2>{isLoginMode ? t("auth_login_title", "Вход") : t("auth_register_title", "Регистрация")}</h2>
 
         <form onSubmit={handleSubmit} className="auth-form">

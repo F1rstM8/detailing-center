@@ -3,12 +3,12 @@
   justify-content: center;
   padding: 60px 20px;
   min-height: calc(100vh - 80px);
-  background-color: #121212; // Глубокий темный фон
+  background-color: #121212;
 }
 
 .profile-container {
   width: 100%;
-  max-width: 1100px; // Чуть шире для свободы
+  max-width: 1100px;
 }
 
 .profile-header {
@@ -27,15 +27,14 @@
 
 .profile-content {
   display: grid;
-  grid-template-columns: 320px 1fr; // Сайдбар чуть шире
+  grid-template-columns: 320px 1fr;
   gap: 40px;
 
   @media (max-width: 992px) {
-    grid-template-columns: 1fr; // На планшетах переносим блоки друг под друга
+    grid-template-columns: 1fr;
   }
 }
 
-// Левая колонка - Карточка пользователя
 .user-info-card {
   background-color: #1e1e1e;
   border: 1px solid #333;
@@ -45,12 +44,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); // Глубокая тень
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 
   .user-avatar {
     width: 90px;
     height: 90px;
-    background: linear-gradient(135deg, #4caf50, #2e7d32); // Премиум градиент
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
     color: #fff;
     font-size: 2.8rem;
     font-weight: bold;
@@ -59,7 +58,7 @@
     align-items: center;
     border-radius: 50%;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); // Легкое зеленое свечение
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
   }
 
   h3 {
@@ -121,9 +120,7 @@
   }
 }
 
-// Правая колонка - Заказы
 .profile-orders {
-  /* Слегка подтягиваем весь правый блок наверх для идеальной оптической оси */
   margin-top: -5px; 
 
   h3 {
@@ -168,7 +165,6 @@
   padding: 25px;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
-  // Эффект парения при наведении на заказ
   &:hover {
     transform: translateY(-4px);
     border-color: #4caf50;
@@ -214,7 +210,7 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-top: 2px; // Легкое выравнивание бейджа относительно текста
+      margin-top: 2px;
 
       &.status-new {
         background-color: rgba(255, 193, 7, 0.15);
@@ -257,7 +253,7 @@
 
   .order-footer {
     display: flex;
-    justify-content: space-between; // Разносим цену и кнопку по краям
+    justify-content: space-between;
     align-items: center;
     padding-top: 15px;
     border-top: 1px dashed #333;
@@ -265,10 +261,9 @@
     .order-total {
       font-weight: 700;
       font-size: 1.2rem;
-      color: #4caf50; // Акцент на сумме заказа
+      color: #4caf50;
     }
 
-    // Стили для кнопки удаления (видна только админу)
     .delete-order-btn {
       background-color: transparent;
       color: #ff5252;

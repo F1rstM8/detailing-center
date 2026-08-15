@@ -80,6 +80,10 @@
         border-color: #4caf50;
       }
 
+      &.input-error {
+        border-color: #ff5252;
+      }
+
       &:-webkit-autofill,
       &:-webkit-autofill:hover, 
       &:-webkit-autofill:focus, 
@@ -88,6 +92,16 @@
         -webkit-text-fill-color: white !important;
         transition: background-color 5000s ease-in-out 0s;
       }
+    }
+
+    .error-message {
+      color: #ff5252;
+      font-size: 12px;
+      margin-top: 4px;
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
     }
   }
 

@@ -4,21 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { login } from "../../redux/authSlice";
-import { useTranslation } from "react-i18next"; // <-- Добавили хук
+import { useTranslation } from "react-i18next";
 import "./Login.scss";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation(); // <-- Инициализируем хук
+  const { t } = useTranslation();
 
-  // Настройка Formik
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    // Правила валидации через Yup с переводами
     validationSchema: Yup.object({
       email: Yup.string()
         .email(t("val_email", "Неверный формат email"))
@@ -27,21 +25,18 @@ const Login = () => {
         .min(6, t("val_pass_min", "Пароль должен содержать минимум 6 символов"))
         .required(t("val_required", "Обязательное поле")),
     }),
-    // Что делать при успешной отправке
     onSubmit: (values) => {
       dispatch(login({ email: values.email }));
-      navigate("/profile"); 
+      navigate("/profile");
     },
   });
 
   return (
     <main className="page-content">
       <div className="form-container">
-        {/* Переведенный заголовок */}
         <h2>{t("auth_login_title", "Вход в личный кабинет")}</h2>
-        
+
         <form onSubmit={formik.handleSubmit} className="auth-form">
-          
           <div className="form-group">
             <label htmlFor="email">{t("auth_email", "Email")}</label>
             <input
@@ -52,7 +47,9 @@ const Login = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              className={formik.touched.email && formik.errors.email ? "input-error" : ""}
+              className={
+                formik.touched.email && formik.errors.email ? "input-error" : ""
+              }
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="error-message">{formik.errors.email}</div>
@@ -69,7 +66,11 @@ const Login = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
-              className={formik.touched.password && formik.errors.password ? "input-error" : ""}
+              className={
+                formik.touched.password && formik.errors.password
+                  ? "input-error"
+                  : ""
+              }
             />
             {formik.touched.password && formik.errors.password ? (
               <div className="error-message">{formik.errors.password}</div>

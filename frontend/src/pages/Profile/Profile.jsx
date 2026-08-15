@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next"; // <-- Хук перевода
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/authSlice"; 
 import { removeOrder } from "../../redux/ordersSlice";
@@ -21,7 +21,6 @@ const Profile = () => {
     car: user?.car || t("mock_car_status", "Не указан")
   };
 
-  // Динамический перевод заглушек, если пользователь сменил язык после входа
   const displayName = (currentUser.name === "Постоянный клиент" || currentUser.name === "Stały klient")
     ? t("mock_client_name", "Постоянный клиент")
     : currentUser.name;
@@ -30,10 +29,8 @@ const Profile = () => {
     ? t("mock_car_status", "Не указан")
     : currentUser.car;
 
-  // Проверяем, является ли текущий пользователь админом
   const isAdmin = currentUser.email === "admin@test.com";
 
-  // Если админ - показываем все заказы, если нет - только его собственные
   const displayedOrders = isAdmin 
     ? allOrders 
     : allOrders.filter((order) => order.customerPhone === currentUser.phone);
@@ -44,13 +41,11 @@ const Profile = () => {
   };
 
   const handleDeleteOrder = (orderId) => {
-    // Перевод всплывающего окна подтверждения
     if (window.confirm(t("profile_delete_confirm", "Вы уверены, что хотите безвозвратно удалить этот заказ?"))) {
       dispatch(removeOrder(orderId));
     }
   };
 
-  // Функция для перевода статусов заказа
   const translateStatus = (status) => {
     switch(status) {
       case 'Новый': return t("status_new", "Новый");
@@ -63,7 +58,6 @@ const Profile = () => {
   return (
     <main className="page-content profile-page">
       <div className="profile-container">
-        
         <header className="profile-header">
           <h2>{t("profile_title", "Личный кабинет")}</h2>
         </header>
@@ -71,7 +65,10 @@ const Profile = () => {
         <div className="profile-content">
           <aside className="profile-sidebar">
             <div className="user-info-card">
-              <div className="user-avatar" style={isAdmin ? { background: "linear-gradient(135deg, #ff9800, #f57c00)", boxShadow: "0 4px 15px rgba(255, 152, 0, 0.3)" } : {}}>
+              <div 
+                className="user-avatar" 
+                style={isAdmin ? { background: "linear-gradient(135deg, #ff9800, #f57c00)", boxShadow: "0 4px 15px rgba(255, 152, 0, 0.3)" } : {}}
+              >
                 {isAdmin ? "А" : displayName.charAt(0)}
               </div>
               <h3>{isAdmin ? t("profile_admin", "Администратор") : displayName}</h3>
@@ -110,7 +107,6 @@ const Profile = () => {
                     <div className="order-header">
                       <div className="order-meta">
                         <span className="order-date">{t("profile_order_from", "От")} {order.date}</span>
-                        {/* Админ видит, чей это заказ */}
                         {isAdmin && (
                           <span className="order-customer">👤 {order.customerName} ({order.customerPhone})</span>
                         )}
@@ -131,7 +127,6 @@ const Profile = () => {
                     <div className="order-footer">
                       <span className="order-total">{t("profile_order_total", "Итого:")} {order.totalPrice} PLN</span>
                       
-                      {/* Кнопка удаления доступна только админу */}
                       {isAdmin && (
                         <button 
                           className="delete-order-btn"

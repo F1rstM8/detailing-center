@@ -145,6 +145,12 @@
   }
 }
 
+.home-services-loader {
+  text-align: center;
+  color: #aaa;
+  padding: 40px 0;
+}
+
 .home-services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -159,9 +165,7 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-8px);
@@ -211,6 +215,11 @@
 
       &:active {
         transform: scale(0.95);
+      }
+
+      &.added {
+        background-color: #4caf50;
+        color: #fff;
       }
     }
   }
