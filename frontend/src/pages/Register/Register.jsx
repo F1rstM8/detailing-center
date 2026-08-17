@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTranslation } from "react-i18next"; // <-- Импортируем хук перевода
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation(); // <-- Инициализируем хук
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -15,7 +15,7 @@ const Register = () => {
       password: "",
       confirmPassword: "",
     },
-    // Внедряем переводы прямо в схему валидации
+
     validationSchema: Yup.object({
       name: Yup.string()
         .min(2, t("val_name_min", "Имя слишком короткое"))
@@ -28,13 +28,20 @@ const Register = () => {
         .min(6, t("val_pass_min", "Пароль должен содержать минимум 6 символов"))
         .required(t("val_required", "Обязательное поле")),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], t("val_pass_match", "Пароли должны совпадать"))
+        .oneOf(
+          [Yup.ref("password"), null],
+          t("val_pass_match", "Пароли должны совпадать"),
+        )
         .required(t("val_required", "Обязательное поле")),
     }),
     onSubmit: (values) => {
-      // Здесь в будущем будет отправка данных на бекенд (Axios / Fetch)
       console.log("Данные регистрации:", values);
-      alert(t("auth_register_success", "Регистрация успешна! Теперь вы можете войти."));
+      alert(
+        t(
+          "auth_register_success",
+          "Регистрация успешна! Теперь вы можете войти.",
+        ),
+      );
       navigate("/login");
     },
   });
@@ -43,9 +50,8 @@ const Register = () => {
     <main className="page-content">
       <div className="form-container">
         <h2>{t("auth_register_title", "Регистрация")}</h2>
-        
+
         <form onSubmit={formik.handleSubmit} className="auth-form">
-          
           <div className="form-group">
             <label htmlFor="name">{t("auth_name", "Имя")}</label>
             <input
@@ -55,7 +61,9 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.name}
-              className={formik.touched.name && formik.errors.name ? "input-error" : ""}
+              className={
+                formik.touched.name && formik.errors.name ? "input-error" : ""
+              }
             />
             {formik.touched.name && formik.errors.name ? (
               <div className="error-message">{formik.errors.name}</div>
@@ -71,7 +79,9 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              className={formik.touched.email && formik.errors.email ? "input-error" : ""}
+              className={
+                formik.touched.email && formik.errors.email ? "input-error" : ""
+              }
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="error-message">{formik.errors.email}</div>
@@ -87,7 +97,11 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
-              className={formik.touched.password && formik.errors.password ? "input-error" : ""}
+              className={
+                formik.touched.password && formik.errors.password
+                  ? "input-error"
+                  : ""
+              }
             />
             {formik.touched.password && formik.errors.password ? (
               <div className="error-message">{formik.errors.password}</div>
@@ -95,7 +109,9 @@ const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">{t("auth_password_confirm", "Повторите пароль")}</label>
+            <label htmlFor="confirmPassword">
+              {t("auth_password_confirm", "Повторите пароль")}
+            </label>
             <input
               id="confirmPassword"
               name="confirmPassword"
@@ -103,10 +119,16 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.confirmPassword}
-              className={formik.touched.confirmPassword && formik.errors.confirmPassword ? "input-error" : ""}
+              className={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? "input-error"
+                  : ""
+              }
             />
             {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-              <div className="error-message">{formik.errors.confirmPassword}</div>
+              <div className="error-message">
+                {formik.errors.confirmPassword}
+              </div>
             ) : null}
           </div>
 
