@@ -1,6 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const savedUser = JSON.parse(localStorage.getItem("authUser"));
+let savedUser = null;
+
+try {
+  const item = localStorage.getItem("authUser");
+  if (item) {
+    savedUser = JSON.parse(item);
+  }
+} catch (error) {
+  console.error("Ошибка при чтении authUser из localStorage:", error);
+
+  localStorage.removeItem("authUser");
+}
 
 const initialState = {
   user: savedUser || null,
@@ -14,7 +25,7 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const { email, ...rest } = action.payload;
-      
+
       let userRole = "client";
       if (email === "admin@test.com") {
         userRole = "admin";
