@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Footer from "./components/Footer/Footer";
 import Register from "./pages/Register/Register";
@@ -9,7 +9,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import Blog from "./pages/Blog/Blog";
-import ServicesPage from './pages/ServicesPage/ServicesPage'; 
+import ServicesPage from "./pages/ServicesPage/ServicesPage";
 import Portfolio from "./pages/Portfolio/Portfolio";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Contacts from "./pages/Contacts/Contacts";
@@ -38,21 +38,16 @@ function App() {
 
         <div style={{ flex: 1 }}>
           <Routes>
-            {/* === ОТКРЫТЫЕ МАРШРУТЫ (Доступны всем) === */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
 
-            {/* === МАРШРУТЫ ДЛЯ НАВИГАЦИИ ИЗ ШАПКИ === */}
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contacts" element={<Contacts />} />
 
-            {/* === ЗАЩИЩЕННЫЕ МАРШРУТЫ (Только для авторизованных) === */}
-
-            {/* 1. Уровень: Клиенты и Персонал */}
             <Route
               element={
                 <ProtectedRoute allowedRoles={["client", "manager", "admin"]} />
@@ -61,11 +56,8 @@ function App() {
               <Route path="/profile" element={<Profile />} />
             </Route>
 
-            {/* 2. Уровень: Только Персонал (Менеджеры и Админы) */}
             <Route
-              element={
-                <ProtectedRoute allowedRoles={["manager", "admin"]} />
-              }
+              element={<ProtectedRoute allowedRoles={["manager", "admin"]} />}
             >
               <Route path="/admin" element={<AdminDashboard />} />
             </Route>
