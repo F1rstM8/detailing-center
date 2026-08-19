@@ -3,25 +3,105 @@
 }
 
 .header {
-  background-color: #1e1e1e;
-  border-bottom: 1px solid #333;
   width: 100%;
-  position: relative;
-  z-index: 100;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+
+  /* --- СТИЛИ ДЛЯ ВЕРХНЕГО УРОВНЯ --- */
+  &__top {
+    background-color: #1e1e1e;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+    &-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (max-width: 768px) {
+        display: none; /* На мобилках полностью прячем верхнюю полосу, так как всё переехало в бургер */
+      }
+    }
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+
+    &-right {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+  }
+
+  &__info-item,
+  &__phone {
+    color: #c4c4c4;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #4caf50;
+    }
+  }
+
+  &__lang {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #c4c4c4;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    outline: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #4caf50;
+      color: #4caf50;
+    }
+
+    option {
+      background-color: #1e1e1e;
+      color: #c4c4c4;
+    }
+  }
+
+  /* --- СТИЛИ ДЛЯ ОСНОВНОГО УРОВНЯ --- */
+  &__main {
+    background-color: #1e1e1e;
+    border-bottom: 1px solid #333;
+    width: 100%;
+  }
 
   &__container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 18px 40px;
+    padding: 12px 40px 18px 40px;
     max-width: 1400px;
     margin: 0 auto;
     gap: 40px;
 
     @media (max-width: 768px) {
-      padding: 12px 15px; 
+      padding: 10px 15px 12px 15px; 
       gap: 0;
-      /* МАГИЯ: распределяем элементы жестко по краям и центру */
       justify-content: space-between; 
     }
   }
@@ -46,14 +126,21 @@
     }
 
     @media (max-width: 768px) {
-      display: none; /* Скрываем логотип на мобилках */
+      display: none;
     }
   }
 
+  /* --- НАВИГАЦИЯ И МОБИЛЬНОЕ МЕНЮ --- */
   &__nav {
     display: flex;
     align-items: center;
     gap: 24px;
+
+    &-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
 
     a {
       color: #e0e0e0;
@@ -68,6 +155,11 @@
       }
     }
 
+    /* Мобильный блок контактов внутри бургера (скрыт на десктопе) */
+    .header__mobile-info {
+      display: none;
+    }
+
     @media (max-width: 1024px) {
       position: absolute;
       top: 100%;
@@ -75,17 +167,60 @@
       width: 100%;
       background-color: #1a1a1a;
       flex-direction: column;
-      padding: 30px 0;
-      gap: 30px;
+      padding: 25px 20px;
+      gap: 20px;
       border-bottom: 1px solid #333;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       z-index: 99;
 
-      a {
-        font-size: 1.2rem;
+      &-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+
+        a {
+          font-size: 1.1rem;
+          width: 100%;
+          text-align: center;
+          padding: 8px 0;
+        }
+      }
+
+      /* Показываем блок контактов в открытом бургер-меню */
+      .header__mobile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
         width: 100%;
         text-align: center;
-        padding: 10px 0;
+        padding-top: 5px;
+
+        .mobile-info-item {
+          color: #b0b0b0;
+          font-size: 0.9rem;
+          text-decoration: none;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #4caf50;
+          }
+        }
+
+        .mobile-lang-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 10px;
+          color: #b0b0b0;
+          font-size: 0.9rem;
+
+          .mobile-lang {
+            width: auto;
+          }
+        }
       }
 
       opacity: 0;
@@ -111,7 +246,7 @@
     flex-shrink: 0;
 
     @media (max-width: 768px) {
-      order: 3; /* КОРЗИНА ИДЕТ САМОЙ ПРАВОЙ */
+      order: 3;
       padding-left: 0; 
       border-left: none;
       gap: 0; 
@@ -137,34 +272,11 @@
     }
   }
 
-  &__lang {
-    padding: 6px 12px;
-    border-radius: 4px;
-    background-color: #2b2b2b;
-    color: #fff;
-    border: 1px solid #444;
-    outline: none;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-
-    &:hover {
-      border-color: #4caf50;
-    }
-
-    @media (max-width: 768px) {
-      display: none;
-    }
-
-    option {
-      background-color: #2b2b2b;
-    }
-  }
-
   &__auth {
     display: flex;
     align-items: center;
     z-index: 101;
-    margin-left: auto; /* Десктопная пружина */
+    margin-left: auto;
 
     .auth-links {
       display: flex;
@@ -254,12 +366,12 @@
     }
 
     @media (max-width: 768px) {
-      order: 2; /* КНОПКИ ИДУТ ПО ЦЕНТРУ */
-      margin-left: 0; /* Убиваем десктопную пружину */
+      order: 2;
+      margin-left: 0;
       padding-left: 0;
       border-left: none;
-      flex: 1; /* Заставляет блок занять всё свободное место между бургером и корзиной */
-      justify-content: center; /* Выравнивает кнопки идеально по центру экрана */
+      flex: 1;
+      justify-content: center;
 
       .auth-links {
         gap: 8px; 
@@ -302,8 +414,8 @@
     flex-shrink: 0; 
 
     @media (max-width: 768px) {
-      order: 1; /* БУРГЕР ИДЕТ САМЫМ ЛЕВЫМ */
-      margin: 0; /* Убираем пружину, она больше не нужна */
+      order: 1;
+      margin: 0;
     }
 
     .burger-line {
@@ -354,8 +466,3 @@
   }
 }
 
-@media (max-width: 768px) {
-  .cart-price {
-    display: none;
-  }
-}

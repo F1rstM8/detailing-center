@@ -24,6 +24,7 @@ const LANGUAGES = [
 ];
 
 const NAV_LINKS = [
+  { to: "/services", key: "nav_services", defaultText: "Услуги" }, 
   { to: "/portfolio", key: "nav_portfolio", defaultText: "Портфолио" },
   { to: "/blog", key: "nav_blog", defaultText: "Блог" },
   { to: "/contacts", key: "nav_contacts", defaultText: "Контакты" },
@@ -67,93 +68,168 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header__container">
-        <div className="header__logo">
-          <Link to="/" className="header__logo-link">
-            <span>{LOGO_TEXT}</span>
-          </Link>
-        </div>
-
-        <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
-          {NAV_LINKS.map((link) => (
-            <Link key={link.to} to={link.to}>
-              {t(link.key, link.defaultText)}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="header__auth">
-          {isAuthenticated ? (
-            <div className="user-profile">
-              <Link to="/profile" className="user-name-link">
-                {isAdmin ? (
-                  <span className="user-role">ADMIN</span>
-                ) : (
-                  displayName
-                )}
-              </Link>
-
-              {isAdmin && (
-                <Link to="/admin" className="admin-link">
-                  {t("nav_admin_panel", "Панель управления")}
-                </Link>
-              )}
-
-              <button onClick={handleLogout} className="logout-btn">
-                {t("btn_logout", "Выйти")}
-              </button>
-            </div>
-          ) : (
-            <div className="auth-links">
-              <button
-                className="login-btn"
-                onClick={() => openAuthModal(AUTH_MODES.LOGIN)}
-              >
-                {t("btn_login", "Войти")}
-              </button>
-              <button
-                className="register-btn"
-                onClick={() => openAuthModal(AUTH_MODES.REGISTER)}
-              >
-                {t("btn_register", "Регистрация")}
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className="header__actions">
-          <Link to="/cart" className="header__cart">
-            🛒{" "}
-            <span className="cart-price">
-              {totalPrice} {CURRENCY}
+      
+      {/* --- 1. ВЕРХНИЙ УРОВЕНЬ (На десктопе виден полностью) --- */}
+      <div className="header__top">
+        <div className="header__top-container">
+          
+          <div className="header__top-left">
+            <span className="header__info-item">
+              📍 Kraków, ul. Przykładowa 12
             </span>
-          </Link>
+            <span className="header__info-item">
+              🕒 Пн-Сб: 09:00 - 19:00
+            </span>
+          </div>
 
-          <select
-            className="header__lang"
-            onChange={handleLanguageChange}
-            value={i18n.language}
-          >
-            {LANGUAGES.map((lang) => (
-              <option key={lang.value} value={lang.value}>
-                {lang.label}
-              </option>
-            ))}
-          </select>
+          <div className="header__top-right">
+            <a href="mailto:info@d3garage.pl" className="header__info-item header__info-link">
+              ✉️ info@d3garage.pl
+            </a>
+            
+            <a 
+              href="https://www.instagram.com/d3_garage_pl/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="header__info-item header__info-link"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle' }}>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              Instagram
+            </a>
+
+            <a href="tel:+48123456789" className="header__phone">
+              📞 +48 123 456 789
+            </a>
+            
+            <select
+              className="header__lang"
+              onChange={handleLanguageChange}
+              value={i18n.language}
+            >
+              {LANGUAGES.map((lang) => (
+                <option key={lang.value} value={lang.value}>
+                  {lang.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
         </div>
+      </div>
 
-        <button
-          className={`header__burger ${isMenuOpen ? "active" : ""}`}
-          onClick={toggleMenu}
-          aria-label={
-            isMenuOpen
-              ? t("aria_close_menu", "Закрыть меню")
-              : t("aria_open_menu", "Открыть меню")
-          }
-          aria-expanded={isMenuOpen}
-        >
-          <span className="burger-line"></span>
-        </button>
+      {/* --- 2. ОСНОВНОЙ УРОВЕНЬ --- */}
+      <div className="header__main">
+        <div className="header__container">
+          <div className="header__logo">
+            <Link to="/" className="header__logo-link">
+              <span>{LOGO_TEXT}</span>
+            </Link>
+          </div>
+
+          {/* Мобильное меню (включая ссылки и спрятанные контакты) */}
+          <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
+            <div className="header__nav-links">
+              {NAV_LINKS.map((link) => (
+                <Link 
+                  key={link.to} 
+                  to={link.to} 
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {t(link.key, link.defaultText)}
+                </Link>
+              ))}
+            </div>
+
+            {/* Блок контактов для мобильного меню (скрыт на десктопе) */}
+            <div className="header__mobile-info">
+              <div className="mobile-info-item">📍 Kraków, ul. Przykładowa 12</div>
+              <div className="mobile-info-item">🕒 Пн-Сб: 09:00 - 19:00</div>
+              <a href="mailto:info@d3garage.pl" className="mobile-info-item">✉️ info@d3garage.pl</a>
+              <a href="https://www.instagram.com/d3_garage_pl/" target="_blank" rel="noopener noreferrer" className="mobile-info-item">
+                📸 Instagram
+              </a>
+              <div className="mobile-lang-wrapper">
+                <span>🌐 Язык:</span>
+                <select
+                  className="header__lang mobile-lang"
+                  onChange={handleLanguageChange}
+                  value={i18n.language}
+                >
+                  {LANGUAGES.map((lang) => (
+                    <option key={lang.value} value={lang.value}>
+                      {lang.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </nav>
+
+          <div className="header__auth">
+            {isAuthenticated ? (
+              <div className="user-profile">
+                <Link to="/profile" className="user-name-link">
+                  {isAdmin ? (
+                    <span className="user-role">ADMIN</span>
+                  ) : (
+                    displayName
+                  )}
+                </Link>
+
+                {isAdmin && (
+                  <Link to="/admin" className="admin-link">
+                    {t("nav_admin_panel", "Панель управления")}
+                  </Link>
+                )}
+
+                <button onClick={handleLogout} className="logout-btn">
+                  {t("btn_logout", "Выйти")}
+                </button>
+              </div>
+            ) : (
+              <div className="auth-links">
+                <button
+                  className="login-btn"
+                  onClick={() => openAuthModal(AUTH_MODES.LOGIN)}
+                >
+                  {t("btn_login", "Войти")}
+                </button>
+                <button
+                  className="register-btn"
+                  onClick={() => openAuthModal(AUTH_MODES.REGISTER)}
+                >
+                  {t("btn_register", "Регистрация")}
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="header__actions">
+            <Link to="/cart" className="header__cart">
+              🛒{" "}
+              <span className="cart-price">
+                {totalPrice} {CURRENCY}
+              </span>
+            </Link>
+          </div>
+
+          <button
+            className={`header__burger ${isMenuOpen ? "active" : ""}`}
+            onClick={toggleMenu}
+            aria-label={
+              isMenuOpen
+                ? t("aria_close_menu", "Закрыть меню")
+                : t("aria_open_menu", "Открыть меню")
+            }
+            aria-expanded={isMenuOpen}
+          >
+            <span className="burger-line"></span>
+          </button>
+        </div>
       </div>
 
       <AuthModal

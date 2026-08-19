@@ -26,10 +26,10 @@ const Footer = () => {
         </div>
 
         <div className="footer__column">
-          <h3>{t("footer_schedule_title")}</h3>
-          <p>{t("footer_schedule_weekdays")}</p>
-          <p>{t("footer_schedule_weekends")}</p>
-          <p>{t("footer_schedule_no_breaks")}</p>
+          <h3>{t("footer_schedule_title", "Режим работы")}</h3>
+          {/* Обновляем дефолтные значения для нового графика */}
+          <p>{t("footer_schedule_weekdays", "Понедельник - Воскресенье: 09:00 - 19:00")}</p>
+          <p>{t("footer_schedule_no_breaks", "Без перерывов")}</p>
         </div>
 
         <div className="footer__column">
