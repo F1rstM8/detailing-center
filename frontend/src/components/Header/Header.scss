@@ -8,7 +8,6 @@
   width: 100%;
   position: relative;
   z-index: 100;
-  // overflow-x: hidden;
 
   &__container {
     display: flex;
@@ -20,12 +19,16 @@
     gap: 40px;
 
     @media (max-width: 768px) {
-      padding: 12px 15px; /* Возвращаем комфортные отступы, теперь место есть */
-      gap: 15px;
+      padding: 12px 15px; 
+      gap: 0;
+      /* МАГИЯ: распределяем элементы жестко по краям и центру */
+      justify-content: space-between; 
     }
   }
 
   &__logo {
+    display: flex;
+
     &-link {
       display: flex;
       align-items: center;
@@ -35,22 +38,15 @@
       z-index: 101;
     }
 
-    &-img {
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-
     span {
       font-size: 1.5rem;
       font-weight: bold;
       color: #fff;
       letter-spacing: 1px;
+    }
 
-      @media (max-width: 768px) {
-        display: none; /* ПОЛНОСТЬЮ СКРЫВАЕМ НАЗВАНИЕ ЛОГОТИПА */
-      }
+    @media (max-width: 768px) {
+      display: none; /* Скрываем логотип на мобилках */
     }
   }
 
@@ -115,9 +111,10 @@
     flex-shrink: 0;
 
     @media (max-width: 768px) {
+      order: 3; /* КОРЗИНА ИДЕТ САМОЙ ПРАВОЙ */
       padding-left: 0; 
       border-left: none;
-      gap: 15px; 
+      gap: 0; 
     }
   }
 
@@ -167,7 +164,7 @@
     display: flex;
     align-items: center;
     z-index: 101;
-    margin-left: auto; /* Все еще отталкивает корзину и кнопки вправо */
+    margin-left: auto; /* Десктопная пружина */
 
     .auth-links {
       display: flex;
@@ -224,21 +221,6 @@
         text-decoration: none;
         font-weight: 500;
         transition: opacity 0.3s;
-
-        &:hover {
-          opacity: 0.8;
-        }
-
-        .user-role {
-          color: #4caf50;
-          font-size: 0.75rem;
-          font-weight: bold;
-          text-transform: uppercase;
-          background-color: rgba(76, 175, 80, 0.15);
-          padding: 4px 8px;
-          border-radius: 12px;
-          letter-spacing: 0.5px;
-        }
       }
 
       .admin-link {
@@ -250,13 +232,6 @@
         border: 1px solid rgba(255, 167, 38, 0.3);
         padding: 6px 14px;
         border-radius: 6px;
-        transition: all 0.3s;
-        white-space: nowrap;
-
-        &:hover {
-          background-color: #ffa726;
-          color: #1a1a1a !important;
-        }
       }
 
       .logout-btn {
@@ -266,13 +241,7 @@
         padding: 6px 14px;
         border-radius: 6px;
         cursor: pointer;
-        transition: all 0.3s;
         font-weight: 500;
-
-        &:hover {
-          background-color: #ff5252;
-          color: #fff;
-        }
       }
     }
 
@@ -285,17 +254,20 @@
     }
 
     @media (max-width: 768px) {
+      order: 2; /* КНОПКИ ИДУТ ПО ЦЕНТРУ */
+      margin-left: 0; /* Убиваем десктопную пружину */
       padding-left: 0;
       border-left: none;
+      flex: 1; /* Заставляет блок занять всё свободное место между бургером и корзиной */
+      justify-content: center; /* Выравнивает кнопки идеально по центру экрана */
 
       .auth-links {
         gap: 8px; 
         margin-left: 0;
         
         .register-btn, .login-btn {
-          /* Так как место освободилось, делаем кнопки нормального размера для нажатия */
-          padding: 8px 12px; 
-          font-size: 0.85rem; 
+          padding: 6px 10px; 
+          font-size: 0.8rem; 
         }
       }
       
@@ -308,8 +280,8 @@
         }
 
         .logout-btn {
-          padding: 8px 12px;
-          font-size: 0.85rem;
+          padding: 6px 10px;
+          font-size: 0.8rem;
         }
       }
     }
@@ -328,12 +300,10 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0; 
-    margin-left: 0; 
 
     @media (max-width: 768px) {
-      /* МАГИЯ ЗДЕСЬ: переносим бургер в самое левое положение */
-      order: -1; 
-      margin-right: auto; /* Отталкивает все остальные элементы вправо */
+      order: 1; /* БУРГЕР ИДЕТ САМЫМ ЛЕВЫМ */
+      margin: 0; /* Убираем пружину, она больше не нужна */
     }
 
     .burger-line {

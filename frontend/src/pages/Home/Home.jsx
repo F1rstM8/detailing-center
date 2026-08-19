@@ -62,17 +62,7 @@ const Home = () => {
 
   return (
     <main className="page-content home-page">
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1>{t("hero_title")}</h1>
-          <p>{t("hero_subtitle")}</p>
-          <div className="hero-actions">
-            <Link to="/services" className="btn-primary">
-              {t("hero_btn")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      
 
       <section className="features-section">
         <h2>{t("home_features_title")}</h2>
@@ -133,7 +123,7 @@ const Home = () => {
                     </button>
                   </div>
                 </div>
-              );
+              ); 
             })}
           </div>
         )}

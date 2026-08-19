@@ -9,40 +9,63 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .hero {
   position: relative;
-  height: 80vh;
+  height: calc(100vh - 77px);
   min-height: 500px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #fff;
-  gap: 24px;
   padding: 0 20px;
   background: linear-gradient(
     rgba(18, 18, 18, 0.7),
     rgba(18, 18, 18, 0.95)
   ), url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
   animation: fadeInUp 0.8s ease-out forwards;
+  overflow: hidden; 
 
-  &__title {
-    font-size: 3.5rem;
-    margin-bottom: 0;
-    line-height: 1.2;
+  &__container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
     max-width: 800px;
+  }
+
+  /* Стилизуем h1 напрямую, так как в JSX у него нет класса */
+  h1 { 
+    font-size: 3.5rem;
+    margin: 0;
+    line-height: 1.2;
     text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    word-wrap: break-word; /* Жестко разрешаем переносить длинные слова, если они не влазят */
 
     span {
       color: #4caf50;
     }
   }
 
-  &__subtitle {
+  /* Стилизуем p напрямую */
+  p { 
     font-size: 1.2rem;
     color: #e0e0e0;
-    margin-bottom: 0;
+    margin: 0;
     line-height: 1.5;
     max-width: 600px;
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
@@ -77,13 +100,16 @@
     height: 70vh;
     min-height: 450px;
     padding: 0 15px;
-    gap: 20px;
 
-    &__title {
-      font-size: 2.2rem;
+    &__content {
+      gap: 16px;
     }
 
-    &__subtitle {
+    h1 {
+      font-size: 2.1rem;
+    }
+
+    p {
       font-size: 1rem;
       padding: 0 10px;
     }
