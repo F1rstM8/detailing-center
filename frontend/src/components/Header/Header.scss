@@ -25,7 +25,7 @@
       align-items: center;
 
       @media (max-width: 768px) {
-        display: none; /* На мобилках полностью прячем верхнюю полосу, так как всё переехало в бургер */
+        display: none; 
       }
     }
 
@@ -100,9 +100,9 @@
     gap: 40px;
 
     @media (max-width: 768px) {
-      padding: 10px 15px 12px 15px;
-      gap: 0;
-      justify-content: space-between;
+      padding: 10px 10px 12px 10px; 
+      gap: 6px;
+      justify-content: space-between; 
     }
   }
 
@@ -136,6 +136,10 @@
     align-items: center;
     gap: 24px;
 
+    .header__mobile-logo {
+      display: none; /* Скрыто на компьютере */
+    }
+
     &-links {
       display: flex;
       align-items: center;
@@ -155,7 +159,6 @@
       }
     }
 
-    /* Мобильный блок контактов внутри бургера (скрыт на десктопе) */
     .header__mobile-info {
       display: none;
     }
@@ -173,6 +176,26 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       z-index: 99;
 
+      /* Показываем логотип в мобильном меню */
+      .header__mobile-logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 15px;
+
+        a {
+          padding: 0;
+        }
+
+        span {
+          font-size: 1.8rem;
+          font-weight: bold;
+          color: #fff;
+          letter-spacing: 1px;
+        }
+      }
+
       &-links {
         flex-direction: column;
         width: 100%;
@@ -188,7 +211,6 @@
         }
       }
 
-      /* Показываем блок контактов в открытом бургер-меню */
       .header__mobile-info {
         display: flex;
         flex-direction: column;
@@ -241,15 +263,17 @@
     align-items: center;
     gap: 20px;
     z-index: 101;
-    border-left: 1px solid #333;
+    border-left: 1px solid #333; 
     padding-left: 24px;
     flex-shrink: 0;
 
     @media (max-width: 768px) {
       order: 3;
-      padding-left: 0;
+      padding-left: 8px; 
       border-left: none;
-      gap: 0;
+      gap: 0; 
+      margin-left: 0;
+      flex-shrink: 0;
     }
   }
 
@@ -367,34 +391,34 @@
 
     @media (max-width: 768px) {
       order: 2;
-      margin-left: 0;
+      margin-left: auto;
+      margin-right: 4px;
       padding-left: 0;
       border-left: none;
-      flex: 1;
-      justify-content: center;
+      flex-shrink: 1; 
+      min-width: 0;
 
       .auth-links {
-        gap: 8px;
+        gap: 4px; 
         margin-left: 0;
-
-        .register-btn,
-        .login-btn {
-          padding: 6px 10px;
-          font-size: 0.8rem;
+        
+        .register-btn, .login-btn {
+          padding: 5px 7px; 
+          font-size: 0.72rem; 
         }
       }
-
+      
       .user-profile {
-        gap: 12px;
-
+        gap: 8px;
+        
         .user-name-link,
         .admin-link {
           display: none;
         }
 
         .logout-btn {
-          padding: 6px 10px;
-          font-size: 0.8rem;
+          padding: 5px 8px;
+          font-size: 0.75rem;
         }
       }
     }
@@ -412,7 +436,7 @@
     position: relative;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    flex-shrink: 0; 
 
     @media (max-width: 768px) {
       order: 1;
@@ -441,16 +465,16 @@
       }
 
       &::before {
-        top: -8px;
+        top: -8px; 
       }
 
       &::after {
-        top: 8px;
+        top: 8px; 
       }
     }
 
     &.active .burger-line {
-      background-color: transparent;
+      background-color: transparent; 
 
       &::before {
         transform: translateY(8px) rotate(45deg);
@@ -466,3 +490,4 @@
     }
   }
 }
+
