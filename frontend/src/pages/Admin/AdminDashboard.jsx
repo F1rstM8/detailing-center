@@ -20,7 +20,7 @@ const AdminDashboard = () => {
     const newOrders = orders.filter((o) => o.status === "Новый").length;
     const inProgressOrders = orders.filter((o) => o.status === "В работе").length; 
 
-    // Подсчет популярности услуг
+
     const serviceCounts = {};
     orders.forEach(order => {
       order.items.forEach(item => {
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
       .map(([title, count]) => ({ title, count }))
       .sort((a, b) => b.count - a.count);
 
-    // Высчитываем максимальное значение для отрисовки 100% ширины на графике
+   
     const maxServiceCount = popularServices.length > 0 ? Math.max(...popularServices.map(s => s.count)) : 0;
 
     return { totalOrders, totalRevenue, completedOrders, newOrders, inProgressOrders, popularServices, maxServiceCount };
@@ -84,13 +84,13 @@ const AdminDashboard = () => {
             </div>
           </section>
 
-          {/* НОВЫЙ БЛОК: Горизонтальная диаграмма популярности */}
+          
           {stats.popularServices.length > 0 && (
             <section className="admin-popularity">
               <h3>График востребованности услуг</h3>
               <div className="popularity-chart">
                 {stats.popularServices.map((service, index) => {
-                  // Считаем ширину полосы в процентах
+               
                   const percentage = Math.round((service.count / stats.maxServiceCount) * 100);
 
                   return (

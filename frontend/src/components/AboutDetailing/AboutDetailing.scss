@@ -1,8 +1,9 @@
+@import "./variables";
 .about-detailing {
   background-color: transparent; 
   border-bottom: none; 
   padding: 80px 20px;
-  color: #fff;
+  color: $text-main;
 
   &__container {
     max-width: 1200px;
@@ -37,8 +38,8 @@
         justify-content: center;
         min-width: 26px;
         height: 26px;
-        border: 2px solid #4caf50;
-        color: #4caf50;
+        border: 2px solid $primary-color;
+        color: $primary-color  ;
         border-radius: 50%;
         font-size: 0.85rem;
         font-weight: bold;
@@ -49,7 +50,7 @@
         margin: 0;
         font-size: 0.95rem;
         line-height: 1.6;
-        color: #d0d0d0;
+        color: $text-light-grey
       }
     }
   }
@@ -70,8 +71,8 @@
         border-radius: 14px;
         overflow: hidden;
         margin-bottom: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        border: 1px solid #333;
+        box-shadow: 0 8px 20px $shadow-dark;
+        border: 1px solid $border-dark;
 
         img {
           width: 100%;
@@ -85,12 +86,12 @@
         font-size: 1.25rem;
         margin-bottom: 10px;
         font-weight: 600;
-        color: #fff;
+        color: $text-main;
       }
 
       p {
         font-size: 0.88rem;
-        color: #aaa;
+        color: $text-gray  ;
         line-height: 1.5;
         margin: 0;
       }
@@ -111,21 +112,21 @@
 
     .about-btn {
       display: inline-block;
-      background-color: #4caf50;
-      color: #fff;
+      background-color: $primary-color;
+      color: $text-main;
       text-decoration: none;
       padding: 16px 36px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 0.95rem;
       letter-spacing: 0.5px;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 4px 15px $green-glow;
       transition: all 0.3s ease;
 
       &:hover {
-        background-color: #43a047;
+        background-color: $primary-alt;
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.45);
+        box-shadow: 0 6px 20px $green-glow-strong;
       }
     }
   }

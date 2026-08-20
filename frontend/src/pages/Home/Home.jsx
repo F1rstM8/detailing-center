@@ -61,7 +61,7 @@ const Home = () => {
   ];
 
   return (
-    <main className="page-content home-page">
+    <div className="page-content home-page">
       
 
       <section className="features-section">
@@ -146,7 +146,7 @@ const Home = () => {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

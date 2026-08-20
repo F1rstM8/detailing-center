@@ -25,7 +25,7 @@ const Contacts = () => {
   ];
 
   return (
-    <main className="page-content contacts-page">
+    <section className="page-content contacts-page">
       <div className="contacts-container">
         <header className="contacts-header">
           <h2>{t("contacts_title")}</h2>
@@ -73,7 +73,7 @@ const Contacts = () => {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 

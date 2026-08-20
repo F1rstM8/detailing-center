@@ -2,31 +2,17 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
 import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
 import Footer from "./components/Footer/Footer";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
 import Cart from "./pages/Cart/Cart";
 import Blog from "./pages/Blog/Blog";
 import ServicesPage from "./pages/ServicesPage/ServicesPage";
 import Portfolio from "./pages/Portfolio/Portfolio";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Contacts from "./pages/Contacts/Contacts";
-
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
-const LandingPage = () => {
-  return (
-    <>
-      <Hero />
-      <Home />
-      <Portfolio />
-      <Blog />
-      <Contacts />
-    </>
-  );
-};
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   return (

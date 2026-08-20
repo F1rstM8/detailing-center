@@ -24,14 +24,16 @@ const Portfolio = () => {
 
   if (isLoading) {
     return (
-      <main className="page-content portfolio-page">
+      
+      <div className="page-content portfolio-page">
         <div className="portfolio-loader">{t("loading_portfolio", "Загрузка работ...")}</div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="page-content portfolio-page">
+   
+    <section className="page-content portfolio-page">
       <div className="portfolio-container">
         <div className="portfolio-header">
           <h2>{t("portfolio_section_title")}</h2>
@@ -63,7 +65,7 @@ const Portfolio = () => {
           })}
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 
