@@ -100,9 +100,9 @@
     gap: 40px;
 
     @media (max-width: 768px) {
-      padding: 10px 15px 12px 15px; 
+      padding: 10px 15px 12px 15px;
       gap: 0;
-      justify-content: space-between; 
+      justify-content: space-between;
     }
   }
 
@@ -241,15 +241,15 @@
     align-items: center;
     gap: 20px;
     z-index: 101;
-    border-left: 1px solid #333; 
+    border-left: 1px solid #333;
     padding-left: 24px;
     flex-shrink: 0;
 
     @media (max-width: 768px) {
       order: 3;
-      padding-left: 0; 
+      padding-left: 0;
       border-left: none;
-      gap: 0; 
+      gap: 0;
     }
   }
 
@@ -374,18 +374,19 @@
       justify-content: center;
 
       .auth-links {
-        gap: 8px; 
+        gap: 8px;
         margin-left: 0;
-        
-        .register-btn, .login-btn {
-          padding: 6px 10px; 
-          font-size: 0.8rem; 
+
+        .register-btn,
+        .login-btn {
+          padding: 6px 10px;
+          font-size: 0.8rem;
         }
       }
-      
+
       .user-profile {
         gap: 12px;
-        
+
         .user-name-link,
         .admin-link {
           display: none;
@@ -411,7 +412,7 @@
     position: relative;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 
     @media (max-width: 768px) {
       order: 1;
@@ -440,16 +441,16 @@
       }
 
       &::before {
-        top: -8px; 
+        top: -8px;
       }
 
       &::after {
-        top: 8px; 
+        top: 8px;
       }
     }
 
     &.active .burger-line {
-      background-color: transparent; 
+      background-color: transparent;
 
       &::before {
         transform: translateY(8px) rotate(45deg);
@@ -465,4 +466,3 @@
     }
   }
 }
-

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import AuthModal from "../AuthModal/AuthModal";
 import "./Header.scss";
 
-const LOGO_TEXT = "d3garage";
+const LOGO_TEXT = "D3garage";
 const CURRENCY = "PLN";
 
 const ROLES = {
@@ -24,7 +24,7 @@ const LANGUAGES = [
 ];
 
 const NAV_LINKS = [
-  { to: "/services", key: "nav_services", defaultText: "Услуги" }, 
+  { to: "/services", key: "nav_services", defaultText: "Услуги" },
   { to: "/portfolio", key: "nav_portfolio", defaultText: "Портфолио" },
   { to: "/blog", key: "nav_blog", defaultText: "Блог" },
   { to: "/contacts", key: "nav_contacts", defaultText: "Контакты" },
@@ -68,32 +68,40 @@ const Header = () => {
 
   return (
     <header className="header">
-      
-      {/* --- 1. ВЕРХНИЙ УРОВЕНЬ (На десктопе виден полностью) --- */}
       <div className="header__top">
         <div className="header__top-container">
-          
           <div className="header__top-left">
             <span className="header__info-item">
               📍 Kraków, ul. Przykładowa 12
             </span>
-            <span className="header__info-item">
-              🕒 Пн-Сб: 09:00 - 19:00
-            </span>
+            <span className="header__info-item">🕒 Пн-Сб: 09:00 - 19:00</span>
           </div>
 
           <div className="header__top-right">
-            <a href="mailto:info@d3garage.pl" className="header__info-item header__info-link">
-              ✉️ info@d3garage.pl
-            </a>
-            
-            <a 
-              href="https://www.instagram.com/d3_garage_pl/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="mailto:info@d3garage.pl"
               className="header__info-item header__info-link"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ verticalAlign: 'middle' }}>
+              ✉️ info@d3garage.pl
+            </a>
+
+            <a
+              href="https://www.instagram.com/d3_garage_pl/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="header__info-item header__info-link"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ verticalAlign: "middle" }}
+              >
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -104,7 +112,7 @@ const Header = () => {
             <a href="tel:+48123456789" className="header__phone">
               📞 +48 123 456 789
             </a>
-            
+
             <select
               className="header__lang"
               onChange={handleLanguageChange}
@@ -117,11 +125,9 @@ const Header = () => {
               ))}
             </select>
           </div>
-
         </div>
       </div>
 
-      {/* --- 2. ОСНОВНОЙ УРОВЕНЬ --- */}
       <div className="header__main">
         <div className="header__container">
           <div className="header__logo">
@@ -130,13 +136,18 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Мобильное меню (включая ссылки и спрятанные контакты) */}
           <nav className={`header__nav ${isMenuOpen ? "open" : ""}`}>
+            <div className="header__mobile-logo">
+              <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                <span>{LOGO_TEXT}</span>
+              </Link>
+            </div>
+
             <div className="header__nav-links">
               {NAV_LINKS.map((link) => (
-                <Link 
-                  key={link.to} 
-                  to={link.to} 
+                <Link
+                  key={link.to}
+                  to={link.to}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t(link.key, link.defaultText)}
@@ -144,12 +155,20 @@ const Header = () => {
               ))}
             </div>
 
-            {/* Блок контактов для мобильного меню (скрыт на десктопе) */}
             <div className="header__mobile-info">
-              <div className="mobile-info-item">📍 Kraków, ul. Przykładowa 12</div>
+              <div className="mobile-info-item">
+                📍 Kraków, ul. Przykładowa 12
+              </div>
               <div className="mobile-info-item">🕒 Пн-Сб: 09:00 - 19:00</div>
-              <a href="mailto:info@d3garage.pl" className="mobile-info-item">✉️ info@d3garage.pl</a>
-              <a href="https://www.instagram.com/d3_garage_pl/" target="_blank" rel="noopener noreferrer" className="mobile-info-item">
+              <a href="mailto:info@d3garage.pl" className="mobile-info-item">
+                ✉️ info@d3garage.pl
+              </a>
+              <a
+                href="https://www.instagram.com/d3_garage_pl/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mobile-info-item"
+              >
                 📸 Instagram
               </a>
               <div className="mobile-lang-wrapper">
