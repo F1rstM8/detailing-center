@@ -1,7 +1,8 @@
+@import "../../styles/variables";
 .services-page {
   padding: 60px 20px;
-  background-color: #121212;
-  color: #fff;
+  background-color: $bg-main;
+  color: $text-main;
   min-height: 100vh;
 
   .services-container {
@@ -17,7 +18,7 @@
 
     .services-subtitle {
       text-align: center;
-      color: #aaa;
+      color: $text-secondary;
       margin-bottom: 50px;
       font-size: 1.1rem;
       max-width: 700px;
@@ -33,18 +34,21 @@
 
     .service-card {
       background-color: #1e1e1e;
-      border: 1px solid #333;
+      border: 1px solid $border-dark;
       border-radius: 12px;
       padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 
       &:hover {
         transform: translateY(-5px);
-        border-color: #4caf50;
-        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+        border-color: $primary-color;
+        box-shadow: 0 8px 25px $green-glow-subtle;
       }
 
       .service-header {
@@ -53,7 +57,7 @@
         .service-category {
           font-size: 0.75rem;
           text-transform: uppercase;
-          color: #4caf50;
+          color: $primary-color;
           letter-spacing: 1px;
           margin-bottom: 10px;
           display: inline-block;
@@ -71,7 +75,7 @@
       }
 
       .service-desc {
-        color: #ccc;
+        color: $text-dimmed;
         font-size: 0.95rem;
         line-height: 1.6;
         flex-grow: 1;
@@ -82,7 +86,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-top: 1px solid #333;
+        border-top: 1px solid $border-dark;
         padding-top: 20px;
 
         .service-details {
@@ -92,19 +96,19 @@
 
           .service-time {
             font-size: 0.85rem;
-            color: #888;
+            color: $text-dark;
           }
 
           .service-price {
             font-size: 1.25rem;
             font-weight: bold;
-            color: #fff;
+            color: $text-main;
           }
         }
 
         .add-to-cart-btn {
-          background-color: #4caf50;
-          color: #fff;
+          background-color: $primary-color;
+          color: $text-main;
           border: none;
           padding: 10px 20px;
           border-radius: 6px;
@@ -115,11 +119,11 @@
           box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
 
           &:hover {
-            background-color: #45a049;
+            background-color: $primary-hover;
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 6px 15px $green-glow;
           }
-          
+
           &:active {
             transform: translateY(0);
           }
@@ -169,12 +173,12 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
-  background-color: #1e1e1e;
-  border-left: 4px solid #4caf50;
-  color: #fff;
+  background-color: $bg-card;
+  border-left: 4px solid $primary-color;
+  color: $text-main;
   padding: 16px 24px;
   border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px $shadow-main;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -183,7 +187,7 @@
 
   .toast-icon {
     background-color: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
+    color: $primary-color;
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -200,7 +204,7 @@
     line-height: 1.4;
 
     strong {
-      color: #4caf50;
+      color: $primary-color;
     }
   }
 }

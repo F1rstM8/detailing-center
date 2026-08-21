@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import "./Blog.scss"; 
+import "./Blog.scss";
 
 const Blog = () => {
- 
   const { t, i18n } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,25 +29,34 @@ const Blog = () => {
     }
   };
 
-
   const currentLang = i18n.language;
 
   return (
     <section className="page-content blog-page">
       <div className="blog-container">
-        <h2 className="blog-page__title">{t("blog_page_title", "Блог о детейлинге")}</h2>
-        
+        <h2 className="blog-page__title">
+          {t("blog_page_title", "Блог о детейлинге")}
+        </h2>
+
         {isLoading ? (
-          <div style={{ textAlign: "center", padding: "40px 0", color: "#aaa" }}>
+          <div className="blog-loader">
             {t("loading_posts", "Загрузка статей...")}
           </div>
         ) : (
           <div className="blog-page__list">
             {posts.map((post) => {
-             
-              const postTitle = currentLang === 'pl' && post.title_pl ? post.title_pl : post.title_ru;
-              const postExcerpt = currentLang === 'pl' && post.excerpt_pl ? post.excerpt_pl : post.excerpt_ru;
-              const postContent = currentLang === 'pl' && post.content_pl ? post.content_pl : post.content_ru;
+              const postTitle =
+                currentLang === "pl" && post.title_pl
+                  ? post.title_pl
+                  : post.title_ru;
+              const postExcerpt =
+                currentLang === "pl" && post.excerpt_pl
+                  ? post.excerpt_pl
+                  : post.excerpt_ru;
+              const postContent =
+                currentLang === "pl" && post.content_pl
+                  ? post.content_pl
+                  : post.content_ru;
 
               return (
                 <article key={post.id} className="blog-post">
@@ -57,23 +65,21 @@ const Blog = () => {
                   </div>
                   <div className="blog-post__info">
                     <span className="blog-post__date">{post.date}</span>
-                    
-                  
+
                     <h2>{postTitle}</h2>
-                    
-                  
+
                     <p className="blog-post__text">
-                      {expandedPostId === post.id 
-                        ? (postContent || postExcerpt) 
+                      {expandedPostId === post.id
+                        ? postContent || postExcerpt
                         : postExcerpt}
                     </p>
-                    
-                    <button 
+
+                    <button
                       className="blog-post__read-more"
                       onClick={() => togglePost(post.id)}
                     >
-                      {expandedPostId === post.id 
-                        ? t("blog_hide", "Скрыть") 
+                      {expandedPostId === post.id
+                        ? t("blog_hide", "Скрыть")
                         : t("blog_read_more", "Читать далее →")}
                     </button>
                   </div>

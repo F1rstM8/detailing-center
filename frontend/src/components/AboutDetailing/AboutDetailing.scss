@@ -1,7 +1,7 @@
-@import "./variables";
+@import "../../styles/variables";
 .about-detailing {
-  background-color: transparent; 
-  border-bottom: none; 
+  background-color: transparent;
+  border-bottom: none;
   padding: 80px 20px;
   color: $text-main;
 
@@ -39,7 +39,7 @@
         min-width: 26px;
         height: 26px;
         border: 2px solid $primary-color;
-        color: $primary-color  ;
+        color: $primary-color;
         border-radius: 50%;
         font-size: 0.85rem;
         font-weight: bold;
@@ -50,7 +50,7 @@
         margin: 0;
         font-size: 0.95rem;
         line-height: 1.6;
-        color: $text-light-grey
+        color: $text-light-grey;
       }
     }
   }
@@ -78,7 +78,9 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+          transition:
+            transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+            filter 0.5s ease;
         }
       }
 
@@ -91,7 +93,7 @@
 
       p {
         font-size: 0.88rem;
-        color: $text-gray  ;
+        color: $text-gray;
         line-height: 1.5;
         margin: 0;
       }
@@ -124,7 +126,7 @@
       transition: all 0.3s ease;
 
       &:hover {
-        background-color: $primary-alt;
+        background-color: $primary-hover;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px $green-glow-strong;
       }

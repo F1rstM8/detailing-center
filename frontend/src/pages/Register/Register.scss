@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 .register-page {
   display: flex;
   justify-content: center;
@@ -7,29 +8,29 @@
 }
 
 .register-container {
-  background-color: #1a1a1a;
+  background-color: $bg-card;
   padding: 40px;
   border-radius: 12px;
   width: 100%;
-  max-width: 520px; 
+  max-width: 520px;
   box-sizing: border-box;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px $shadow-main;
 
   h2 {
-    color: #fff;
+    color: $text-main;
     margin-bottom: 24px;
     text-align: center;
   }
 }
 
 .error-message {
-  background-color: rgba(255, 82, 82, 0.1);
-  color: #ff5252;
+  background-color: $danger-bg;
+  color: $danger-color;
   padding: 10px;
   border-radius: 6px;
   margin-bottom: 20px;
   text-align: center;
-  border: 1px solid rgba(255, 82, 82, 0.3);
+  border: 1px solid $danger-border;
 }
 
 .register-form {
@@ -41,10 +42,10 @@
     display: flex;
     gap: 16px;
     width: 100%;
-    
+
     .form-group {
-      flex: 1; 
-      min-width: 0; 
+      flex: 1;
+      min-width: 0;
     }
 
     @media (max-width: 480px) {
@@ -60,7 +61,7 @@
     width: 100%;
 
     label {
-      color: #a0a0a0;
+      color: $text-secondary;
       font-size: 14px;
     }
 
@@ -69,33 +70,33 @@
       box-sizing: border-box;
       padding: 12px 16px;
       border-radius: 8px;
-      border: 1px solid #333;
-      background-color: #2a2a2a;
-      color: #fff;
+      border: 1px solid $border-dark;
+      background-color: $bg-input-focus;
+      color: $text-main;
       font-size: 16px;
       transition: border-color 0.3s;
 
       &:focus {
         outline: none;
-        border-color: #4caf50;
+        border-color: $primary-color;
       }
 
       &.input-error {
-        border-color: #ff5252;
+        border-color: $danger-color;
       }
 
       &:-webkit-autofill,
-      &:-webkit-autofill:hover, 
-      &:-webkit-autofill:focus, 
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
       &:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px #2a2a2a inset !important;
+        -webkit-box-shadow: 0 0 0 30px $bg-input-focus inset !important;
         -webkit-text-fill-color: white !important;
         transition: background-color 5000s ease-in-out 0s;
       }
     }
 
     .error-message {
-      color: #ff5252;
+      color: $danger-color;
       font-size: 12px;
       margin-top: 4px;
       background: none;
@@ -106,7 +107,7 @@
   }
 
   .register-submit-btn {
-    background-color: #4caf50;
+    background-color: $primary-color;
     color: white;
     border: none;
     padding: 14px;
@@ -114,12 +115,14 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+    transition:
+      background-color 0.3s,
+      transform 0.1s;
     margin-top: 10px;
     width: 100%;
 
     &:hover {
-      background-color: #45a049;
+      background-color: $primary-hover;
     }
 
     &:active {
@@ -131,11 +134,11 @@
 .login-redirect {
   margin-top: 20px;
   text-align: center;
-  color: #a0a0a0;
+  color: $text-secondary;
   font-size: 14px;
 
   a {
-    color: #4caf50;
+    color: $primary-color;
     text-decoration: none;
     font-weight: bold;
 

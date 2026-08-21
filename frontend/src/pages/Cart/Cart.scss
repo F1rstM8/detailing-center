@@ -1,9 +1,10 @@
+@import "../../styles/variables";
 .cart-page {
   display: flex;
   justify-content: center;
   padding: 60px 20px;
   min-height: calc(100vh - 80px);
-  background-color: #121212;
+  background-color: $bg-main;
 }
 
 .cart-container {
@@ -11,7 +12,7 @@
   max-width: 1000px;
 
   h2 {
-    color: #fff;
+    color: $text-main;
     font-size: 2.5rem;
     margin-bottom: 40px;
     text-align: center;
@@ -21,14 +22,14 @@
 
 .cart-empty {
   background-color: #1e1e1e;
-  border: 1px dashed #444;
+  border: 1px dashed $border-medium;
   border-radius: 12px;
   padding: 80px 20px;
   text-align: center;
   transition: border-color 0.3s ease;
 
   &:hover {
-    border-color: #555;
+    border-color: $border-light;
   }
 
   .empty-icon {
@@ -43,21 +44,21 @@
   }
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.5rem;
     margin-bottom: 15px;
   }
 
   p {
-    color: #aaa;
+    color: $text-secondary;
     margin-bottom: 30px;
   }
 
   .btn-primary {
     display: inline-block;
     padding: 14px 28px;
-    background-color: #4caf50;
-    color: #fff;
+    background-color: $primary-color;
+    color: $text-main;
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
@@ -65,9 +66,9 @@
     box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
 
     &:hover {
-      background-color: #45a049;
+      background-color: $primary-hover;
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 6px 15px $green-glow;
     }
 
     &:active {
@@ -90,29 +91,32 @@
 
 .cart-item {
   background-color: #1e1e1e;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   border-radius: 12px;
   padding: 20px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   &:hover {
-    border-color: #4caf50;
+    border-color: $primary-color;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 
   .item-info {
     h3 {
-      color: #fff;
+      color: $text-main;
       font-size: 1.2rem;
       margin-bottom: 8px;
     }
 
     .item-category {
-      color: #4caf50;
+      color: $primary-color;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -130,7 +134,7 @@
     gap: 20px;
 
     .item-price {
-      color: #fff;
+      color: $text-main;
       font-weight: bold;
       font-size: 1.25rem;
     }
@@ -138,7 +142,7 @@
     .remove-btn {
       background: transparent;
       border: none;
-      color: #ff5252;
+      color: $danger-color;
       font-size: 1.2rem;
       cursor: pointer;
       width: 36px;
@@ -159,7 +163,7 @@
 
 .cart-summary {
   background-color: #1e1e1e;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   border-radius: 12px;
   padding: 30px;
   height: fit-content;
@@ -168,10 +172,10 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.5rem;
     margin-bottom: 25px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $border-dark;
     padding-bottom: 15px;
   }
 
@@ -179,18 +183,18 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    color: #aaa;
+    color: $text-secondary;
 
     &.total {
       margin-top: 25px;
       padding-top: 20px;
-      border-top: 1px dashed #444;
-      color: #fff;
+      border-top: 1px dashed $border-medium;
+      color: $text-main;
       font-size: 1.2rem;
       font-weight: bold;
 
       span:last-child {
-        color: #4caf50;
+        color: $primary-color;
         font-size: 1.4rem;
       }
     }
@@ -200,8 +204,8 @@
     width: 100%;
     margin-top: 30px;
     padding: 16px;
-    background-color: #4caf50;
-    color: #fff;
+    background-color: $primary-color;
+    color: $text-main;
     border: none;
     border-radius: 6px;
     font-size: 1.1rem;
@@ -212,18 +216,18 @@
     position: relative;
 
     &:hover {
-      background-color: #45a049;
+      background-color: $primary-hover;
       transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 6px 15px $green-glow;
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 2px 5px $green-glow;
     }
 
     &.processing {
-      background-color: #555 !important;
+      background-color: $border-light !important;
       cursor: not-allowed;
       color: transparent;
       box-shadow: none !important;
@@ -239,7 +243,7 @@
         margin-top: -10px;
         margin-left: -10px;
         border: 3px solid rgba(255, 255, 255, 0.3);
-        border-top-color: #fff;
+        border-top-color: $text-main;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
@@ -257,23 +261,24 @@
       flex-direction: column;
       gap: 5px;
 
-      input, textarea {
+      input,
+      textarea {
         width: 100%;
         padding: 12px 15px;
-        background-color: #2a2a2a;
-        border: 1px solid #444;
+        background-color: $bg-input-focus;
+        border: 1px solid $border-medium;
         border-radius: 8px;
-        color: #fff;
+        color: $text-main;
         font-size: 0.95rem;
         outline: none;
         transition: border-color 0.3s ease;
 
         &:focus {
-          border-color: #4caf50;
+          border-color: $primary-color;
         }
 
         &.input-error {
-          border-color: #ff5252;
+          border-color: $danger-color;
         }
       }
 
@@ -282,7 +287,7 @@
       }
 
       .error-text {
-        color: #ff5252;
+        color: $danger-color;
         font-size: 0.8rem;
         margin-left: 5px;
       }
@@ -292,13 +297,13 @@
   .auth-required-message {
     margin-top: 20px;
     padding: 20px;
-    background-color: rgba(255, 152, 0, 0.1);
-    border: 1px dashed #ff9800;
+    background-color: $warning-glow;
+    border: 1px dashed $warning-color;
     border-radius: 8px;
     text-align: center;
 
     p {
-      color: #ffd54f;
+      color: $warning-text;
       font-size: 0.95rem;
       margin-bottom: 15px;
       line-height: 1.4;
@@ -308,19 +313,21 @@
       display: inline-block;
       width: 100%;
       text-align: center;
-      background-color: #4caf50;
-      color: #ffffff;
+      background-color: $primary-color;
+      color: $text-main;
       text-decoration: none;
       padding: 12px 20px;
       border-radius: 8px;
       font-weight: bold;
       font-size: 1rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
       border: none;
       box-sizing: border-box;
 
       &:hover {
-        background-color: #45a049;
+        background-color: $primary-hover;
         transform: translateY(-2px);
       }
     }
@@ -328,7 +335,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .success-container {
@@ -340,17 +349,17 @@
   padding: 80px 20px;
   background-color: #1e1e1e;
   border-radius: 12px;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   animation: fadeIn 0.5s ease forwards;
 
   h2 {
     font-size: 2.2rem;
     margin-bottom: 15px;
-    color: #fff;
+    color: $text-main;
   }
 
   p {
-    color: #aaa;
+    color: $text-secondary;
     margin-bottom: 40px;
     font-size: 1.1rem;
     max-width: 500px;
@@ -360,19 +369,19 @@
   .success-actions {
     display: flex;
     gap: 20px;
-    
+
     .btn-primary {
       display: inline-block;
       padding: 14px 28px;
-      background-color: #4caf50;
-      color: #fff;
+      background-color: $primary-color;
+      color: $text-main;
       text-decoration: none;
       border-radius: 6px;
       font-weight: bold;
       transition: all 0.3s ease;
 
       &:hover {
-        background-color: #45a049;
+        background-color: $primary-hover;
         transform: translateY(-2px);
       }
     }
@@ -381,8 +390,8 @@
       display: inline-block;
       padding: 14px 28px;
       background-color: transparent;
-      color: #fff;
-      border: 1px solid #555;
+      color: $text-main;
+      border: 1px solid $border-light;
       text-decoration: none;
       border-radius: 6px;
       font-weight: bold;
@@ -397,8 +406,14 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .success-animation {
@@ -411,17 +426,19 @@
   border-radius: 50%;
   display: block;
   stroke-width: 4;
-  stroke: #4caf50;
+  stroke: $primary-color;
   stroke-miterlimit: 10;
-  box-shadow: inset 0px 0px 0px #4caf50;
-  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  box-shadow: inset 0px 0px 0px $primary-color;
+  animation:
+    fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
 
   &__circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
     stroke-width: 4;
     stroke-miterlimit: 10;
-    stroke: #4caf50;
+    stroke: $primary-color;
     fill: none;
     animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
   }
@@ -435,23 +452,32 @@
 }
 
 @keyframes stroke {
-  100% { stroke-dashoffset: 0; }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes scale {
-  0%, 100% { transform: none; }
-  50% { transform: scale3d(1.1, 1.1, 1); }
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
 }
 
 @keyframes fill {
-  100% { box-shadow: inset 0px 0px 0px 40px transparent; }
+  100% {
+    box-shadow: inset 0px 0px 0px 40px transparent;
+  }
 }
 
 @media (max-width: 992px) {
   .cart-content {
     grid-template-columns: 1fr;
   }
-  
+
   .cart-summary {
     position: static;
     margin-top: 10px;
@@ -462,7 +488,7 @@
   .cart-page {
     padding: 40px 15px;
   }
-  
+
   .cart-container h2 {
     font-size: 2rem;
     margin-bottom: 30px;
@@ -477,7 +503,7 @@
     .item-actions {
       width: 100%;
       justify-content: space-between;
-      border-top: 1px solid #333;
+      border-top: 1px solid $border-dark;
       padding-top: 15px;
       margin-top: 5px;
     }
@@ -491,7 +517,8 @@
       width: 100%;
       gap: 15px;
 
-      .btn-primary, .btn-secondary {
+      .btn-primary,
+      .btn-secondary {
         width: 100%;
       }
     }

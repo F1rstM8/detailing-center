@@ -1,9 +1,10 @@
+@import "../../styles/variables";
 .footer {
-  background-color: #0a0a0a;
-  border-top: 1px solid #222;
+  background-color: $bg-body;
+  border-top: 1px solid $bg-surface;
   padding: 50px 20px 20px;
   margin-top: auto;
-  color: #aaa;
+  color: $text-secondary;
 
   &__container {
     max-width: 1200px;
@@ -20,7 +21,7 @@
     min-width: 220px;
 
     h3 {
-      color: #fff;
+      color: $text-main;
       margin-bottom: 20px;
       font-size: 1.2rem;
       font-weight: 600;
@@ -40,7 +41,7 @@
     gap: 12px;
 
     a {
-      color: #aaa;
+      color: $text-secondary;
       text-decoration: none;
       font-size: 0.95rem;
       transition: all 0.3s ease;
@@ -48,21 +49,21 @@
       align-items: center;
 
       &:hover {
-        color: #4caf50;
+        color: $primary-color;
         transform: translateX(5px);
       }
     }
 
     .social-link {
       gap: 10px;
-      
+
       svg {
         transition: transform 0.3s ease;
       }
 
       &:hover {
         transform: none;
-        
+
         svg {
           transform: scale(1.1);
         }
@@ -72,7 +73,7 @@
 
   &__bottom {
     text-align: center;
-    border-top: 1px solid #222;
+    border-top: 1px solid $bg-surface;
     padding-top: 20px;
     font-size: 0.85rem;
     color: #777;
@@ -96,10 +97,10 @@
 
     &__nav {
       align-items: center;
-      
+
       a {
         justify-content: center;
-        
+
         &:hover {
           transform: none;
         }

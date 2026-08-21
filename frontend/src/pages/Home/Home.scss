@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 .home-page {
   display: flex;
   flex-direction: column;
@@ -25,7 +26,7 @@
 
   h1 {
     font-size: 3.5rem;
-    color: #ffffff;
+    color: $text-main;
     margin-bottom: 20px;
     line-height: 1.2;
 
@@ -36,7 +37,7 @@
 
   p {
     font-size: 1.2rem;
-    color: #a0a0a0;
+    color: $text-secondary;
     margin-bottom: 40px;
     line-height: 1.6;
   }
@@ -61,19 +62,19 @@
   }
 
   .btn-primary {
-    background-color: #4caf50;
-    color: #ffffff;
+    background-color: $primary-color;
+    color: $text-main;
 
     &:hover {
-      background-color: #45a049;
+      background-color: $primary-hover;
       box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
     }
   }
 
   .btn-secondary {
     background-color: transparent;
-    color: #ffffff;
-    border: 1px solid #4caf50;
+    color: $text-main;
+    border: 1px solid $primary-color;
 
     &:hover {
       background-color: rgba(76, 175, 80, 0.1);
@@ -90,7 +91,7 @@
   h2 {
     text-align: center;
     font-size: 2.5rem;
-    color: #ffffff;
+    color: $text-main;
     margin-bottom: 50px;
   }
 }
@@ -102,16 +103,16 @@
 }
 
 .feature-card {
-  background-color: #1a1a1a;
+  background-color: $bg-card;
   padding: 40px 30px;
   border-radius: 12px;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   text-align: center;
   transition: transform 0.3s;
 
   &:hover {
     transform: translateY(-10px);
-    border-color: #4caf50;
+    border-color: $primary-color;
   }
 
   .feature-icon {
@@ -120,13 +121,13 @@
   }
 
   h3 {
-    color: #ffffff;
+    color: $text-main;
     margin-bottom: 15px;
     font-size: 1.3rem;
   }
 
   p {
-    color: #a0a0a0;
+    color: $text-secondary;
     line-height: 1.5;
   }
 }
@@ -140,14 +141,14 @@
   h2 {
     text-align: center;
     font-size: 2.5rem;
-    color: #ffffff;
+    color: $text-main;
     margin-bottom: 50px;
   }
 }
 
 .home-services-loader {
   text-align: center;
-  color: #aaa;
+  color: $text-secondary;
   padding: 40px 0;
 }
 
@@ -159,27 +160,29 @@
 }
 
 .home-service-card {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
+  background-color: $bg-card;
+  border: 1px solid $border-dark;
   border-radius: 12px;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-8px);
-    border-color: #4caf50;
+    border-color: $primary-color;
   }
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.3rem;
     margin-bottom: 15px;
   }
 
   .desc {
-    color: #a0a0a0;
+    color: $text-secondary;
     font-size: 0.95rem;
     line-height: 1.5;
     margin-bottom: 25px;
@@ -195,13 +198,13 @@
     .price {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #4caf50;
+      color: $primary-color;
     }
 
     .add-to-cart-btn {
       background-color: transparent;
-      color: #4caf50;
-      border: 1px solid #4caf50;
+      color: $primary-color;
+      border: 1px solid $primary-color;
       padding: 8px 16px;
       border-radius: 6px;
       cursor: pointer;
@@ -209,8 +212,8 @@
       transition: all 0.3s;
 
       &:hover {
-        background-color: #4caf50;
-        color: #fff;
+        background-color: $primary-color;
+        color: $text-main;
       }
 
       &:active {
@@ -218,8 +221,8 @@
       }
 
       &.added {
-        background-color: #4caf50;
-        color: #fff;
+        background-color: $primary-color;
+        color: $text-main;
       }
     }
   }
@@ -233,15 +236,15 @@
     display: inline-block;
     padding: 16px 32px;
     border-radius: 8px;
-    background-color: #4caf50;
-    color: #ffffff;
+    background-color: $primary-color;
+    color: $text-main;
     font-size: 1.1rem;
     font-weight: bold;
     text-decoration: none;
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #45a049;
+      background-color: $primary-hover;
       box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
     }
   }

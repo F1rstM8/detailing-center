@@ -1,9 +1,10 @@
+@import "../../styles/variables";
 .profile-page {
   display: flex;
   justify-content: center;
   padding: 60px 20px;
   min-height: calc(100vh - 80px);
-  background-color: #121212;
+  background-color: $bg-main;
 }
 
 .profile-container {
@@ -18,7 +19,7 @@
   text-align: center;
 
   h2 {
-    color: #fff;
+    color: $text-main;
     font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -37,7 +38,7 @@
 
 .user-info-card {
   background-color: #1e1e1e;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   border-radius: 16px;
   padding: 40px 30px;
   text-align: center;
@@ -49,8 +50,8 @@
   .user-avatar {
     width: 90px;
     height: 90px;
-    background: linear-gradient(135deg, #4caf50, #2e7d32);
-    color: #fff;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    color: $text-main;
     font-size: 2.8rem;
     font-weight: bold;
     display: flex;
@@ -58,18 +59,22 @@
     align-items: center;
     border-radius: 50%;
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    box-shadow: 0 4px 15px $green-glow;
+    &.admin-avatar {
+      background: linear-gradient(135deg, $warning-color, #f57c00);
+      box-shadow: 0 4px 15px $warning-glow;
+    }
   }
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.6rem;
     margin-bottom: 8px;
     font-weight: 600;
   }
 
   .user-phone {
-    color: #aaa;
+    color: $text-secondary;
     margin-bottom: 25px;
     font-size: 1rem;
   }
@@ -91,9 +96,9 @@
       .label {
         color: #888;
       }
-      
+
       .value {
-        color: #eee;
+        color: $text-muted;
         font-weight: 500;
         text-align: right;
       }
@@ -104,7 +109,7 @@
     width: 100%;
     padding: 14px;
     background-color: transparent;
-    color: #ff5252;
+    color: $danger-color;
     border: 1px solid rgba(255, 82, 82, 0.5);
     border-radius: 10px;
     font-size: 1rem;
@@ -113,18 +118,18 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: rgba(255, 82, 82, 0.1);
-      border-color: #ff5252;
+      background-color: $danger-bg;
+      border-color: $danger-color;
       transform: translateY(-2px);
     }
   }
 }
 
 .profile-orders {
-  margin-top: -5px; 
+  margin-top: -5px;
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.6rem;
     margin-top: 0;
     margin-bottom: 15px;
@@ -134,7 +139,7 @@
 
 .no-orders {
   background-color: #1e1e1e;
-  border: 1px dashed #555;
+  border: 1px dashed $border-light;
   border-radius: 16px;
   padding: 60px 20px;
   text-align: center;
@@ -146,7 +151,7 @@
   gap: 15px;
 
   &::before {
-    content: '📝';
+    content: "📝";
     font-size: 3rem;
     opacity: 0.5;
   }
@@ -160,14 +165,17 @@
 
 .order-card {
   background-color: #1e1e1e;
-  border: 1px solid #333;
+  border: 1px solid $border-dark;
   border-radius: 12px;
   padding: 25px;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-4px);
-    border-color: #4caf50;
+    border-color: $primary-color;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 
@@ -185,20 +193,20 @@
       gap: 8px;
 
       .order-date {
-        color: #999;
+        color: $text-secondary;
         font-size: 0.95rem;
         display: flex;
         align-items: center;
         gap: 8px;
-        
+
         &::before {
-          content: '📅';
+          content: "📅";
           font-size: 1rem;
         }
       }
 
       .order-customer {
-        color: #ffd54f;
+        color: $warning-text;
         font-size: 0.9rem;
       }
     }
@@ -214,14 +222,14 @@
 
       &.status-new {
         background-color: rgba(255, 193, 7, 0.15);
-        color: #ffd54f;
+        color: $warning-text;
         border: 1px solid rgba(255, 193, 7, 0.3);
       }
-      
+
       &.status-progress {
-        background-color: rgba(76, 175, 80, 0.15);
-        color: #81c784;
-        border: 1px solid rgba(76, 175, 80, 0.3);
+        background-color: $green-glow-subtle;
+        color: $success-light;
+        border: 1px solid $green-glow;
       }
     }
   }
@@ -233,7 +241,7 @@
       margin: 0 0 20px 0;
 
       li {
-        color: #ccc;
+        color: $text-dimmed;
         margin-bottom: 10px;
         position: relative;
         padding-left: 20px;
@@ -241,8 +249,8 @@
         line-height: 1.4;
 
         &::before {
-          content: '✓'; 
-          color: #4caf50;
+          content: "✓";
+          color: $primary-color;
           position: absolute;
           left: 0;
           font-weight: bold;
@@ -256,18 +264,18 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
-    border-top: 1px dashed #333;
-    
+    border-top: 1px dashed $border-dark;
+
     .order-total {
       font-weight: 700;
       font-size: 1.2rem;
-      color: #4caf50;
+      color: $primary-color;
     }
 
     .delete-order-btn {
       background-color: transparent;
-      color: #ff5252;
-      border: 1px solid #ff5252;
+      color: $danger-color;
+      border: 1px solid $danger-color;
       padding: 8px 16px;
       border-radius: 6px;
       font-size: 0.9rem;
@@ -276,8 +284,8 @@
       transition: all 0.3s ease;
 
       &:hover {
-        background-color: #ff5252;
-        color: #fff;
+        background-color: $danger-color;
+        color: $text-main;
         box-shadow: 0 4px 12px rgba(255, 82, 82, 0.2);
       }
     }

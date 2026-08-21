@@ -1,3 +1,4 @@
+@import "../../styles/variables";
 .admin-page {
   display: flex;
   justify-content: center;
@@ -15,13 +16,13 @@
   margin-bottom: 40px;
 
   h2 {
-    color: #fff;
+    color: $text-main;
     font-size: 2.2rem;
     margin-bottom: 10px;
   }
 
   p {
-    color: #a0a0a0;
+    color: $text-secondary;
     font-size: 1.1rem;
   }
 }
@@ -33,20 +34,22 @@
   margin-bottom: 40px;
 
   .stat-card {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
+    background-color: $bg-card;
+    border: 1px solid $border-dark;
     border-radius: 12px;
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease;
 
     &:hover {
       transform: translateY(-5px);
-      border-color: #4caf50;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      border-color: $primary-color;
+      box-shadow: 0 8px 25px $bg-body;
     }
 
     .stat-icon {
@@ -57,28 +60,28 @@
     .stat-value {
       font-size: 1.8rem;
       font-weight: 800;
-      color: #fff;
+      color: $text-main;
       margin-bottom: 5px;
 
       &.revenue {
-        color: #4caf50; 
+        color: $primary-color;
       }
 
       &.text-new {
-        color: #ff9800; 
+        color: $warning-color;
       }
 
       &.text-progress {
-        color: #2196f3;
+        color: $accent-blue;
       }
 
       &.text-done {
-        color: #81c784; 
+        color: $success-light;
       }
     }
 
     .stat-label {
-      color: #888;
+      color: $text-dark;
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -89,13 +92,13 @@
 
 .admin-popularity {
   margin-bottom: 40px;
-  background-color: #1a1a1a;
-  border: 1px solid #333;
+  background-color: $bg-card;
+  border: 1px solid $border-dark;
   border-radius: 12px;
   padding: 30px;
 
   h3 {
-    color: #fff;
+    color: $text-main;
     font-size: 1.4rem;
     margin-bottom: 25px;
     font-weight: 600;
@@ -118,7 +121,7 @@
       }
 
       .chart-label {
-        color: #ccc;
+        color: $text-dimmed;
         font-size: 0.95rem;
         text-align: right;
         white-space: nowrap;
@@ -138,7 +141,11 @@
       }
 
       .chart-bar {
-        background: linear-gradient(90deg, #2e7d32 0%, #4caf50 100%);
+        background: linear-gradient(
+          90deg,
+          $primary-dark 0%,
+          $primary-color 100%
+        );
         height: 100%;
         border-radius: 6px;
         display: flex;
@@ -149,10 +156,10 @@
         min-width: 40px;
 
         .chart-value {
-          color: #fff;
+          color: $text-main;
           font-weight: bold;
           font-size: 0.9rem;
-          text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+          text-shadow: 0px 1px 2px $shadow-main;
         }
       }
     }
@@ -160,24 +167,24 @@
 }
 
 .admin-content {
-  background-color: #1a1a1a;
+  background-color: $bg-card;
   padding: 30px;
   border-radius: 12px;
-  border: 1px solid #333;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid $border-dark;
+  box-shadow: 0 10px 30px $shadow-main;
 
   h3 {
-    color: #fff;
+    color: $text-main;
     margin-bottom: 20px;
     font-size: 1.5rem;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $border-dark;
     padding-bottom: 15px;
   }
 }
 
 .no-orders {
   text-align: center;
-  color: #a0a0a0;
+  color: $text-secondary;
   font-size: 1.1rem;
   padding: 40px 0;
 }
@@ -189,14 +196,14 @@
 }
 
 .order-card {
-  background-color: #222;
-  border: 1px solid #444;
+  background-color: $bg-surface;
+  border: 1px solid $border-medium;
   border-radius: 8px;
   padding: 20px;
   transition: transform 0.2s;
 
   &:hover {
-    border-color: #555;
+    border-color: $border-light;
   }
 
   .order-header {
@@ -204,11 +211,11 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid $border-dark;
     padding-bottom: 10px;
 
     .order-date {
-      color: #a0a0a0;
+      color: $text-secondary;
       font-size: 0.9rem;
     }
 
@@ -219,19 +226,19 @@
       font-weight: bold;
 
       &.status-new {
-        background-color: rgba(255, 193, 7, 0.2);
-        color: #ffc107;
+        background-color: $yellow-glow;
+        color: $accent-yellow;
       }
 
       &.status-progress {
-        background-color: rgba(33, 150, 243, 0.2);
-        color: #2196f3;
+        background-color: $blue-glow;
+        color: $accent-blue;
       }
     }
   }
 
   .order-body {
-    color: #e0e0e0;
+    color: $text-muted;
 
     p {
       margin: 5px 0;
@@ -239,20 +246,20 @@
     }
 
     strong {
-      color: #fff;
+      color: $text-main;
     }
 
     .order-services {
       margin: 15px 0;
-      background-color: #1a1a1a;
+      background-color: $bg-card;
       padding: 10px 15px;
       border-radius: 6px;
-      border: 1px solid #333;
+      border: 1px solid $border-dark;
 
       ul {
         margin: 10px 0 0 0;
         padding-left: 20px;
-        color: #b0b0b0;
+        color: $text-secondary;
 
         li {
           margin-bottom: 5px;
@@ -262,7 +269,7 @@
 
     .order-total {
       font-size: 1.1rem;
-      color: #4caf50;
+      color: $primary-color;
       margin-top: 10px;
     }
   }
@@ -283,27 +290,27 @@
     }
 
     .btn-progress {
-      background-color: #2196f3;
-      color: #fff;
+      background-color: $accent-blue;
+      color: $text-main;
 
       &:hover {
-        background-color: #1976d2;
+        background-color: $blue-hover;
       }
     }
 
     .btn-done {
-      background-color: #4caf50;
-      color: #fff;
+      background-color: $primary-color;
+      color: $text-main;
 
       &:hover {
-        background-color: #45a049;
+        background-color: $primary-hover;
       }
     }
 
     .btn-delete {
       background-color: transparent;
-      color: #ff5252;
-      border: 1px solid #ff5252;
+      color: $danger-color;
+      border: 1px solid $danger-color;
       padding: 10px 15px;
       border-radius: 8px;
       font-weight: bold;
@@ -312,8 +319,8 @@
       flex: 1;
 
       &:hover {
-        background-color: #ff5252;
-        color: #fff;
+        background-color: $danger-color;
+        color: $text-main;
       }
     }
   }

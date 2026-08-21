@@ -65,12 +65,11 @@ const Profile = () => {
         <div className="profile-content">
           <aside className="profile-sidebar">
             <div className="user-info-card">
-              <div 
-                className="user-avatar" 
-                style={isAdmin ? { background: "linear-gradient(135deg, #ff9800, #f57c00)", boxShadow: "0 4px 15px rgba(255, 152, 0, 0.3)" } : {}}
-              >
+             
+              <div className={`user-avatar ${isAdmin ? 'admin-avatar' : ''}`}>
                 {isAdmin ? "А" : displayName.charAt(0)}
               </div>
+              
               <h3>{isAdmin ? t("profile_admin", "Администратор") : displayName}</h3>
               <p className="user-phone">{currentUser.phone}</p>
               
