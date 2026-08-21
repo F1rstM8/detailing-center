@@ -1,48 +1,42 @@
-// ==========================================
-// 🎨 ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ПРОЕКТА (SCSS)
-// ==========================================
 
-// --- 1. ФИРМЕННЫЕ И АКЦЕНТНЫЕ ЦВЕТА ---
-$primary-color: #4caf50;          // Основной зеленый (успех, кнопки)
-$primary-hover: #45a049;          // Зеленый при наведении (заменяет #43a047)
-$primary-dark: #2e7d32;           // Темный оттенок зеленого
-$success-light: #81c784;          // Светло-зеленый для статусов
+$primary-color: #4caf50;         
+$primary-hover: #45a049;         
+$primary-dark: #2e7d32;          
+$success-light: #81c784;        
 
-$accent-orange: #ffa726;          // Оранжевый акцент
-$accent-yellow: #ffc107;          // Желтый (статус "Новый")
-$accent-blue: #2196f3;            // Синий (статус "В процессе")
-$blue-hover: #1976d2;             // Синий при наведении
+$accent-orange: #ffa726;          
+$accent-yellow: #ffc107;      
+$accent-blue: #2196f3;           
+$blue-hover: #1976d2;             
 
-$warning-color: #ff9800;          // Оранжевый предупреждающий
-$warning-text: #ffd54f;           // Светло-желтый текст
+$warning-color: #ff9800;        
+$warning-text: #ffd54f;        
 
-$danger-color: #ff5252;           // Красный (ошибки, удаление)
+$danger-color: #ff5252;          
 $danger-border: rgba(255, 82, 82, 0.3);
 $danger-bg: rgba(255, 82, 82, 0.1);
 
-// --- 2. ЦВЕТА ТЕКСТА (Оптимизировано) ---
-$text-main: #ffffff;              // Основной белый
-$text-muted: #e0e0e0;             // Светло-серый (включает бывший #eee)
-$text-dimmed: #c4c4c4;            // Средне-светлый (включает #ccc, #d0d0d0)
-$text-secondary: #a0a0a0;         // Второстепенный (включает #aaa, #999, #b0b0b0)
+
+$text-main: #ffffff;              
+$text-muted: #e0e0e0;            
+$text-dimmed: #c4c4c4;         
+$text-secondary: #a0a0a0;        
 
 
-// --- 3. ФОНЫ И ПОВЕРХНОСТИ ---
-$bg-body: #0a0a0a;                // Глубокий черный фон (футер)
-$bg-main: #121212;                // Основной темный фон (герой, страницы)
-$bg-card: #1a1a1a;                // Фон карточек и модалок
-$bg-surface: #222222;             // Фон инпутов и альт. карточек (вместо #222222 дважды)
-$bg-input-focus: #2a2a2a;         // Фон полей ввода в фокусе / иконок
+$bg-body: #0a0a0a;               
+$bg-main: #121212;               
+$bg-card: #1a1a1a;               
+$bg-surface: #222222;           
+$bg-input-focus: #2a2a2a;      
 
-// --- 4. ГРАНИЦЫ И ЛИНИИ ---
-$border-dark: #333333;            // Темная граница
-$border-medium: #444444;          // Средняя граница (вместо $border-input и $border-dashed)
-$border-light: #555555;           // Светлая граница
+
+$border-dark: #333333;           
+$border-medium: #444444;        
+$border-light: #555555;           
 $text-dark: #888888;
 
-// --- 5. ТЕНИ И ПОЛУПРОЗРАЧНЫЕ ЭФФЕКТЫ ---
-$shadow-main: rgba(0, 0, 0, 0.5); // Универсальная тень (заменяет 0.4 и 0.6)
-$shadow-heavy: rgba(0, 0, 0, 0.7); // Глубокая тень
+$shadow-main: rgba(0, 0, 0, 0.5); 
+$shadow-heavy: rgba(0, 0, 0, 0.7); 
 
 $green-glow: rgba(76, 175, 80, 0.3);
 $green-glow-subtle: rgba(76, 175, 80, 0.15);

@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   ru: {
     translation: {
-      // --- НАВИГАЦИЯ И ШАПКА ---
+     
       nav_services: "Услуги и цены",
       nav_portfolio: "Портфолио",
       nav_blog: "Блог",
@@ -14,7 +14,7 @@ const resources = {
       btn_register: "Регистрация",
       btn_logout: "Выйти",
 
-      // --- ГЛАВНАЯ СТРАНИЦА (Home.jsx) ---
+    
       hero_title: "Премиальный детейлинг в Кракове",
       hero_subtitle:
         "Профессиональный уход, защита кузова и химчистка. Вернем вашему автомобилю состояние нового.",
@@ -37,7 +37,7 @@ const resources = {
       price_from: "от",
       btn_add_to_cart: "В корзину",
 
-      // --- ОТЗЫВЫ (Reviews) ---
+  
       reviews_title: "Отзывы клиентов",
       review1_name: "Алексей",
       review1_text:
@@ -46,7 +46,6 @@ const resources = {
       review2_text:
         '"Клеили защитную полиуретановую пленку на переднюю часть. Все швы спрятаны идеально, пленку вообще не видно. Спасибо за профессионализм."',
 
-      // --- ПОРТФОЛИО (Наши работы) ---
       portfolio_section_title: "Наши работы",
       portfolio_section_subtitle:
         "Посмотрите на результаты работы наших мастеров",
@@ -57,26 +56,25 @@ const resources = {
         "Профессиональный уход и защита лакокрасочного покрытия.",
       tag_antichrome: "АНТИХРОМ И ПОЛИРОВКА",
 
-      // --- СТРАНИЦА УСЛУГ ---
+  
       services_title: "Наши услуги и цены",
       btn_choose: "Выбрать",
 
-      // --- БЛОГ (Blog) ---
+
       blog_page_title: "Блог о детейлинге",
       loading_posts: "Загрузка статей...",
       blog_read_more: "Читать далее →",
       blog_hide: "Скрыть",
 
-      // --- КОРЗИНА И ОФОРМЛЕНИЕ ЗАКАЗА ---
       cart_title: "Ваша корзина",
-      cart_page_title: "Ваша заявка", // Добавлено для заголовка страницы
-      cart_checkout_title: "Оформление", // Добавлено для блока справа
-      cart_items_count: "Количество услуг:", // Добавлено
-      cart_pcs: "шт.", // Добавлено
-      cart_total_pay: "К оплате:", // Добавлено
+      cart_page_title: "Ваша заявка", 
+      cart_checkout_title: "Оформление", 
+      cart_items_count: "Количество услуг:", 
+      cart_pcs: "шт.", 
+      cart_total_pay: "К оплате:", 
       cart_auth_required:
-        "Оформление заказа доступно только зарегистрированным пользователям.", // Добавлено
-      cart_login_btn: "Войти в аккаунт", // Добавлено
+        "Оформление заказа доступно только зарегистрированным пользователям.", 
+      cart_login_btn: "Войти в аккаунт", 
       cart_empty:
         "Корзина пока пуста. Перейдите на главную страницу, чтобы выбрать услуги.",
       cart_remove: "Удалить",
@@ -89,7 +87,7 @@ const resources = {
       alert_service_added: "Услуга добавлена:",
       add_to_cart: "В корзину",
 
-      // --- БЛОК "О НАС" ---
+  
       about_title: "Что такое детейлинг и зачем?",
       about_list_1:
         "Это высококачественная и безопасная мойка кузова, удаление старой грязи, налетов, битума, следов от насекомых и металлических вкраплений.",
@@ -110,7 +108,7 @@ const resources = {
         "Комплексная химчистка салона, чистка отдельных элементов, уход за кожей, чистка системы вентиляции.",
       about_btn: "СМОТРЕТЬ ЦЕНЫ НА УСЛУГИ",
 
-      // --- КОНТАКТЫ (Contacts) ---
+      
       contacts_title: "Наши контакты",
       contacts_subtitle:
         "Мы всегда на связи и готовы привести ваш автомобиль в идеальное состояние.",
@@ -120,7 +118,7 @@ const resources = {
       contacts_working_hours_short: "Пн-Сб, с 09:00 до 20:00",
       contacts_email_title: "Email и Соцсети",
 
-      // --- ФУТЕР (Footer) ---
+      
       footer_about_title: "Детейлинг Центр",
       footer_about_text:
         "Премиальный уход за вашим автомобилем. Мы используем только лучшую автохимию и даем гарантию на все виды работ.",
@@ -132,15 +130,14 @@ const resources = {
       footer_socials_title: "Мы в соцсетях",
       footer_copyright: "© 2026 D3garage. Все права защищены.",
 
-      // --- ЛИЧНЫЙ КАБИНЕТ ---
       profile_title: "Личный кабинет",
       profile_orders: "Ваши заказы",
       profile_no_orders: "У вас пока нет заказов",
-      // --- СТРАНИЦА УСЛУГ ---
+      
       services_page_title: "Полный прайс-лист",
       services_page_subtitle: "Выберите необходимые услуги для ухода за вашим автомобилем",
 
-      // --- ЛИЧНЫЙ КАБИНЕТ И МОКИ ---
+      
       profile_guest: "Гость",
       mock_client_name: "Постоянный клиент",
       mock_car_status: "Не указан",
@@ -154,7 +151,6 @@ const resources = {
       profile_delete_confirm:
         "Вы уверены, что хотите безвозвратно удалить этот заказ?",
 
-      // --- ПАНЕЛЬ АДМИНИСТРАТОРА ---
       admin_title: "Панель управления",
       admin_subtitle: "Управление заявками и статусами автомобилей",
       admin_stat_revenue: "Выручка",
@@ -166,7 +162,7 @@ const resources = {
       admin_current_orders: "Текущие заявки",
       admin_no_orders: "Новых заявок пока нет.",
 
-      // --- КАРТОЧКА ЗАКАЗА И СТАТУСЫ ---
+    
       order_client: "Клиент",
       order_phone: "Телефон",
       order_services_list: "Выбранные услуги",
@@ -180,7 +176,7 @@ const resources = {
       toast_service: "Услуга",
       toast_added: "добавлена в корзину!",
 
-      // --- ФОРМЫ АВТОРИЗАЦИИ (Formik) ---
+    
       auth_login_title: "Вход",
       auth_register_title: "Регистрация",
       auth_name: "Ваше имя",
@@ -192,7 +188,7 @@ const resources = {
       auth_no_account: "Нет аккаунта?",
       auth_has_account: "Уже есть аккаунт?",
 
-      // --- ВАЛИДАЦИЯ (Ошибки) ---
+    
       val_required: "Обязательное поле",
       val_email: "Неверный формат email",
       val_pass_min: "Пароль должен быть не менее 6 символов",
@@ -200,7 +196,7 @@ const resources = {
   },
   pl: {
     translation: {
-      // --- NAWIGACJA I HEADER ---
+      
       nav_services: "Usługi i ceny",
       nav_portfolio: "Portfolio",
       nav_blog: "Blog",
@@ -210,7 +206,7 @@ const resources = {
       btn_register: "Rejestracja",
       btn_logout: "Wyloguj się",
 
-      // --- STRONA GŁÓWNA (Home.jsx) ---
+      
       hero_title: "Detailing Premium w Krakowie",
       hero_subtitle:
         "Profesjonalna pielęgnacja, ochrona lakieru i pranie tapicerki. Przywrócimy Twojemu autu wygląd nowości.",
@@ -233,7 +229,7 @@ const resources = {
       price_from: "od",
       btn_add_to_cart: "Do koszyka",
 
-      // --- OPINIE (Отзывы) ---
+     
       reviews_title: "Opinie klientów",
       review1_name: "Aleksiej",
       review1_text:
@@ -242,7 +238,6 @@ const resources = {
       review2_text:
         '"Oklejali przód ochronną folią poliuretanową. Wszystkie krawędzie są idealnie ukryte, folii w ogóle nie widać. Dziękuję za profesjonalizm."',
 
-      // --- PORTFOLIO (Наши работы) ---
       portfolio_section_title: "Nasze realizacje",
       portfolio_section_subtitle: "Zobacz efekty pracy naszych specjalistów",
       tag_ceramic: "POWŁOKA CERAMICZNA",
@@ -252,7 +247,7 @@ const resources = {
         "Profesjonalna pielęgnacja i ochrona powłoki lakierniczej.",
       tag_antichrome: "DECHROMING I POLEROWANIE",
 
-      // --- STRONA USŁUG ---
+    
       
       services_page_title: "Pełny cennik",
       services_page_subtitle: "Wybierz usługi do pielęgnacji Twojego samochodu",
@@ -262,22 +257,22 @@ const resources = {
       alert_service_added: "Usługa dodana:",
       add_to_cart: "Do koszyka",
 
-      // --- BLOG (Блог) ---
+    
       blog_page_title: "Blog o detailingu",
       loading_posts: "Ładowanie artykułów...",
       blog_read_more: "Czytaj dalej →",
       blog_hide: "Zwiń",
 
-      // --- KOSZYK I ZAMÓWIENIE ---
+     
       cart_title: "Twój koszyk",
-      cart_page_title: "Twoje zgłoszenie", // Добавлено
-      cart_checkout_title: "Podsumowanie", // Добавлено
-      cart_items_count: "Ilość usług:", // Добавлено
-      cart_pcs: "szt.", // Добавлено
-      cart_total_pay: "Do zapłaty:", // Добавлено
+      cart_page_title: "Twoje zgłoszenie", 
+      cart_checkout_title: "Podsumowanie", 
+      cart_items_count: "Ilość usług:", 
+      cart_pcs: "szt.", 
+      cart_total_pay: "Do zapłaty:",
       cart_auth_required:
-        "Złożenie zamówienia jest dostępne tylko dla zalogowanych użytkowników.", // Добавлено
-      cart_login_btn: "Zaloguj się na konto", // Добавлено
+        "Złożenie zamówienia jest dostępne tylko dla zalogowanych użytkowników.", 
+      cart_login_btn: "Zaloguj się na konto", 
       cart_empty:
         "Koszyk jest na razie pusty. Przejdź na stronę główną, aby wybrać usługi.",
       cart_remove: "Usuń",
@@ -287,7 +282,7 @@ const resources = {
       cart_success_desc:
         "Nasz menedżer wkrótce skontaktuje się z Tobą w celu ustalenia szczegółów wizyty.",
 
-      // --- SEKCJA "O NAS" ---
+      
       about_title: "Co to jest detailing i dlaczego warto?",
       about_list_1:
         "To wysokiej jakości i bezpieczne mycie karoserii, usuwanie starego brudu, osadów, smoły, śladów po owadach i opiłków metalicznych.",
@@ -308,7 +303,7 @@ const resources = {
         "Kompleksowe pranie tapicerki, czyszczenie poszczególnych elementów, pielęgnacja skóry, czyszczenie układu wentylacji.",
       about_btn: "ZOBACZ CENY USŁUG",
 
-      // --- KONTAKTY (Контакты) ---
+   
       contacts_title: "Nasze kontakty",
       contacts_subtitle:
         "Jesteśmy zawsze w kontakcie i gotowi, aby doprowadzić Twój samochód do idealnego stanu.",
@@ -318,7 +313,7 @@ const resources = {
       contacts_working_hours_short: "Pon-Sob, od 09:00 do 20:00",
       contacts_email_title: "Email i Social Media",
 
-      // --- STOPKA (Футер) ---
+     
       footer_about_title: "Centrum Detailingu",
       footer_about_text:
         "Premium pielęgnacja Twojego samochodu. Używamy tylko najlepszej chemii samochodowej i dajemy gwarancję na wszystkie usługi.",
@@ -329,12 +324,12 @@ const resources = {
       footer_socials_title: "Znajdź nas",
       footer_copyright: "© 2026 D3garage. Wszelkie prawa zastrzeżone.",
 
-      // --- PANEL KLIENTA ---
+      
       profile_title: "Panel klienta",
       profile_orders: "Twoje zamówienia",
       profile_no_orders: "Nie masz jeszcze żadnych zamówień",
 
-      // --- PANEL KLIENTA I MOCKI ---
+      
       profile_guest: "Gość",
       mock_client_name: "Stały klient",
       mock_car_status: "Nie podano",
@@ -350,7 +345,7 @@ const resources = {
         toast_service: "Usługa",
       toast_added: "dodana do koszyka!",
 
-      // --- PANEL ADMINISTRATORA ---
+    
       admin_title: "Panel zarządzania",
       admin_subtitle: "Zarządzanie zamówieniami i statusami pojazdów",
       admin_stat_revenue: "Przychód",
@@ -362,7 +357,7 @@ const resources = {
       admin_current_orders: "Aktualne zamówienia",
       admin_no_orders: "Brak nowych zamówień.",
 
-      // --- KARTA ZAMÓWIENIA I STATUSY ---
+     
       order_client: "Klient",
       order_phone: "Telefon",
       order_services_list: "Wybrane usługi",
@@ -374,7 +369,6 @@ const resources = {
       status_progress: "W trakcie",
       status_done: "Zakończono",
 
-      // --- FORMY AUTORYZACJI (Formik) ---
       auth_login_title: "Logowanie",
       auth_register_title: "Rejestracja",
       auth_name: "Twoje imię",
@@ -386,7 +380,7 @@ const resources = {
       auth_no_account: "Nie masz konta?",
       auth_has_account: "Masz już konto?",
 
-      // --- WALIDACJA (Błędy) ---
+     
       val_required: "Pole wymagane",
       val_email: "Nieprawidłowy format email",
       val_pass_min: "Hasło musi mieć co najmniej 6 znaków",
