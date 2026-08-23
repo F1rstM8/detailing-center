@@ -1,7 +1,5 @@
 @import "../../styles/variables";
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 .header {
   width: 100%;
@@ -15,7 +13,6 @@
     background-color: $bg-body;
     width: 100%;
     border-bottom: 1px solid $bg-surface;
-
     &-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -23,27 +20,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      @media (max-width: 768px) {
-        display: none;
-      }
+      @media (max-width: 768px) { display: none; }
     }
-
-    &-left {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-    }
-
-    &-right {
+    &-left, &-right {
       display: flex;
       align-items: center;
       gap: 35px;
     }
   }
 
-  &__info-item,
-  &__phone {
+  &__info-item, &__phone {
     color: $text-dimmed;
     font-size: 0.9rem;
     font-weight: 500;
@@ -53,10 +39,7 @@
     gap: 8px;
     letter-spacing: 0.3px;
     transition: color 0.3s ease;
-
-    &:hover {
-      color: $primary-color;
-    }
+    &:hover { color: $primary-color; }
   }
 
   &__lang {
@@ -69,18 +52,9 @@
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 0.3px;
     transition: all 0.3s ease;
-
-    &:hover {
-      border-color: $primary-color;
-      color: $primary-color;
-    }
-
-    option {
-      background-color: $bg-input-focus;
-      color: $text-dimmed;
-    }
+    &:hover { border-color: $primary-color; color: $primary-color; }
+    option { background-color: $bg-input-focus; color: $text-dimmed; }
   }
 
   &__main {
@@ -97,7 +71,6 @@
     max-width: 1400px;
     margin: 0 auto;
     gap: 40px;
-
     @media (max-width: 768px) {
       padding: 10px 10px 12px 10px;
       gap: 6px;
@@ -107,7 +80,6 @@
 
   &__logo {
     display: flex;
-
     &-link {
       display: flex;
       align-items: center;
@@ -116,34 +88,25 @@
       color: inherit;
       z-index: 101;
     }
-
     span {
       font-size: 1.5rem;
       font-weight: bold;
       color: $text-main;
       letter-spacing: 1px;
     }
-
-    @media (max-width: 768px) {
-      display: none;
-    }
+    @media (max-width: 768px) { display: none; }
   }
 
   &__nav {
     display: flex;
     align-items: center;
     gap: 24px;
-
-    .header__mobile-logo {
-      display: none;
-    }
-
+    .header__mobile-logo { display: none; }
     &-links {
       display: flex;
       align-items: center;
       gap: 24px;
     }
-
     a {
       color: $text-muted;
       text-decoration: none;
@@ -151,15 +114,9 @@
       font-weight: 500;
       white-space: nowrap;
       transition: color 0.3s ease;
-
-      &:hover {
-        color: $primary-color;
-      }
+      &:hover { color: $primary-color; }
     }
-
-    .header__mobile-info {
-      display: none;
-    }
+    .header__mobile-info { display: none; }
 
     @media (max-width: 1024px) {
       position: absolute;
@@ -180,11 +137,7 @@
         width: 100%;
         border-bottom: 1px solid $bg-surface;
         padding-bottom: 15px;
-
-        a {
-          padding: 0;
-        }
-
+        a { padding: 0; }
         span {
           font-size: 1.8rem;
           font-weight: bold;
@@ -199,7 +152,6 @@
         gap: 15px;
         border-bottom: 1px solid $bg-surface;
         padding-bottom: 20px;
-
         a {
           font-size: 1.1rem;
           width: 100%;
@@ -221,10 +173,7 @@
           font-size: 0.9rem;
           text-decoration: none;
           transition: color 0.3s;
-
-          &:hover {
-            color: $primary-color;
-          }
+          &:hover { color: $primary-color; }
         }
 
         .mobile-lang-wrapper {
@@ -235,9 +184,31 @@
           margin-top: 10px;
           color: $text-secondary;
           font-size: 0.9rem;
+          .mobile-lang { width: auto; }
+        }
+        
+        .mobile-auth-wrapper {
+          width: 100%;
+          border-top: 1px solid $bg-surface;
+          padding-top: 20px;
+          margin-top: 10px;
+          display: flex;
+          justify-content: center;
 
-          .mobile-lang {
-            width: auto;
+          .mobile-logout-btn {
+            background-color: transparent;
+            border: 1px solid $danger-border;
+            color: $danger-color;
+            padding: 10px 0;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            
+            &:active {
+              background-color: rgba(255, 0, 0, 0.1);
+            }
           }
         }
       }
@@ -246,7 +217,6 @@
       visibility: hidden;
       transform: translateY(-20px);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
       &.open {
         opacity: 1;
         visibility: visible;
@@ -270,7 +240,6 @@
       border-left: none;
       gap: 0;
       margin-left: 0;
-      flex-shrink: 0;
     }
   }
 
@@ -281,11 +250,7 @@
     color: $text-main;
     font-size: 1.1rem;
     transition: transform 0.2s ease;
-
-    &:active {
-      transform: scale(0.9);
-    }
-
+    &:active { transform: scale(0.9); }
     span {
       margin-left: 5px;
       color: $primary-color;
@@ -314,30 +279,17 @@
         transition: all 0.3s ease;
         white-space: nowrap;
       }
-
       .login-btn {
         background-color: transparent;
         color: $text-main;
         border: 1px solid $primary-color;
-
-        &:hover {
-          background-color: $green-glow-subtle;
-        }
+        &:hover { background-color: $green-glow-subtle; }
       }
-
       .register-btn {
         background-color: $primary-color;
         color: $text-main;
         border: 1px solid $primary-color;
-
-        &:hover {
-          background-color: $primary-hover;
-          box-shadow: 0 4px 10px $green-glow;
-        }
-
-        &:active {
-          transform: scale(0.95);
-        }
+        &:hover { background-color: $primary-hover; box-shadow: 0 4px 10px $green-glow; }
       }
     }
 
@@ -354,8 +306,11 @@
         text-decoration: none;
         font-weight: 500;
         transition: opacity 0.3s;
+        
+        .user-icon {
+          display: none; 
+        }
       }
-
       .admin-link {
         color: $accent-orange !important;
         text-decoration: none;
@@ -366,7 +321,6 @@
         padding: 6px 14px;
         border-radius: 6px;
       }
-
       .logout-btn {
         background-color: transparent;
         border: 1px solid $danger-border;
@@ -380,43 +334,35 @@
 
     @media (max-width: 1024px) {
       padding-left: 15px;
-
-      .auth-links {
-        margin-left: 0;
-      }
+      .auth-links { margin-left: 0; }
     }
 
     @media (max-width: 768px) {
       order: 2;
-      margin-left: auto;
-      margin-right: 4px;
-      padding-left: 0;
-      border-left: none;
-      flex-shrink: 1;
-      min-width: 0;
-
+      margin-right: 15px;
+      
       .auth-links {
-        gap: 4px;
-        margin-left: 0;
-
-        .register-btn,
-        .login-btn {
-          padding: 5px 7px;
-          font-size: 0.72rem;
+        gap: 6px;
+        button {
+          padding: 6px 10px;
+          font-size: 0.8rem;
         }
       }
 
       .user-profile {
-        gap: 8px;
-
-        .user-name-link,
-        .admin-link {
-          display: none;
+        gap: 0;
+        
+        .user-name-link {
+          .user-text { display: none; } 
+          .user-icon { 
+            display: flex; 
+            color: $primary-color;
+            padding: 5px;
+          }
         }
-
-        .logout-btn {
-          padding: 5px 8px;
-          font-size: 0.75rem;
+        
+        .admin-link, .logout-btn {
+          display: none; 
         }
       }
     }
@@ -450,8 +396,7 @@
       position: relative;
       transition: background-color 0.3s ease;
 
-      &::before,
-      &::after {
+      &::before, &::after {
         content: "";
         position: absolute;
         width: 100%;
@@ -461,30 +406,16 @@
         left: 0;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-
-      &::before {
-        top: -8px;
-      }
-
-      &::after {
-        top: 8px;
-      }
+      &::before { top: -8px; }
+      &::after { top: 8px; }
     }
 
     &.active .burger-line {
       background-color: transparent;
-
-      &::before {
-        transform: translateY(8px) rotate(45deg);
-      }
-
-      &::after {
-        transform: translateY(-8px) rotate(-45deg);
-      }
+      &::before { transform: translateY(8px) rotate(45deg); }
+      &::after { transform: translateY(-8px) rotate(-45deg); }
     }
 
-    @media (max-width: 1024px) {
-      display: flex;
-    }
+    @media (max-width: 1024px) { display: flex; }
   }
 }

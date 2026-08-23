@@ -4,7 +4,6 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   ru: {
     translation: {
-     
       nav_services: "Услуги и цены",
       nav_portfolio: "Портфолио",
       nav_blog: "Блог",
@@ -14,7 +13,6 @@ const resources = {
       btn_register: "Регистрация",
       btn_logout: "Выйти",
 
-    
       hero_title: "Премиальный детейлинг в Кракове",
       hero_subtitle:
         "Профессиональный уход, защита кузова и химчистка. Вернем вашему автомобилю состояние нового.",
@@ -37,7 +35,6 @@ const resources = {
       price_from: "от",
       btn_add_to_cart: "В корзину",
 
-  
       reviews_title: "Отзывы клиентов",
       review1_name: "Алексей",
       review1_text:
@@ -56,10 +53,8 @@ const resources = {
         "Профессиональный уход и защита лакокрасочного покрытия.",
       tag_antichrome: "АНТИХРОМ И ПОЛИРОВКА",
 
-  
       services_title: "Наши услуги и цены",
       btn_choose: "Выбрать",
-
 
       blog_page_title: "Блог о детейлинге",
       loading_posts: "Загрузка статей...",
@@ -67,14 +62,14 @@ const resources = {
       blog_hide: "Скрыть",
 
       cart_title: "Ваша корзина",
-      cart_page_title: "Ваша заявка", 
-      cart_checkout_title: "Оформление", 
-      cart_items_count: "Количество услуг:", 
-      cart_pcs: "шт.", 
-      cart_total_pay: "К оплате:", 
+      cart_page_title: "Ваша заявка",
+      cart_checkout_title: "Оформление",
+      cart_items_count: "Количество услуг:",
+      cart_pcs: "шт.",
+      cart_total_pay: "К оплате:",
       cart_auth_required:
-        "Оформление заказа доступно только зарегистрированным пользователям.", 
-      cart_login_btn: "Войти в аккаунт", 
+        "Оформление заказа доступно только зарегистрированным пользователям.",
+      cart_login_btn: "Войти в аккаунт",
       cart_empty:
         "Корзина пока пуста. Перейдите на главную страницу, чтобы выбрать услуги.",
       cart_remove: "Удалить",
@@ -87,7 +82,6 @@ const resources = {
       alert_service_added: "Услуга добавлена:",
       add_to_cart: "В корзину",
 
-  
       about_title: "Что такое детейлинг и зачем?",
       about_list_1:
         "Это высококачественная и безопасная мойка кузова, удаление старой грязи, налетов, битума, следов от насекомых и металлических вкраплений.",
@@ -108,24 +102,22 @@ const resources = {
         "Комплексная химчистка салона, чистка отдельных элементов, уход за кожей, чистка системы вентиляции.",
       about_btn: "СМОТРЕТЬ ЦЕНЫ НА УСЛУГИ",
 
-      
       contacts_title: "Наши контакты",
       contacts_subtitle:
         "Мы всегда на связи и готовы привести ваш автомобиль в идеальное состояние.",
       contacts_address_title: "Адрес студии",
       contacts_country: "Польша",
       contacts_phone_title: "Телефон",
-      contacts_working_hours_short: "Пн-Сб, с 09:00 до 20:00",
+     
       contacts_email_title: "Email и Соцсети",
 
-      
       footer_about_title: "Детейлинг Центр",
       footer_about_text:
         "Премиальный уход за вашим автомобилем. Мы используем только лучшую автохимию и даем гарантию на все виды работ.",
       footer_nav_title: "Навигация",
       footer_schedule_title: "Режим работы",
       footer_schedule_weekdays: "Понедельник - Воскресенье: 09:00 - 19:00",
-    
+
       footer_schedule_no_breaks: "Без перерывов",
       footer_socials_title: "Мы в соцсетях",
       footer_copyright: "© 2026 D3garage. Все права защищены.",
@@ -133,11 +125,11 @@ const resources = {
       profile_title: "Личный кабинет",
       profile_orders: "Ваши заказы",
       profile_no_orders: "У вас пока нет заказов",
-      
-      services_page_title: "Полный прайс-лист",
-      services_page_subtitle: "Выберите необходимые услуги для ухода за вашим автомобилем",
 
-      
+      services_page_title: "Полный прайс-лист",
+      services_page_subtitle:
+        "Выберите необходимые услуги для ухода за вашим автомобилем",
+
       profile_guest: "Гость",
       mock_client_name: "Постоянный клиент",
       mock_car_status: "Не указан",
@@ -162,7 +154,6 @@ const resources = {
       admin_current_orders: "Текущие заявки",
       admin_no_orders: "Новых заявок пока нет.",
 
-    
       order_client: "Клиент",
       order_phone: "Телефон",
       order_services_list: "Выбранные услуги",
@@ -176,7 +167,6 @@ const resources = {
       toast_service: "Услуга",
       toast_added: "добавлена в корзину!",
 
-    
       auth_login_title: "Вход",
       auth_register_title: "Регистрация",
       auth_name: "Ваше имя",
@@ -187,8 +177,8 @@ const resources = {
       auth_submit_register: "Зарегистрироваться",
       auth_no_account: "Нет аккаунта?",
       auth_has_account: "Уже есть аккаунт?",
+      contacts_working_hours_short: "Пн-Сб: 09:00 - 19:00",
 
-    
       val_required: "Обязательное поле",
       val_email: "Неверный формат email",
       val_pass_min: "Пароль должен быть не менее 6 символов",
@@ -196,7 +186,6 @@ const resources = {
   },
   pl: {
     translation: {
-      
       nav_services: "Usługi i ceny",
       nav_portfolio: "Portfolio",
       nav_blog: "Blog",
@@ -206,7 +195,6 @@ const resources = {
       btn_register: "Rejestracja",
       btn_logout: "Wyloguj się",
 
-      
       hero_title: "Detailing Premium w Krakowie",
       hero_subtitle:
         "Profesjonalna pielęgnacja, ochrona lakieru i pranie tapicerki. Przywrócimy Twojemu autu wygląd nowości.",
@@ -229,7 +217,6 @@ const resources = {
       price_from: "od",
       btn_add_to_cart: "Do koszyka",
 
-     
       reviews_title: "Opinie klientów",
       review1_name: "Aleksiej",
       review1_text:
@@ -247,8 +234,6 @@ const resources = {
         "Profesjonalna pielęgnacja i ochrona powłoki lakierniczej.",
       tag_antichrome: "DECHROMING I POLEROWANIE",
 
-    
-      
       services_page_title: "Pełny cennik",
       services_page_subtitle: "Wybierz usługi do pielęgnacji Twojego samochodu",
       services_title: "Nasze usługi i ceny",
@@ -257,22 +242,20 @@ const resources = {
       alert_service_added: "Usługa dodana:",
       add_to_cart: "Do koszyka",
 
-    
       blog_page_title: "Blog o detailingu",
       loading_posts: "Ładowanie artykułów...",
       blog_read_more: "Czytaj dalej →",
       blog_hide: "Zwiń",
 
-     
       cart_title: "Twój koszyk",
-      cart_page_title: "Twoje zgłoszenie", 
-      cart_checkout_title: "Podsumowanie", 
-      cart_items_count: "Ilość usług:", 
-      cart_pcs: "szt.", 
+      cart_page_title: "Twoje zgłoszenie",
+      cart_checkout_title: "Podsumowanie",
+      cart_items_count: "Ilość usług:",
+      cart_pcs: "szt.",
       cart_total_pay: "Do zapłaty:",
       cart_auth_required:
-        "Złożenie zamówienia jest dostępne tylko dla zalogowanych użytkowników.", 
-      cart_login_btn: "Zaloguj się na konto", 
+        "Złożenie zamówienia jest dostępne tylko dla zalogowanych użytkowników.",
+      cart_login_btn: "Zaloguj się na konto",
       cart_empty:
         "Koszyk jest na razie pusty. Przejdź na stronę główną, aby wybrać usługi.",
       cart_remove: "Usuń",
@@ -282,7 +265,6 @@ const resources = {
       cart_success_desc:
         "Nasz menedżer wkrótce skontaktuje się z Tobą w celu ustalenia szczegółów wizyty.",
 
-      
       about_title: "Co to jest detailing i dlaczego warto?",
       about_list_1:
         "To wysokiej jakości i bezpieczne mycie karoserii, usuwanie starego brudu, osadów, smoły, śladów po owadach i opiłków metalicznych.",
@@ -303,17 +285,15 @@ const resources = {
         "Kompleksowe pranie tapicerki, czyszczenie poszczególnych elementów, pielęgnacja skóry, czyszczenie układu wentylacji.",
       about_btn: "ZOBACZ CENY USŁUG",
 
-   
       contacts_title: "Nasze kontakty",
       contacts_subtitle:
         "Jesteśmy zawsze w kontakcie i gotowi, aby doprowadzić Twój samochód do idealnego stanu.",
       contacts_address_title: "Adres studia",
       contacts_country: "Polska",
       contacts_phone_title: "Telefon",
-      contacts_working_hours_short: "Pon-Sob, od 09:00 do 20:00",
+  
       contacts_email_title: "Email i Social Media",
 
-     
       footer_about_title: "Centrum Detailingu",
       footer_about_text:
         "Premium pielęgnacja Twojego samochodu. Używamy tylko najlepszej chemii samochodowej i dajemy gwarancję na wszystkie usługi.",
@@ -324,12 +304,10 @@ const resources = {
       footer_socials_title: "Znajdź nas",
       footer_copyright: "© 2026 D3garage. Wszelkie prawa zastrzeżone.",
 
-      
       profile_title: "Panel klienta",
       profile_orders: "Twoje zamówienia",
       profile_no_orders: "Nie masz jeszcze żadnych zamówień",
 
-      
       profile_guest: "Gość",
       mock_client_name: "Stały klient",
       mock_car_status: "Nie podano",
@@ -342,10 +320,9 @@ const resources = {
       profile_order_total: "Razem:",
       profile_delete_confirm:
         "Czy na pewno chcesz bezpowrotnie usunąć to zamówienie?",
-        toast_service: "Usługa",
+      toast_service: "Usługa",
       toast_added: "dodana do koszyka!",
 
-    
       admin_title: "Panel zarządzania",
       admin_subtitle: "Zarządzanie zamówieniami i statusami pojazdów",
       admin_stat_revenue: "Przychód",
@@ -357,7 +334,6 @@ const resources = {
       admin_current_orders: "Aktualne zamówienia",
       admin_no_orders: "Brak nowych zamówień.",
 
-     
       order_client: "Klient",
       order_phone: "Telefon",
       order_services_list: "Wybrane usługi",
@@ -379,8 +355,8 @@ const resources = {
       auth_submit_register: "Zarejestruj się",
       auth_no_account: "Nie masz konta?",
       auth_has_account: "Masz już konto?",
+      contacts_working_hours_short: "Pn-Sb: 09:00 - 19:00",
 
-     
       val_required: "Pole wymagane",
       val_email: "Nieprawidłowy format email",
       val_pass_min: "Hasło musi mieć co najmniej 6 znaków",

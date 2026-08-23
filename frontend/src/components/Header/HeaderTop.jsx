@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { COMPANY_CONTACTS } from "../../data/companyInfo.js";
 
 const HeaderTop = () => {
+    const { t } = useTranslation();
   return (
     <div className="header__top">
       <div className="header__top-container">
@@ -11,7 +13,7 @@ const HeaderTop = () => {
             📍 {COMPANY_CONTACTS.address}
           </span>
           <span className="header__info-item">
-            🕒 {COMPANY_CONTACTS.workHours}
+            🕒 {t("contacts_working_hours_short")}
           </span>
         </div>
 

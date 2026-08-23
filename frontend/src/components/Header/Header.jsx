@@ -33,6 +33,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    setIsMenuOpen(false);
   };
 
   const openAuthModal = (mode) => {
@@ -80,7 +81,7 @@ const Header = () => {
                 📍 {COMPANY_CONTACTS.address}
               </div>
               <div className="mobile-info-item">
-                🕒 {COMPANY_CONTACTS.workHours}
+                🕒 {t("contacts_working_hours_short")}
               </div>
               <a
                 href={`mailto:${COMPANY_CONTACTS.email}`}
@@ -100,6 +101,14 @@ const Header = () => {
                 <span>🌐 Язык:</span>
                 <LanguageSelector className="mobile-lang" />
               </div>
+
+              {isAuthenticated && (
+                <div className="mobile-auth-wrapper">
+                  <button onClick={handleLogout} className="mobile-logout-btn">
+                    {t("btn_logout", "Выйти")}
+                  </button>
+                </div>
+              )}
             </div>
           </nav>
 
@@ -125,11 +134,6 @@ const Header = () => {
           <button
             className={`header__burger ${isMenuOpen ? "active" : ""}`}
             onClick={toggleMenu}
-            aria-label={
-              isMenuOpen
-                ? t("aria_close_menu", "Закрыть меню")
-                : t("aria_open_menu", "Открыть меню")
-            }
             aria-expanded={isMenuOpen}
           >
             <span className="burger-line"></span>
