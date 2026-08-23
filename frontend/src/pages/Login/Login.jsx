@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { login } from "../../redux/authSlice";
 import { useTranslation } from "react-i18next";
+import { getLoginSchema } from "../../utils/validationSchemas"; 
 import "./Login.scss";
 
 const Login = () => {
@@ -17,14 +17,8 @@ const Login = () => {
       email: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email(t("val_email", "Неверный формат email"))
-        .required(t("val_required", "Обязательное поле")),
-      password: Yup.string()
-        .min(6, t("val_pass_min", "Пароль должен содержать минимум 6 символов"))
-        .required(t("val_required", "Обязательное поле")),
-    }),
+   
+    validationSchema: getLoginSchema(t), 
     onSubmit: (values) => {
       dispatch(login({ email: values.email }));
       navigate("/profile");

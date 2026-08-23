@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { COMPANY_CONTACTS } from "../../data/companyInfo.js";
 import "./Contacts.scss";
 
 const Contacts = () => {
@@ -9,17 +10,17 @@ const Contacts = () => {
     {
       icon: "📍",
       titleKey: "contacts_address_title",
-      lines: ["ul. Długa 15, 31-147 Kraków", t("contacts_country")],
+      lines: [COMPANY_CONTACTS.address, t("contacts_country")],
     },
     {
       icon: "📞",
       titleKey: "contacts_phone_title",
-      lines: ["+48 123 456 789", t("contacts_working_hours_short")],
+      lines: [COMPANY_CONTACTS.phone, t("contacts_working_hours_short")],
     },
     {
       icon: "✉️",
       titleKey: "contacts_email_title",
-      lines: ["hello@detailing-krakow.pl"],
+      lines: [COMPANY_CONTACTS.email],
       isEmailCard: true,
     },
   ];
@@ -44,10 +45,10 @@ const Contacts = () => {
                   ))}
                   {card.isEmailCard && (
                     <div className="social-links">
-                      <a 
-                        href="https://www.instagram.com/d3_garage_pl/" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={COMPANY_CONTACTS.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="social-link"
                       >
                         Instagram
@@ -61,7 +62,7 @@ const Contacts = () => {
 
           <div className="contacts-map">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d81986.20815462002!2d19.86479011110055!3d50.04674464522434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471644c0354e18d1%3A0xb46bb6b576478abf!2z0JrRgNCw0LrQvtCy!5e0!3m2!1sru!2spl!4v1700000000000!5m2!1sru!2spl"
+              src={COMPANY_CONTACTS.mapEmbedUrl}
               width="100%"
               height="100%"
               style={{ border: 0 }}
