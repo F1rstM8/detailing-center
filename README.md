@@ -1,23 +1,32 @@
-# React + Vite
+# D3garage - Detailing Center Web App 🚗✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-приложение для центра премиального детейлинга. Проект предоставляет удобный интерфейс для клиентов (выбор услуг, корзина, оформление заявок) и панель администратора для управления заказами.
 
-Currently, two official plugins are available:
+## 🛠 Технологии (Tech Stack)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Frontend:**
 
-Версия node.js v24.15.0
+- React 18
+- Vite (Сборщик)
+- Redux Toolkit (Управление состоянием: корзина, авторизация)
+- React Router (Маршрутизация)
+- React-i18next (Мультиязычность: RU / PL)
+- Formik + Yup (Валидация форм)
+- SCSS / SASS (Компонентный подход к стилям)
 
-## 🔐 Тестирование ролей и авторизации (Mock Auth)
+**Backend:**
 
-**Тестовые доступы:(пароль любой)**
+- JSON Server (REST API Mock)
 
-- **Администратор (Admin):** `admin@test.com`
-- **Менеджер (Manager):** `manager@test.com`(пока не работает)
-- **Клиент (Client):** Любой другой корректный email (например, `client@test.com`)
+## 🚀 Основной функционал
 
-# Detailing Center Web App
+- **Мультиязычность:** Полная поддержка русского и польского языков.
+- **Адаптивный дизайн:** Корректное отображение на ПК, планшетах и мобильных устройствах (Mobile First).
+- **Корзина услуг:** Добавление услуг, подсчет общей стоимости и оформление заявки.
+- **Авторизация:** Моковая система входа и регистрации пользователей.
+- **Ролевая модель:** Разделение интерфейса для гостей, клиентов и администраторов.
+
+---
 
 ## Как запустить проект локально
 
@@ -42,5 +51,3 @@ Currently, two official plugins are available:
 3. Запустите React-приложение:
    `npm run dev`
    Приложение будет доступно по адресу http://localhost:5173
-
-
