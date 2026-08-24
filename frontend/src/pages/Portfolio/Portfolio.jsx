@@ -24,7 +24,6 @@ const Portfolio = () => {
 
   if (isLoading) {
     return (
-      
       <div className="page-content portfolio-page">
         <div className="portfolio-loader">{t("loading_portfolio", "Загрузка работ...")}</div>
       </div>
@@ -32,7 +31,6 @@ const Portfolio = () => {
   }
 
   return (
-   
     <section className="page-content portfolio-page">
       <div className="portfolio-container">
         <div className="portfolio-header">
@@ -45,11 +43,13 @@ const Portfolio = () => {
             const categoryText = currentLang === 'pl' && item.category_pl ? item.category_pl : item.category_ru;
 
             return (
-              <div key={item.id} className="portfolio-card">
+              <article key={item.id} className="portfolio-card">
                 <div className="card-image">
                   <img src={item.image} alt={item.title} />
                   <div className="card-overlay">
-                    <span>{t("portfolio_view_project", "Смотреть проект")}</span>
+                    <button type="button" className="view-project-btn">
+                      {t("portfolio_view_project", "Смотреть проект")}
+                    </button>
                   </div>
                 </div>
 
@@ -60,7 +60,7 @@ const Portfolio = () => {
                   <h3>{item.title}</h3>
                   <p>{t("portfolio_card_desc")}</p>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

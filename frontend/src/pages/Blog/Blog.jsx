@@ -22,14 +22,17 @@ const Blog = () => {
   }, []);
 
   const togglePost = (id) => {
-    if (expandedPostId === id) {
-      setExpandedPostId(null);
-    } else {
-      setExpandedPostId(id);
-    }
+    setExpandedPostId((prev) => (prev === id ? null : id));
   };
 
-  const currentLang = i18n.language;
+  const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
+
+  const getLocalizedField = (item, fieldName) => {
+    const localizedKey = `${fieldName}_${currentLang}`;
+    return (
+      item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || ""
+    );
+  };
 
   return (
     <section className="page-content blog-page">
@@ -45,18 +48,11 @@ const Blog = () => {
         ) : (
           <div className="blog-page__list">
             {posts.map((post) => {
-              const postTitle =
-                currentLang === "pl" && post.title_pl
-                  ? post.title_pl
-                  : post.title_ru;
-              const postExcerpt =
-                currentLang === "pl" && post.excerpt_pl
-                  ? post.excerpt_pl
-                  : post.excerpt_ru;
-              const postContent =
-                currentLang === "pl" && post.content_pl
-                  ? post.content_pl
-                  : post.content_ru;
+              const postTitle = getLocalizedField(post, "title");
+              const postExcerpt = getLocalizedField(post, "excerpt");
+              const postContent = getLocalizedField(post, "content");
+
+              const isExpanded = expandedPostId === post.id;
 
               return (
                 <article key={post.id} className="blog-post">
@@ -64,21 +60,20 @@ const Blog = () => {
                     <img src={post.image} alt={postTitle} />
                   </div>
                   <div className="blog-post__info">
-                    <span className="blog-post__date">{post.date}</span>
+                    <time className="blog-post__date">{post.date}</time>
 
-                    <h2>{postTitle}</h2>
+                    <h3>{postTitle}</h3>
 
                     <p className="blog-post__text">
-                      {expandedPostId === post.id
-                        ? postContent || postExcerpt
-                        : postExcerpt}
+                      {isExpanded ? postContent || postExcerpt : postExcerpt}
                     </p>
 
                     <button
                       className="blog-post__read-more"
                       onClick={() => togglePost(post.id)}
+                      aria-expanded={isExpanded}
                     >
-                      {expandedPostId === post.id
+                      {isExpanded
                         ? t("blog_hide", "Скрыть")
                         : t("blog_read_more", "Читать далее →")}
                     </button>

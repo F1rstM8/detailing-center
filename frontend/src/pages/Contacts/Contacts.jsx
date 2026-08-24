@@ -36,9 +36,11 @@ const Contacts = () => {
         <div className="contacts-content">
           <div className="contacts-info">
             {contactCards.map((card, index) => (
-              <div className="info-card" key={index}>
+              
+              <article className="info-card" key={index}>
                 <div className="card-icon">{card.icon}</div>
-                <div className="card-text">
+               
+                <address className="card-text" style={{ fontStyle: 'normal' }}>
                   <h3>{t(card.titleKey)}</h3>
                   {card.lines.map((line, lineIndex) => (
                     <p key={lineIndex}>{line}</p>
@@ -55,8 +57,8 @@ const Contacts = () => {
                       </a>
                     </div>
                   )}
-                </div>
-              </div>
+                </address>
+              </article>
             ))}
           </div>
 
