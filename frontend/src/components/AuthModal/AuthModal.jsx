@@ -9,17 +9,31 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const { t } = useTranslation();
 
   const [isLoginMode, setIsLoginMode] = useState(initialMode === "login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // 1. Закрытие модального окна клавишей Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   useEffect(() => {
     if (isOpen) {
       setIsLoginMode(initialMode === "login");
     }
   }, [isOpen, initialMode]);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
 
   if (!isOpen) return null;
 
@@ -57,64 +71,79 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>
+      <div 
+        className="modal-content" 
+        onClick={(e) => e.stopPropagation()}
+        // 2. Семантика для скринридеров
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+      >
+        <button 
+          className="close-btn" 
+          onClick={onClose}
+          // Иконка крестика должна иметь название
+          aria-label={t("aria_close_menu", "Закрыть окно")}
+        >
           ✕
         </button>
 
-        <h2>
-          {isLoginMode
-            ? t("auth_login_title", "Вход")
-            : t("auth_register_title", "Регистрация")}
+        <h2 id="auth-modal-title">
+          {isLoginMode ? t("auth_login_title", "Вход") : t("auth_register_title", "Регистрация")}
         </h2>
 
         <form onSubmit={handleSubmit} className="auth-form">
           {!isLoginMode && (
             <>
               <div className="input-group">
-                <label>{t("auth_name", "Имя")}</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                {/* 3. Связка label и input через htmlFor */}
+                <label htmlFor="auth-name">{t("auth_name", "Имя")}</label>
+                <input 
+                  id="auth-name"
+                  type="text" 
+                  required 
+                  autoFocus // Фокус при регистрации
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)} 
                 />
               </div>
               <div className="input-group">
-                <label>{t("auth_phone", "Телефон")}</label>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                <label htmlFor="auth-phone">{t("auth_phone", "Телефон")}</label>
+                <input 
+                  id="auth-phone"
+                  type="tel" 
+                  required 
+                  value={phone} 
+                  onChange={(e) => setPhone(e.target.value)} 
                 />
               </div>
             </>
           )}
 
           <div className="input-group">
-            <label>{t("auth_email", "Email")}</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+            <label htmlFor="auth-email">{t("auth_email", "Email")}</label>
+            <input 
+              id="auth-email"
+              type="email" 
+              required 
+              autoFocus={isLoginMode} // Фокус при входе
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
             />
           </div>
           <div className="input-group">
-            <label>{t("auth_password", "Пароль")}</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+            <label htmlFor="auth-password">{t("auth_password", "Пароль")}</label>
+            <input 
+              id="auth-password"
+              type="password" 
+              required 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
             />
           </div>
 
           <button type="submit" className="submit-btn">
-            {isLoginMode
-              ? t("auth_submit_login", "Войти")
-              : t("auth_submit_register", "Зарегистрироваться")}
+            {isLoginMode ? t("auth_submit_login", "Войти") : t("auth_submit_register", "Зарегистрироваться")}
           </button>
         </form>
 
@@ -122,16 +151,25 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           {isLoginMode ? (
             <p>
               {t("auth_no_account", "Нет аккаунта?")}{" "}
-              <span onClick={() => setIsLoginMode(false)}>
+              {/* 4. Заменили span на семантичный button */}
+              <button 
+                type="button" 
+                className="text-btn" 
+                onClick={() => setIsLoginMode(false)}
+              >
                 {t("btn_register", "Создать")}
-              </span>
+              </button>
             </p>
           ) : (
             <p>
               {t("auth_has_account", "Уже есть аккаунт?")}{" "}
-              <span onClick={() => setIsLoginMode(true)}>
+              <button 
+                type="button" 
+                className="text-btn" 
+                onClick={() => setIsLoginMode(true)}
+              >
                 {t("btn_login", "Войти")}
-              </span>
+              </button>
             </p>
           )}
         </div>
