@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
@@ -11,17 +11,25 @@ const Home = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const {
-    items: servicesData,
-    status,
-    error,
-  } = useSelector((state) => state.services);
+  const { items: servicesData, status, error } = useSelector((state) => state.services);
 
   const [addedItems, setAddedItems] = useState({});
   const [toastMessage, setToastMessage] = useState(null);
 
+  const toastTimerRef = useRef(null);
+  const buttonTimersRef = useRef({});
+
   const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
 
+  
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+      Object.values(buttonTimersRef.current).forEach(timer => clearTimeout(timer));
+    };
+  }, []);
+
+  
   useEffect(() => {
     if (status === "idle") {
       dispatch(getServices());
@@ -32,9 +40,7 @@ const Home = () => {
 
   const getLocalizedField = (item, fieldName) => {
     const localizedKey = `${fieldName}_${currentLang}`;
-    return (
-      item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || ""
-    );
+    return item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || "";
   };
 
   const handleAddToCart = (service, serviceTitle, serviceCategory) => {
@@ -44,17 +50,26 @@ const Home = () => {
         title: serviceTitle,
         price: service.price,
         category: serviceCategory || t("home_popular_title"),
-      }),
+      })
     );
 
     setAddedItems((prev) => ({ ...prev, [service.id]: true }));
-    setTimeout(() => {
+    
+    if (buttonTimersRef.current[service.id]) {
+      clearTimeout(buttonTimersRef.current[service.id]);
+    }
+    
+    buttonTimersRef.current[service.id] = setTimeout(() => {
       setAddedItems((prev) => ({ ...prev, [service.id]: false }));
     }, 1500);
 
     setToastMessage(serviceTitle);
 
-    setTimeout(() => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+    
+    toastTimerRef.current = setTimeout(() => {
       setToastMessage(null);
     }, 3000);
   };
@@ -90,10 +105,7 @@ const Home = () => {
         )}
 
         {status === "failed" && (
-          <div
-            className="home-services-error"
-            style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}
-          >
+          <div className="home-services-error" style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}>
             Произошла ошибка при загрузке: {error}
           </div>
         )}
@@ -104,7 +116,6 @@ const Home = () => {
               const serviceTitle = getLocalizedField(service, "title");
               const serviceDesc = getLocalizedField(service, "description");
               const serviceCategory = getLocalizedField(service, "category");
-
               const isAdded = addedItems[service.id];
 
               return (
@@ -117,14 +128,10 @@ const Home = () => {
                     </span>
                     <button
                       className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
-                      onClick={() =>
-                        handleAddToCart(service, serviceTitle, serviceCategory)
-                      }
+                      onClick={() => handleAddToCart(service, serviceTitle, serviceCategory)}
                       disabled={isAdded}
                     >
-                      {isAdded
-                        ? t("btn_added_to_cart", "В корзине!")
-                        : t("btn_add_to_cart", "В корзину")}
+                      {isAdded ? t("btn_added_to_cart", "В корзине!") : t("btn_add_to_cart", "В корзину")}
                     </button>
                   </div>
                 </div>
@@ -146,8 +153,7 @@ const Home = () => {
         <div className="toast-notification">
           <div className="toast-icon">✓</div>
           <div className="toast-text">
-            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong>{" "}
-            {t("toast_added", "добавлена в корзину!")}
+            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong> {t("toast_added", "добавлена в корзину!")}
           </div>
         </div>
       )}
