@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"; 
 import { useTranslation } from "react-i18next";
 import ServiceCard from "../../components/ServicesCard/ServiceCard";
+import { getServices } from "../../redux/servicesSlice";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
   const { t, i18n } = useTranslation();
-  
-  const [servicesData, setServicesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+
+
+  const {
+    items: servicesData,
+    status,
+    error,
+  } = useSelector((state) => state.services);
+
   const [toastMessage, setToastMessage] = useState(null);
 
   const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
@@ -19,29 +27,40 @@ const ServicesPage = () => {
     }, 3000);
   };
 
+  
   useEffect(() => {
-    fetch(`http://localhost:3001/services?_t=${Date.now()}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setServicesData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error loading services:", error);
-        setIsLoading(false);
-      });
-  }, []);
+    if (status === "idle") {
+      dispatch(getServices());
+    }
+  }, [status, dispatch]);
 
   const getLocalizedField = (item, fieldName) => {
     const localizedKey = `${fieldName}_${currentLang}`;
-    return item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || "";
+    return (
+      item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || ""
+    );
   };
 
-  if (isLoading) {
+  
+  if (status === "loading") {
     return (
       <main className="page-content services-page">
         <div className="services-loader">
           {t("loading_services_list", "Загрузка прайс-листа...")}
+        </div>
+      </main>
+    );
+  }
+
+  
+  if (status === "failed") {
+    return (
+      <main className="page-content services-page">
+        <div
+          className="services-error"
+          style={{ textAlign: "center", padding: "50px" }}
+        >
+          <p>Произошла ошибка при загрузке: {error}</p>
         </div>
       </main>
     );
@@ -52,7 +71,10 @@ const ServicesPage = () => {
       <div className="services-container">
         <h2>{t("services_page_title", "Полный прайс-лист")}</h2>
         <p className="services-subtitle">
-          {t("services_page_subtitle", "Выберите необходимые услуги для ухода за вашим автомобилем")}
+          {t(
+            "services_page_subtitle",
+            "Выберите необходимые услуги для ухода за вашим автомобилем",
+          )}
         </p>
 
         <div className="services-grid">
@@ -66,10 +88,10 @@ const ServicesPage = () => {
             };
 
             return (
-              <ServiceCard 
-                key={service.id} 
-                service={localizedService} 
-                onShowToast={showToast} 
+              <ServiceCard
+                key={service.id}
+                service={localizedService}
+                onShowToast={showToast}
               />
             );
           })}
@@ -80,7 +102,8 @@ const ServicesPage = () => {
         <div className="toast-notification">
           <div className="toast-icon">✓</div>
           <div className="toast-text">
-            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong> {t("toast_added", "добавлена в корзину!")}
+            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong>{" "}
+            {t("toast_added", "добавлена в корзину!")}
           </div>
         </div>
       )}

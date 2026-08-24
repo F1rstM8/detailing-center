@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
 import authReducer from "./authSlice";
 import ordersReducer from "./ordersSlice";
+import servicesReducer from "./servicesSlice"
 
 const loadState = () => {
   try {
@@ -24,6 +25,7 @@ const store = configureStore({
   reducer: {
     cart: cartReducer,
     auth: authReducer,
+    services: servicesReducer,
     orders: ordersReducer,
   },
   preloadedState,

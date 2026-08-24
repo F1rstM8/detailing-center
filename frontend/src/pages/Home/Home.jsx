@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
+import { getServices } from "../../redux/servicesSlice";
 import Reviews from "../../components/Reviews/Reviews";
 import { useTranslation } from "react-i18next";
 import "./Home.scss";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
 
-  const [servicesData, setServicesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    items: servicesData,
+    status,
+    error,
+  } = useSelector((state) => state.services);
+
   const [addedItems, setAddedItems] = useState({});
   const [toastMessage, setToastMessage] = useState(null);
 
-  const dispatch = useDispatch();
+  const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
 
   useEffect(() => {
-    fetch("http://localhost:3001/services")
-      .then((response) => response.json())
-      .then((data) => {
-        setServicesData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error loading popular services:", error);
-        setIsLoading(false);
-      });
-  }, []);
+    if (status === "idle") {
+      dispatch(getServices());
+    }
+  }, [status, dispatch]);
 
   const popularServices = servicesData.slice(0, 3);
-  const currentLang = i18n.language;
+
+  const getLocalizedField = (item, fieldName) => {
+    const localizedKey = `${fieldName}_${currentLang}`;
+    return (
+      item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || ""
+    );
+  };
 
   const handleAddToCart = (service, serviceTitle, serviceCategory) => {
     dispatch(
@@ -62,8 +67,6 @@ const Home = () => {
 
   return (
     <div className="page-content home-page">
-      
-
       <section className="features-section">
         <h2>{t("home_features_title")}</h2>
         <div className="features-grid">
@@ -80,25 +83,27 @@ const Home = () => {
       <section className="home-services-section">
         <h2>{t("home_popular_title")}</h2>
 
-        {isLoading ? (
+        {status === "loading" && (
           <div className="home-services-loader">
             {t("loading_services", "Загрузка услуг...")}
           </div>
-        ) : (
+        )}
+
+        {status === "failed" && (
+          <div
+            className="home-services-error"
+            style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}
+          >
+            Произошла ошибка при загрузке: {error}
+          </div>
+        )}
+
+        {status === "succeeded" && (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              const serviceTitle =
-                currentLang === "pl" && service.title_pl
-                  ? service.title_pl
-                  : service.title_ru;
-              const serviceDesc =
-                currentLang === "pl" && service.description_pl
-                  ? service.description_pl
-                  : service.description_ru;
-              const serviceCategory =
-                currentLang === "pl" && service.category_pl
-                  ? service.category_pl
-                  : service.category_ru;
+              const serviceTitle = getLocalizedField(service, "title");
+              const serviceDesc = getLocalizedField(service, "description");
+              const serviceCategory = getLocalizedField(service, "category");
 
               const isAdded = addedItems[service.id];
 
@@ -123,7 +128,7 @@ const Home = () => {
                     </button>
                   </div>
                 </div>
-              ); 
+              );
             })}
           </div>
         )}
