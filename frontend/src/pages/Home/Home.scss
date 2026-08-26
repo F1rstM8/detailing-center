@@ -1,18 +1,17 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .home-page {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 100% !important;
-  background: transparent !important;
-  padding: 0 !important;
+  background: transparent;
+  padding: 0;
 }
 
 .hero-section {
   min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   text-align: center;
   padding: 60px 20px;
   position: relative;
@@ -30,7 +29,7 @@
     margin-bottom: 20px;
     line-height: 1.2;
 
-    @media (max-width: 768px) {
+    @include tablet {
       font-size: 2.5rem;
     }
   }
@@ -48,17 +47,17 @@
   gap: 20px;
   justify-content: center;
 
-  @media (max-width: 480px) {
+  @include mobile {
     flex-direction: column;
   }
 
   a {
+    @include btn-base;
+    display: inline-block;
     padding: 16px 32px;
     border-radius: 8px;
     font-size: 1.1rem;
-    font-weight: bold;
     text-decoration: none;
-    transition: all 0.3s ease;
   }
 
   .btn-primary {
@@ -103,12 +102,10 @@
 }
 
 .feature-card {
-  background-color: $bg-card;
-  padding: 40px 30px;
-  border-radius: 12px;
+  @include card-base;
   border: 1px solid $border-dark;
   text-align: center;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-10px);
@@ -160,15 +157,11 @@
 }
 
 .home-service-card {
-  background-color: $bg-card;
+  @include card-base;
   border: 1px solid $border-dark;
-  border-radius: 12px;
-  padding: 30px;
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-8px);
@@ -190,9 +183,7 @@
   }
 
   .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     margin-top: auto;
 
     .price {
@@ -202,14 +193,12 @@
     }
 
     .add-to-cart-btn {
+      @include btn-base;
       background-color: transparent;
       color: $primary-color;
       border: 1px solid $primary-color;
       padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
+      font-size: 0.9rem;
 
       &:hover {
         background-color: $primary-color;
@@ -233,15 +222,14 @@
   margin-top: 20px;
 
   .btn-primary {
+    @include btn-base;
     display: inline-block;
     padding: 16px 32px;
     border-radius: 8px;
     background-color: $primary-color;
     color: $text-main;
     font-size: 1.1rem;
-    font-weight: bold;
     text-decoration: none;
-    transition: all 0.3s ease;
 
     &:hover {
       background-color: $primary-hover;

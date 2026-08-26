@@ -1,4 +1,4 @@
-import React from "react";
+
 import Hero from "../../components/Hero/Hero";
 import Home from "../Home/Home";
 import Portfolio from "../Portfolio/Portfolio";

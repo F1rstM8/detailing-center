@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .contacts-page {
   display: flex;
   justify-content: center;
@@ -34,7 +36,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
 
-  @media (max-width: 768px) {
+  @include tablet {
     grid-template-columns: 1fr;
   }
 }
@@ -46,15 +48,12 @@
 }
 
 .info-card {
+  @include card-base;
   display: flex;
   align-items: flex-start;
-  background-color: $bg-card;
-  padding: 25px;
-  border-radius: 12px;
+  padding: 25px; 
   border: 1px solid $border-dark;
-  transition:
-    transform 0.3s,
-    border-color 0.3s;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
@@ -62,14 +61,12 @@
   }
 
   .card-icon {
+    @include flex-center; 
     font-size: 2rem;
     margin-right: 20px;
     background-color: $bg-input-focus;
     padding: 15px;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .card-text {
@@ -93,14 +90,8 @@
   margin-top: 10px;
 
   .social-link {
-    color: $primary-color;
-    text-decoration: none;
+    @include link-base($primary-color, $primary-hover); 
     font-weight: bold;
-    transition: color 0.3s;
-
-    &:hover {
-      color: $primary-hover;
-    }
   }
 }
 

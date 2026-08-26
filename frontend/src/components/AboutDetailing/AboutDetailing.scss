@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .about-detailing {
   background-color: transparent;
   border-bottom: none;
@@ -33,9 +35,7 @@
       gap: 16px;
 
       span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flex-center;
         min-width: 26px;
         height: 26px;
         border: 2px solid $primary-color;
@@ -113,17 +113,15 @@
     text-align: center;
 
     .about-btn {
+      @include btn-base;
       display: inline-block;
+      text-decoration: none;
       background-color: $primary-color;
       color: $text-main;
-      text-decoration: none;
       padding: 16px 36px;
       border-radius: 8px;
-      font-weight: bold;
-      font-size: 0.95rem;
       letter-spacing: 0.5px;
       box-shadow: 0 4px 15px $green-glow;
-      transition: all 0.3s ease;
 
       &:hover {
         background-color: $primary-hover;

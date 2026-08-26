@@ -1,4 +1,5 @@
 @import "./styles/variables";
+@import "./styles/mixins";
 
 * {
   box-sizing: border-box;
@@ -30,17 +31,19 @@ html {
   flex-direction: column;
 }
 
-.page-content {
-  padding: 40px;
-}
-
 .error-message {
   color: $danger-color;
   font-size: 0.85rem;
   margin-top: 4px;
 }
 
-.input-error {
-  border-color: $danger-color !important;
+input.input-error,
+textarea.input-error,
+select.input-error {
+  border-color: $danger-color;
   outline: none;
+
+  &:focus {
+    border-color: $danger-color;
+  }
 }

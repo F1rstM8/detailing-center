@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -10,17 +12,13 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-}
+
 
 .hero {
   position: relative;
   height: calc(100vh - 77px);
   min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   text-align: center;
   color: $text-main;
   padding: 0 20px;
@@ -71,17 +69,15 @@
   }
 
   &__btn {
+    @include btn-base;
     background-color: $primary-color;
     color: $text-main;
     text-decoration: none;
+    display: inline-block;
     padding: 16px 44px;
     font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 6px;
-    display: inline-block;
     margin-top: 10px;
     box-shadow: 0 4px 15px $green-glow;
-    transition: all 0.3s ease;
 
     &:hover {
       background-color: $primary-hover;
@@ -95,7 +91,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @include tablet {
     height: calc(100vh - 65px);
     min-height: 450px;
     padding: 0 15px;

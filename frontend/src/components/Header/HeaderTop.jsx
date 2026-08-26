@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { COMPANY_CONTACTS } from "../../data/companyInfo.js";

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";

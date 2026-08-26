@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .admin-page {
   display: flex;
   justify-content: center;
@@ -34,17 +36,14 @@
   margin-bottom: 40px;
 
   .stat-card {
-    background-color: $bg-card;
+    @include card-base;
     border: 1px solid $border-dark;
-    border-radius: 12px;
     padding: 25px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition:
-      transform 0.3s ease,
-      border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 
     &:hover {
       transform: translateY(-5px);
@@ -91,11 +90,11 @@
 }
 
 .admin-popularity {
+  @include card-base;
   margin-bottom: 40px;
-  background-color: $bg-card;
   border: 1px solid $border-dark;
-  border-radius: 12px;
   padding: 30px;
+  box-shadow: none; 
 
   h3 {
     color: $text-main;
@@ -115,7 +114,7 @@
       align-items: center;
       gap: 20px;
 
-      @media (max-width: 768px) {
+      @include tablet {
         grid-template-columns: 1fr;
         gap: 8px;
       }
@@ -128,7 +127,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
 
-        @media (max-width: 768px) {
+        @include tablet {
           text-align: left;
         }
       }
@@ -167,9 +166,8 @@
 }
 
 .admin-content {
-  background-color: $bg-card;
+  @include card-base;
   padding: 30px;
-  border-radius: 12px;
   border: 1px solid $border-dark;
   box-shadow: 0 10px 30px $shadow-main;
 
@@ -207,9 +205,7 @@
   }
 
   .order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     margin-bottom: 15px;
     border-bottom: 1px solid $border-dark;
     padding-bottom: 10px;
@@ -280,13 +276,9 @@
     margin-top: 20px;
 
     button {
+      @include btn-base;
       flex: 1;
       padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
     }
 
     .btn-progress {
@@ -311,12 +303,6 @@
       background-color: transparent;
       color: $danger-color;
       border: 1px solid $danger-color;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      flex: 1;
 
       &:hover {
         background-color: $danger-color;

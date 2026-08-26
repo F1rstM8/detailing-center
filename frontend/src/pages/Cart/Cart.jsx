@@ -108,6 +108,8 @@ const Cart = () => {
                     <button 
                       className="remove-btn"
                       onClick={() => handleRemoveItem(item.id)}
+                      aria-label={t("cart_remove_item", "Удалить услугу")}
+                      title={t("cart_remove_item", "Удалить услугу")}
                     >
                       ✕
                     </button>
@@ -136,9 +138,13 @@ const Cart = () => {
                   </Link>
                 </div>
               ) : (
-                <form onSubmit={formik.handleSubmit} className="checkout-form">
+                <form onSubmit={formik.handleSubmit} className="checkout-form" noValidate>
                   <div className="form-group">
+                    <label htmlFor="checkout-name" className="visually-hidden">
+                      {t("auth_name", "Ваше имя")}
+                    </label>
                     <input
+                      id="checkout-name"
                       type="text"
                       name="name"
                       placeholder={t("auth_name", "Ваше имя")}
@@ -146,14 +152,22 @@ const Cart = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       className={formik.touched.name && formik.errors.name ? "input-error" : ""}
+                      aria-invalid={formik.touched.name && formik.errors.name ? "true" : "false"}
+                      aria-describedby={formik.touched.name && formik.errors.name ? "name-error" : undefined}
                     />
                     {formik.touched.name && formik.errors.name && (
-                      <span className="error-text">{formik.errors.name}</span>
+                      <span id="name-error" className="error-text" aria-live="polite">
+                        {formik.errors.name}
+                      </span>
                     )}
                   </div>
 
                   <div className="form-group">
+                    <label htmlFor="checkout-phone" className="visually-hidden">
+                      {t("auth_phone", "Телефон")}
+                    </label>
                     <input
+                      id="checkout-phone"
                       type="tel"
                       name="phone"
                       placeholder="+48 000 000 000"
@@ -161,23 +175,36 @@ const Cart = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       className={formik.touched.phone && formik.errors.phone ? "input-error" : ""}
+                      aria-invalid={formik.touched.phone && formik.errors.phone ? "true" : "false"}
+                      aria-describedby={formik.touched.phone && formik.errors.phone ? "phone-error" : undefined}
                     />
                     {formik.touched.phone && formik.errors.phone && (
-                      <span className="error-text">{formik.errors.phone}</span>
+                      <span id="phone-error" className="error-text" aria-live="polite">
+                        {formik.errors.phone}
+                      </span>
                     )}
                   </div>
 
                   <div className="form-group">
+                    <label htmlFor="checkout-comment" className="visually-hidden">
+                      {t("cart_comment", "Комментарий")}
+                    </label>
                     <textarea
+                      id="checkout-comment"
                       name="comment"
                       placeholder={t("cart_comment_placeholder", "Марка авто или пожелания...")}
                       value={formik.values.comment}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       rows="2"
+                      className={formik.touched.comment && formik.errors.comment ? "input-error" : ""}
+                      aria-invalid={formik.touched.comment && formik.errors.comment ? "true" : "false"}
+                      aria-describedby={formik.touched.comment && formik.errors.comment ? "comment-error" : undefined}
                     />
                     {formik.touched.comment && formik.errors.comment && (
-                      <span className="error-text">{formik.errors.comment}</span>
+                      <span id="comment-error" className="error-text" aria-live="polite">
+                        {formik.errors.comment}
+                      </span>
                     )}
                   </div>
                   

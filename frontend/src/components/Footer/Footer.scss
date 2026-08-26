@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .footer {
   background-color: $bg-body;
   border-top: 1px solid $bg-surface;
@@ -41,15 +43,13 @@
     gap: 12px;
 
     a {
-      color: $text-secondary;
-      text-decoration: none;
+      @include link-base($text-secondary);
       font-size: 0.95rem;
-      transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 
       &:hover {
-        color: $primary-color;
         transform: translateX(5px);
       }
     }
@@ -58,7 +58,7 @@
       gap: 10px;
 
       svg {
-        transition: transform 0.3s ease;
+        transition: color 0.3s ease, opacity 0.3s ease;
       }
 
       &:hover {
@@ -76,10 +76,10 @@
     border-top: 1px solid $bg-surface;
     padding-top: 20px;
     font-size: 0.85rem;
-    color: #777;
+    color: $text-muted;
   }
 
-  @media (max-width: 768px) {
+  @include tablet {
     padding: 40px 15px 20px;
 
     &__container {

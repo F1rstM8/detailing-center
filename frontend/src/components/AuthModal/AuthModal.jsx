@@ -14,7 +14,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
-  // 1. Закрытие модального окна клавишей Escape
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -74,7 +74,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       <div 
         className="modal-content" 
         onClick={(e) => e.stopPropagation()}
-        // 2. Семантика для скринридеров
+        
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-modal-title"
@@ -82,7 +82,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
         <button 
           className="close-btn" 
           onClick={onClose}
-          // Иконка крестика должна иметь название
+          
           aria-label={t("aria_close_menu", "Закрыть окно")}
         >
           ✕
@@ -96,13 +96,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           {!isLoginMode && (
             <>
               <div className="input-group">
-                {/* 3. Связка label и input через htmlFor */}
+                
                 <label htmlFor="auth-name">{t("auth_name", "Имя")}</label>
                 <input 
                   id="auth-name"
                   type="text" 
                   required 
-                  autoFocus // Фокус при регистрации
+                  autoFocus 
                   value={name} 
                   onChange={(e) => setName(e.target.value)} 
                 />
@@ -126,7 +126,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
               id="auth-email"
               type="email" 
               required 
-              autoFocus={isLoginMode} // Фокус при входе
+              autoFocus={isLoginMode} 
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
             />

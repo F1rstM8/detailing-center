@@ -1,5 +1,5 @@
 @import "../../styles/variables";
-* { box-sizing: border-box; }
+@import "../../styles/mixins";
 
 .header {
   width: 100%;
@@ -13,23 +13,27 @@
     background-color: $bg-body;
     width: 100%;
     border-bottom: 1px solid $bg-surface;
+
     &-container {
+      @include flex-between;
       max-width: 1400px;
       margin: 0 auto;
       padding: 10px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      @media (max-width: 768px) { display: none; }
+      @include tablet {
+        display: none;
+      }
     }
-    &-left, &-right {
+
+    &-left,
+    &-right {
       display: flex;
       align-items: center;
       gap: 35px;
     }
   }
 
-  &__info-item, &__phone {
+  &__info-item,
+  &__phone {
     color: $text-dimmed;
     font-size: 0.9rem;
     font-weight: 500;
@@ -39,7 +43,10 @@
     gap: 8px;
     letter-spacing: 0.3px;
     transition: color 0.3s ease;
-    &:hover { color: $primary-color; }
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 
   &__lang {
@@ -52,9 +59,20 @@
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.3s ease;
-    &:hover { border-color: $primary-color; color: $primary-color; }
-    option { background-color: $bg-input-focus; color: $text-dimmed; }
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+    option {
+      background-color: $bg-input-focus;
+      color: $text-dimmed;
+    }
   }
 
   &__main {
@@ -64,14 +82,13 @@
   }
 
   &__container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    @include flex-between;
     padding: 12px 40px 18px 40px;
     max-width: 1400px;
     margin: 0 auto;
     gap: 40px;
-    @media (max-width: 768px) {
+
+    @include tablet {
       padding: 10px 10px 12px 10px;
       gap: 6px;
       justify-content: space-between;
@@ -94,31 +111,42 @@
       color: $text-main;
       letter-spacing: 1px;
     }
-    @media (max-width: 768px) { display: none; }
+
+    @include tablet {
+      display: none;
+    }
   }
 
   &__nav {
     display: flex;
     align-items: center;
     gap: 24px;
-    .header__mobile-logo { display: none; }
+    .header__mobile-logo {
+      display: none;
+    }
+
     &-links {
       display: flex;
       align-items: center;
       gap: 24px;
     }
+
     a {
-      color: $text-muted;
-      text-decoration: none;
+      @include link-base($text-muted);
       font-size: 0.95rem;
       font-weight: 500;
       white-space: nowrap;
-      transition: color 0.3s ease;
-      &:hover { color: $primary-color; }
-    }
-    .header__mobile-info { display: none; }
 
-    @media (max-width: 1024px) {
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .header__mobile-info {
+      display: none;
+    }
+
+    @include desktop {
       position: absolute;
       top: 100%;
       left: 0;
@@ -137,7 +165,10 @@
         width: 100%;
         border-bottom: 1px solid $bg-surface;
         padding-bottom: 15px;
-        a { padding: 0; }
+
+        a {
+          padding: 0;
+        }
         span {
           font-size: 1.8rem;
           font-weight: bold;
@@ -152,6 +183,7 @@
         gap: 15px;
         border-bottom: 1px solid $bg-surface;
         padding-bottom: 20px;
+
         a {
           font-size: 1.1rem;
           width: 100%;
@@ -173,20 +205,24 @@
           font-size: 0.9rem;
           text-decoration: none;
           transition: color 0.3s;
-          &:hover { color: $primary-color; }
+
+          &:hover {
+            color: $primary-color;
+          }
         }
 
         .mobile-lang-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          @include flex-center;
           gap: 10px;
           margin-top: 10px;
           color: $text-secondary;
           font-size: 0.9rem;
-          .mobile-lang { width: auto; }
+
+          .mobile-lang {
+            width: auto;
+          }
         }
-        
+
         .mobile-auth-wrapper {
           width: 100%;
           border-top: 1px solid $bg-surface;
@@ -196,16 +232,13 @@
           justify-content: center;
 
           .mobile-logout-btn {
+            @include btn-base;
             background-color: transparent;
             border: 1px solid $danger-border;
             color: $danger-color;
             padding: 10px 0;
-            border-radius: 6px;
             width: 100%;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            
+
             &:active {
               background-color: rgba(255, 0, 0, 0.1);
             }
@@ -217,6 +250,7 @@
       visibility: hidden;
       transform: translateY(-20px);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
       &.open {
         opacity: 1;
         visibility: visible;
@@ -234,7 +268,7 @@
     padding-left: 24px;
     flex-shrink: 0;
 
-    @media (max-width: 768px) {
+    @include tablet {
       order: 3;
       padding-left: 8px;
       border-left: none;
@@ -250,7 +284,11 @@
     color: $text-main;
     font-size: 1.1rem;
     transition: transform 0.2s ease;
-    &:active { transform: scale(0.9); }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
     span {
       margin-left: 5px;
       color: $primary-color;
@@ -271,25 +309,31 @@
       margin-left: 15px;
 
       button {
+        @include btn-base;
         padding: 8px 16px;
-        border-radius: 6px;
         font-size: 0.95rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
         white-space: nowrap;
       }
+
       .login-btn {
         background-color: transparent;
         color: $text-main;
         border: 1px solid $primary-color;
-        &:hover { background-color: $green-glow-subtle; }
+
+        &:hover {
+          background-color: $green-glow-subtle;
+        }
       }
+
       .register-btn {
         background-color: $primary-color;
         color: $text-main;
         border: 1px solid $primary-color;
-        &:hover { background-color: $primary-hover; box-shadow: 0 4px 10px $green-glow; }
+
+        &:hover {
+          background-color: $primary-hover;
+          box-shadow: 0 4px 10px $green-glow;
+        }
       }
     }
 
@@ -298,49 +342,53 @@
       align-items: center;
       gap: 20px;
 
-      .user-name-link {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: $text-main !important;
-        text-decoration: none;
-        font-weight: 500;
-        transition: opacity 0.3s;
-        
-        .user-icon {
-          display: none; 
+      .user-profile {
+        .user-name-link {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: $text-main;
+          text-decoration: none;
+          font-weight: 500;
+          transition: opacity 0.3s;
+
+          .user-icon {
+            display: none;
+          }
         }
       }
-      .admin-link {
-        color: $accent-orange !important;
+
+      a.admin-link.admin-link {
+        @include btn-base;
+        color: $accent-orange;
         text-decoration: none;
         font-size: 0.85rem;
-        font-weight: 600;
         background-color: $warning-glow;
         border: 1px solid $orange-glow;
         padding: 6px 14px;
-        border-radius: 6px;
       }
+
       .logout-btn {
+        @include btn-base;
         background-color: transparent;
         border: 1px solid $danger-border;
         color: $danger-color;
         padding: 6px 14px;
-        border-radius: 6px;
-        cursor: pointer;
         font-weight: 500;
       }
     }
 
-    @media (max-width: 1024px) {
+    @include desktop {
       padding-left: 15px;
-      .auth-links { margin-left: 0; }
+      .auth-links {
+        margin-left: 0;
+      }
     }
 
-    @media (max-width: 768px) {
+    @include tablet {
       order: 2;
       margin-right: 15px;
-      
+
       .auth-links {
         gap: 6px;
         button {
@@ -351,18 +399,21 @@
 
       .user-profile {
         gap: 0;
-        
+
         .user-name-link {
-          .user-text { display: none; } 
-          .user-icon { 
-            display: flex; 
+          .user-text {
+            display: none;
+          }
+          .user-icon {
+            display: flex;
             color: $primary-color;
             padding: 5px;
           }
         }
-        
-        .admin-link, .logout-btn {
-          display: none; 
+
+        .admin-link,
+        .logout-btn {
+          display: none;
         }
       }
     }
@@ -378,11 +429,9 @@
     padding: 0;
     z-index: 102;
     position: relative;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
 
-    @media (max-width: 768px) {
+    @include tablet {
       order: 1;
       margin: 0;
     }
@@ -395,27 +444,28 @@
       border-radius: 2px;
       position: relative;
       transition: background-color 0.3s ease;
-
-      &::before, &::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: $text-main;
-        border-radius: 2px;
-        left: 0;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      &::before,
+      &::after {
+        @include burger-pseudo;
       }
-      &::before { top: -8px; }
-      &::after { top: 8px; }
+      &::before {
+        top: -8px;
+      }
+      &::after {
+        top: 8px;
+      }
     }
-
     &.active .burger-line {
       background-color: transparent;
-      &::before { transform: translateY(8px) rotate(45deg); }
-      &::after { transform: translateY(-8px) rotate(-45deg); }
+      &::before {
+        transform: translateY(8px) rotate(45deg);
+      }
+      &::after {
+        transform: translateY(-8px) rotate(-45deg);
+      }
     }
-
-    @media (max-width: 1024px) { display: flex; }
+    @include desktop {
+      @include flex-center;
+    }
   }
 }

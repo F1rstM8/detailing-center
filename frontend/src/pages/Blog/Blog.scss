@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
+
 .blog-page {
   &__title {
     text-align: center;
@@ -16,7 +18,7 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (max-width: 768px) {
+    @include tablet { 
       grid-template-columns: 1fr;
     }
   }
@@ -29,7 +31,7 @@
 }
 
 .blog-post {
-  background-color: #1e1e1e;
+  background-color: $bg-card; 
   border: 1px solid $border-dark;
   border-radius: 8px;
   overflow: hidden;
