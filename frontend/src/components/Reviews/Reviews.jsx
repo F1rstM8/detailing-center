@@ -1,44 +1,65 @@
-
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useTranslation } from "react-i18next";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 import "./Reviews.scss";
+import reviewsData from "./reviews.json"; 
 
 const Reviews = () => {
   const { t } = useTranslation();
 
-  const reviewsData = [
-    {
-      avatar: "A",
-      nameKey: "review1_name",
-      car: "Toyota Prius+",
-      textKey: "review1_text",
-      stars: "★★★★★",
-    },
-    {
-      avatar: "M",
-      nameKey: "review2_name",
-      car: "Volkswagen Golf",
-      textKey: "review2_text",
-      stars: "★★★★★",
-    },
-  ];
-
   return (
     <section className="reviews-section">
-      <h2>{t("reviews_title")}</h2>
-      <div className="reviews-grid">
-        {reviewsData.map((review, index) => (
-          <div className="review-card" key={index}>
-            <div className="review-header">
-              <div className="avatar">{review.avatar}</div>
-              <div className="user-info">
-                <h4>{t(review.nameKey)}</h4>
-                <span>{review.car}</span>
+      <h2>{t("reviews_title", "Отзывы клиентов")}</h2>
+      
+      <div className="reviews-carousel-wrapper">
+        {/* Стрелки вынесены ЗА пределы свайпера, чтобы не перекрывать карточки */}
+        <div className="custom-arrow custom-prev"></div>
+        <div className="custom-arrow custom-next"></div>
+
+        <Swiper
+          modules={[Autoplay, Navigation, Pagination]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          navigation={{
+            prevEl: '.custom-prev',
+            nextEl: '.custom-next',
+          }}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          // По умолчанию (на телефонах) свайп включен
+          allowTouchMove={true} 
+          breakpoints={{
+            768: { 
+              slidesPerView: 2,
+              // На ПК отключаем возможность тянуть карточки мышкой
+              allowTouchMove: false 
+            },
+          }}
+          className="reviews-swiper"
+        >
+          {reviewsData.map((review) => (
+            <SwiperSlide key={review.id}>
+              <div className="review-card">
+                <div className="review-header">
+                  <div className="avatar">{review.avatar}</div>
+                  <div className="reviewer-info">
+                    <h4>{review.name}</h4>
+                    <span>{review.car}</span>
+                  </div>
+                </div>
+                <p className="review-text">"{review.text}"</p>
+                <div className="rating">{"⭐".repeat(review.rating)}</div>
               </div>
-            </div>
-            <p>{t(review.textKey)}</p>
-            <div className="stars">{review.stars}</div>
-          </div>
-        ))}
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
