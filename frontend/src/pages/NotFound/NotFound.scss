@@ -1,0 +1,61 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.not-found-page {
+  min-height: calc(100vh - 150px); 
+  @include flex-center;
+  padding: 40px 20px;
+  background-color: $bg-body;
+  text-align: center;
+}
+
+.not-found-content {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .error-code {
+    font-size: 7rem;
+    font-weight: 800;
+    color: $primary-color;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: $text-main;
+    margin: 0;
+  }
+
+  p {
+    color: $text-muted;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .home-btn {
+    @include btn-base;
+    background-color: $primary-color;
+    color: $text-main;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      background-color: $primary-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px $green-glow;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

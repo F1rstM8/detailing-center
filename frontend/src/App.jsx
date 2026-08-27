@@ -12,6 +12,7 @@ import Portfolio from "./pages/Portfolio/Portfolio";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Contacts from "./pages/Contacts/Contacts";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import NotFound from "./pages/NotFound/NotFound";
 import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
@@ -36,17 +37,18 @@ function App() {
 
             <Route
               element={
-                <ProtectedRoute allowedRoles={["client", "manager", "admin"]} />
+                <ProtectedRoute allowedRoles={["client", "admin"]} />
               }
             >
               <Route path="/profile" element={<Profile />} />
             </Route>
 
             <Route
-              element={<ProtectedRoute allowedRoles={["manager", "admin"]} />}
+              element={<ProtectedRoute allowedRoles={[ "admin"]} />}
             >
               <Route path="/admin" element={<AdminDashboard />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
 
