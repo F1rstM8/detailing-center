@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -6,9 +5,9 @@ const ROLES = {
   ADMIN: "admin",
 };
 
+
 const AUTH_MODES = {
   LOGIN: "login",
-  REGISTER: "register",
 };
 
 const MOCK_CLIENT_NAMES = ["Постоянный клиент", "Stały klient"];
@@ -47,6 +46,7 @@ const AuthBlock = ({
     );
   }
 
+ 
   return (
     <div className="auth-links">
       <button
@@ -54,12 +54,6 @@ const AuthBlock = ({
         onClick={() => onOpenAuthModal(AUTH_MODES.LOGIN)}
       >
         {t("btn_login", "Войти")}
-      </button>
-      <button
-        className="register-btn"
-        onClick={() => onOpenAuthModal(AUTH_MODES.REGISTER)}
-      >
-        {t("btn_register", "Регистрация")}
       </button>
     </div>
   );

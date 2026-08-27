@@ -249,7 +249,11 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(-20px);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+      transition:
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
       &.open {
         opacity: 1;
@@ -322,17 +326,6 @@
 
         &:hover {
           background-color: $green-glow-subtle;
-        }
-      }
-
-      .register-btn {
-        background-color: $primary-color;
-        color: $text-main;
-        border: 1px solid $primary-color;
-
-        &:hover {
-          background-color: $primary-hover;
-          box-shadow: 0 4px 10px $green-glow;
         }
       }
     }
