@@ -136,7 +136,6 @@
       font-size: 0.95rem;
       font-weight: 500;
       white-space: nowrap;
-
       &:hover {
         color: $primary-color;
       }
@@ -335,19 +334,34 @@
       align-items: center;
       gap: 20px;
 
-      .user-profile {
-        .user-name-link {
+      .user-name-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $text-main;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.3s;
+
+       
+        .user-role {
+          background-color: rgba(156, 39, 176, 0.15);
+          color: #e1bee7;
+          border: 1px solid rgba(156, 39, 176, 0.5);
+          padding: 4px 10px;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          box-shadow: 0 0 10px rgba(156, 39, 176, 0.2);
           display: flex;
           align-items: center;
-          gap: 8px;
-          color: $text-main;
-          text-decoration: none;
-          font-weight: 500;
-          transition: opacity 0.3s;
+          justify-content: center;
+        }
 
-          .user-icon {
-            display: none;
-          }
+        .user-icon {
+          display: none;
         }
       }
 
@@ -392,7 +406,6 @@
 
       .user-profile {
         gap: 0;
-
         .user-name-link {
           .user-text {
             display: none;

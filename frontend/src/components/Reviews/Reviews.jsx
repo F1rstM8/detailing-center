@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./Reviews.scss";
-import reviewsData from "./reviews.json"; 
+import reviewsData from "./reviews.json";
 
 const Reviews = () => {
   const { t } = useTranslation();
@@ -16,9 +16,8 @@ const Reviews = () => {
   return (
     <section className="reviews-section">
       <h2>{t("reviews_title", "Отзывы клиентов")}</h2>
-      
+
       <div className="reviews-carousel-wrapper">
-        {/* Стрелки вынесены ЗА пределы свайпера, чтобы не перекрывать карточки */}
         <div className="custom-arrow custom-prev"></div>
         <div className="custom-arrow custom-next"></div>
 
@@ -28,18 +27,17 @@ const Reviews = () => {
           slidesPerView={1}
           loop={true}
           navigation={{
-            prevEl: '.custom-prev',
-            nextEl: '.custom-next',
+            prevEl: ".custom-prev",
+            nextEl: ".custom-next",
           }}
           pagination={{ clickable: true }}
           autoplay={{ delay: 4000, disableOnInteraction: false }}
-          // По умолчанию (на телефонах) свайп включен
-          allowTouchMove={true} 
+          allowTouchMove={true}
           breakpoints={{
-            768: { 
+            768: {
               slidesPerView: 2,
-              // На ПК отключаем возможность тянуть карточки мышкой
-              allowTouchMove: false 
+
+              allowTouchMove: false,
             },
           }}
           className="reviews-swiper"

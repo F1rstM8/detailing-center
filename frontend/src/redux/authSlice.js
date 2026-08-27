@@ -9,7 +9,6 @@ try {
   }
 } catch (error) {
   console.error("Ошибка при чтении authUser из localStorage:", error);
-
   localStorage.removeItem("authUser");
 }
 
@@ -27,10 +26,9 @@ const authSlice = createSlice({
       const { email, ...rest } = action.payload;
 
       let userRole = "client";
+     
       if (email === "admin@test.com") {
         userRole = "admin";
-      } else if (email === "manager@test.com") {
-        userRole = "manager";
       }
 
       state.user = { email, ...rest, role: userRole };
