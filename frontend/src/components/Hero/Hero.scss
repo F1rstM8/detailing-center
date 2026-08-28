@@ -71,8 +71,11 @@
     background-color: $primary-color;
     color: $text-main;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 16px 44px;
+    min-height: 48px;
     font-size: 1.1rem;
     margin-top: 10px;
     box-shadow: 0 4px 15px $green-glow;
@@ -92,10 +95,10 @@
   @include tablet {
     height: calc(100vh - 65px);
     min-height: 450px;
-    padding: 0 15px;
+    padding: 0 20px;
 
     &__content {
-      gap: 16px;
+      gap: 12px;
     }
 
     h1 {
@@ -104,14 +107,17 @@
 
     p {
       font-size: 1rem;
-      padding: 0 10px;
+      line-height: 1.5;
+      padding: 0;
     }
 
     &__btn {
-      padding: 14px 24px;
+      margin-top: 20px;
+      padding: 14px 20px;
       font-size: 1rem;
       width: 100%;
-      max-width: 320px;
+      max-width: 100%;
+      min-height: 48px;
     }
   }
 }

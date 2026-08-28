@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile/Profile";
 import Header from "./components/Header/Header";
@@ -36,16 +35,12 @@ function App() {
             <Route path="/contacts" element={<Contacts />} />
 
             <Route
-              element={
-                <ProtectedRoute allowedRoles={["client", "admin"]} />
-              }
+              element={<ProtectedRoute allowedRoles={["client", "admin"]} />}
             >
               <Route path="/profile" element={<Profile />} />
             </Route>
 
-            <Route
-              element={<ProtectedRoute allowedRoles={[ "admin"]} />}
-            >
+            <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
               <Route path="/admin" element={<AdminDashboard />} />
             </Route>
             <Route path="*" element={<NotFound />} />
