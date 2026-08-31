@@ -1,11 +1,9 @@
-import React, { useMemo } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/authSlice"; 
 import { removeOrder } from "../../redux/ordersSlice";
-import { ORDER_STATUS, ORDER_STATUS_CLASSES } from "../../constants/statuses";
-import { CURRENCY } from "../../constants/config";
 import "./Profile.scss";
 
 const Profile = () => {
@@ -15,13 +13,6 @@ const Profile = () => {
   
   const { user } = useSelector((state) => state.auth);
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
-
-  // Используем наш новый подход к переводу статусов
-  const statusLabels = useMemo(() => ({
-    [ORDER_STATUS.NEW]: t("status_new", "Новый"),
-    [ORDER_STATUS.IN_PROGRESS]: t("status_progress", "В работе"),
-    [ORDER_STATUS.COMPLETED]: t("status_done", "Выполнено"),
-  }), [t]);
 
   const currentUser = {
     name: user?.name || t("profile_guest", "Гость"),
@@ -38,12 +29,11 @@ const Profile = () => {
     ? t("mock_car_status", "Не указан")
     : currentUser.car;
 
-  const isAdmin = user?.role === "admin" || currentUser.email === "admin@test.com";
+  const isAdmin = currentUser.email === "admin@test.com";
 
-  // ИСПРАВЛЕНО: Теперь ищем заказы строго по уникальному ID пользователя
   const displayedOrders = isAdmin 
     ? allOrders 
-    : allOrders.filter((order) => order.userId === user?.id);
+    : allOrders.filter((order) => order.customerPhone === currentUser.phone);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -53,6 +43,15 @@ const Profile = () => {
   const handleDeleteOrder = (orderId) => {
     if (window.confirm(t("profile_delete_confirm", "Вы уверены, что хотите безвозвратно удалить этот заказ?"))) {
       dispatch(removeOrder(orderId));
+    }
+  };
+
+  const translateStatus = (status) => {
+    switch(status) {
+      case 'Новый': return t("status_new", "Новый");
+      case 'В работе': return t("status_progress", "В работе");
+      case 'Выполнено': return t("status_done", "Выполнено");
+      default: return status;
     }
   };
 
@@ -111,10 +110,8 @@ const Profile = () => {
                           <span className="order-customer">👤 {order.customerName} ({order.customerPhone})</span>
                         )}
                       </div>
-                      
-                      {/* ИСПРАВЛЕНО: Классы и тексты статусов через константы */}
-                      <span className={`status-badge ${ORDER_STATUS_CLASSES[order.status] || ""}`}>
-                        {statusLabels[order.status] || order.status}
+                      <span className={`status-badge ${order.status === 'Новый' ? 'status-new' : 'status-progress'}`}>
+                        {translateStatus(order.status)}
                       </span>
                     </div>
                     
@@ -127,8 +124,7 @@ const Profile = () => {
                     </div>
 
                     <div className="order-footer">
-                      {/* ИСПРАВЛЕНО: Валюта через константу */}
-                      <span className="order-total">{t("profile_order_total", "Итого:")} {order.totalPrice} {CURRENCY}</span>
+                      <span className="order-total">{t("profile_order_total", "Итого:")} {order.totalPrice} PLN</span>
                       
                       {isAdmin && (
                         <button 

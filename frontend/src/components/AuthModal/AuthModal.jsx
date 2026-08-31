@@ -14,7 +14,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
 
-  
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape" && isOpen) {
@@ -57,8 +56,16 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       }
     }
 
+    
+    let finalId = Date.now().toString();
+    if (email === "admin@test.com") {
+      finalId = "1"; 
+      finalName = "Администратор"; 
+      finalPhone = "+48 000 000 000";
+    }
+
     const userData = {
-      id: Date.now(),
+      id: finalId,
       email,
       name: finalName,
       phone: finalPhone,
@@ -74,7 +81,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       <div 
         className="modal-content" 
         onClick={(e) => e.stopPropagation()}
-        
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-modal-title"
@@ -82,7 +88,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
         <button 
           className="close-btn" 
           onClick={onClose}
-          
           aria-label={t("aria_close_menu", "Закрыть окно")}
         >
           ✕
@@ -96,7 +101,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           {!isLoginMode && (
             <>
               <div className="input-group">
-                
                 <label htmlFor="auth-name">{t("auth_name", "Имя")}</label>
                 <input 
                   id="auth-name"
@@ -151,7 +155,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           {isLoginMode ? (
             <p>
               {t("auth_no_account", "Нет аккаунта?")}{" "}
-              {/* 4. Заменили span на семантичный button */}
               <button 
                 type="button" 
                 className="text-btn" 

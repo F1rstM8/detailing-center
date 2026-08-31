@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const ADMIN_ID = "1"; 
+
 let savedUser = null;
 
 try {
@@ -23,15 +25,16 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { email, ...rest } = action.payload;
+      const { id, email, ...rest } = action.payload;
 
       let userRole = "client";
-     
-      if (email === "admin@test.com") {
+      
+      // Если ID совпадает с админским, выдаем права
+      if (String(id) === String(ADMIN_ID)) {
         userRole = "admin";
       }
 
-      state.user = { email, ...rest, role: userRole };
+      state.user = { id, email, ...rest, role: userRole };
       state.role = userRole;
       state.isAuthenticated = true;
     },

@@ -1,4 +1,3 @@
-
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -17,10 +16,29 @@ const Login = () => {
       email: "",
       password: "",
     },
-   
     validationSchema: getLoginSchema(t), 
     onSubmit: (values) => {
-      dispatch(login({ email: values.email }));
+      let mockUser;
+      
+      // Имитируем ответ от сервера
+      if (values.email === "admin@test.com") {
+        mockUser = {
+          id: "1", // <-- Ключевой параметр для прав админа
+          email: values.email,
+          name: "Администратор",
+          phone: "+48 000 000 000"
+        };
+      } else {
+        mockUser = {
+          id: Date.now().toString(), // Уникальный ID для обычных клиентов
+          email: values.email,
+          name: "Постоянный клиент",
+          phone: "+48 111 222 333",
+          car: "Toyota Prius+"
+        };
+      }
+
+      dispatch(login(mockUser));
       navigate("/profile");
     },
   });
