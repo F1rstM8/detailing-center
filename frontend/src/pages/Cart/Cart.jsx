@@ -6,11 +6,13 @@ import * as Yup from "yup";
 import { removeItem, clearCart } from "../../redux/cartSlice";
 import { addOrder } from "../../redux/ordersSlice";
 import { useTranslation } from "react-i18next";
+import { ORDER_STATUS } from "../../constants/statuses";
+import { CURRENCY } from "../../constants/config";
 import "./Cart.scss";
 
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth); 
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -26,15 +28,9 @@ const Cart = () => {
       .min(2, t("val_name_min", "Имя должно содержать минимум 2 символа"))
       .required(t("val_required", "Обязательное поле")),
     phone: Yup.string()
-      .matches(
-        /^[+0-9() -]{9,15}$/,
-        t("val_phone_format", "Введите корректный номер телефона"),
-      )
+      .matches(/^[+0-9() -]{9,15}$/, t("val_phone_format", "Введите корректный номер телефона"))
       .required(t("val_required", "Обязательное поле")),
-    comment: Yup.string().max(
-      200,
-      t("val_comment_max", "Комментарий не должен превышать 200 символов"),
-    ),
+    comment: Yup.string().max(200, t("val_comment_max", "Комментарий не должен превышать 200 символов")),
   });
 
   const formik = useFormik({
@@ -50,18 +46,19 @@ const Cart = () => {
       setTimeout(() => {
         const newOrder = {
           id: `ord-${Date.now()}`,
+          userId: user?.id, // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: привязываем заказ к ID пользователя
           date: new Date().toLocaleDateString("ru-RU"),
           customerName: values.name,
           customerPhone: values.phone,
           comment: values.comment,
-          status: "Новый",
+          status: ORDER_STATUS.NEW, // ИСПРАВЛЕНО: используем константу вместо "Новый"
           items: items,
           totalPrice: totalPrice,
         };
 
         dispatch(addOrder(newOrder));
         dispatch(clearCart());
-
+        
         setIsProcessing(false);
         setIsSuccess(true);
       }, 1500);
@@ -74,45 +71,18 @@ const Cart = () => {
         <div className="cart-container">
           <div className="success-container">
             <div className="success-animation">
-              <svg
-                className="checkmark"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 52 52"
-              >
-                <circle
-                  className="checkmark__circle"
-                  cx="26"
-                  cy="26"
-                  r="25"
-                  fill="none"
-                />
-                <path
-                  className="checkmark__check"
-                  fill="none"
-                  d="M14.1 27.2l7.1 7.2 16.7-16.8"
-                />
+              <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
               </svg>
             </div>
             <h2>{t("cart_success_title", "Заявка успешно оформлена!")}</h2>
-            <p>
-              {t(
-                "cart_success_desc",
-                "Мы свяжемся с вами в ближайшее время. Ваша заявка сохранена в профиле.",
-              )}
-            </p>
+            <p>{t("cart_success_desc", "Мы свяжемся с вами в ближайшее время. Ваша заявка сохранена в профиле.")}</p>
             <div className="success-actions">
-              <Link
-                to="/profile"
-                className="btn-primary"
-                onClick={() => setIsSuccess(false)}
-              >
+              <Link to="/profile" className="btn-primary" onClick={() => setIsSuccess(false)}>
                 {t("btn_to_profile", "Перейти в профиль")}
               </Link>
-              <Link
-                to="/services"
-                className="btn-secondary"
-                onClick={() => setIsSuccess(false)}
-              >
+              <Link to="/services" className="btn-secondary" onClick={() => setIsSuccess(false)}>
                 {t("btn_back_to_services", "Вернуться к услугам")}
               </Link>
             </div>
@@ -137,8 +107,9 @@ const Cart = () => {
                     <p className="item-category">{item.category}</p>
                   </div>
                   <div className="item-actions">
-                    <span className="item-price">{item.price} PLN</span>
-                    <button
+                    {/* ИСПРАВЛЕНО: используем константу валюты */}
+                    <span className="item-price">{item.price} {CURRENCY}</span>
+                    <button 
                       className="remove-btn"
                       onClick={() => handleRemoveItem(item.id)}
                       aria-label={t("cart_remove_item", "Удалить услугу")}
@@ -153,36 +124,26 @@ const Cart = () => {
 
             <div className="cart-summary">
               <h3>{t("cart_checkout_title", "Оформление")}</h3>
-
+              
               <div className="summary-row">
                 <span>{t("cart_items_count", "Количество услуг:")}</span>
-                <span>
-                  {items.length} {t("cart_pcs", "шт.")}
-                </span>
+                <span>{items.length} {t("cart_pcs", "шт.")}</span>
               </div>
               <div className="summary-row total">
                 <span>{t("cart_total_pay", "К оплате:")}</span>
-                <span>{totalPrice} PLN</span>
+                {/* ИСПРАВЛЕНО: используем константу валюты */}
+                <span>{totalPrice} {CURRENCY}</span>
               </div>
 
               {!user ? (
                 <div className="auth-required-message">
-                  <p>
-                    {t(
-                      "cart_auth_required",
-                      "Оформление заказа доступно только зарегистрированным пользователям.",
-                    )}
-                  </p>
+                  <p>{t("cart_auth_required", "Оформление заказа доступно только зарегистрированным пользователям.")}</p>
                   <Link to="/login" className="btn-primary login-link">
                     {t("cart_login_btn", "Войти в аккаунт")}
                   </Link>
                 </div>
               ) : (
-                <form
-                  onSubmit={formik.handleSubmit}
-                  className="checkout-form"
-                  noValidate
-                >
+                <form onSubmit={formik.handleSubmit} className="checkout-form" noValidate>
                   <div className="form-group">
                     <label htmlFor="checkout-name" className="visually-hidden">
                       {t("auth_name", "Ваше имя")}
@@ -195,28 +156,12 @@ const Cart = () => {
                       value={formik.values.name}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={
-                        formik.touched.name && formik.errors.name
-                          ? "input-error"
-                          : ""
-                      }
-                      aria-invalid={
-                        formik.touched.name && formik.errors.name
-                          ? "true"
-                          : "false"
-                      }
-                      aria-describedby={
-                        formik.touched.name && formik.errors.name
-                          ? "name-error"
-                          : undefined
-                      }
+                      className={formik.touched.name && formik.errors.name ? "input-error" : ""}
+                      aria-invalid={formik.touched.name && formik.errors.name ? "true" : "false"}
+                      aria-describedby={formik.touched.name && formik.errors.name ? "name-error" : undefined}
                     />
                     {formik.touched.name && formik.errors.name && (
-                      <span
-                        id="name-error"
-                        className="error-text"
-                        aria-live="polite"
-                      >
+                      <span id="name-error" className="error-text" aria-live="polite">
                         {formik.errors.name}
                       </span>
                     )}
@@ -234,81 +179,43 @@ const Cart = () => {
                       value={formik.values.phone}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={
-                        formik.touched.phone && formik.errors.phone
-                          ? "input-error"
-                          : ""
-                      }
-                      aria-invalid={
-                        formik.touched.phone && formik.errors.phone
-                          ? "true"
-                          : "false"
-                      }
-                      aria-describedby={
-                        formik.touched.phone && formik.errors.phone
-                          ? "phone-error"
-                          : undefined
-                      }
+                      className={formik.touched.phone && formik.errors.phone ? "input-error" : ""}
+                      aria-invalid={formik.touched.phone && formik.errors.phone ? "true" : "false"}
+                      aria-describedby={formik.touched.phone && formik.errors.phone ? "phone-error" : undefined}
                     />
                     {formik.touched.phone && formik.errors.phone && (
-                      <span
-                        id="phone-error"
-                        className="error-text"
-                        aria-live="polite"
-                      >
+                      <span id="phone-error" className="error-text" aria-live="polite">
                         {formik.errors.phone}
                       </span>
                     )}
                   </div>
 
                   <div className="form-group">
-                    <label
-                      htmlFor="checkout-comment"
-                      className="visually-hidden"
-                    >
+                    <label htmlFor="checkout-comment" className="visually-hidden">
                       {t("cart_comment", "Комментарий")}
                     </label>
                     <textarea
                       id="checkout-comment"
                       name="comment"
-                      placeholder={t(
-                        "cart_comment_placeholder",
-                        "Марка авто или пожелания...",
-                      )}
+                      placeholder={t("cart_comment_placeholder", "Марка авто или пожелания...")}
                       value={formik.values.comment}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       rows="2"
-                      className={
-                        formik.touched.comment && formik.errors.comment
-                          ? "input-error"
-                          : ""
-                      }
-                      aria-invalid={
-                        formik.touched.comment && formik.errors.comment
-                          ? "true"
-                          : "false"
-                      }
-                      aria-describedby={
-                        formik.touched.comment && formik.errors.comment
-                          ? "comment-error"
-                          : undefined
-                      }
+                      className={formik.touched.comment && formik.errors.comment ? "input-error" : ""}
+                      aria-invalid={formik.touched.comment && formik.errors.comment ? "true" : "false"}
+                      aria-describedby={formik.touched.comment && formik.errors.comment ? "comment-error" : undefined}
                     />
                     {formik.touched.comment && formik.errors.comment && (
-                      <span
-                        id="comment-error"
-                        className="error-text"
-                        aria-live="polite"
-                      >
+                      <span id="comment-error" className="error-text" aria-live="polite">
                         {formik.errors.comment}
                       </span>
                     )}
                   </div>
-
-                  <button
+                  
+                  <button 
                     type="submit"
-                    className={`checkout-btn ${isProcessing ? "processing" : ""}`}
+                    className={`checkout-btn ${isProcessing ? "processing" : ""}`} 
                     disabled={isProcessing}
                   >
                     {isProcessing ? "" : t("cart_checkout", "Оформить заказ")}
@@ -321,12 +228,7 @@ const Cart = () => {
           <div className="cart-empty">
             <div className="empty-icon">🛒</div>
             <h3>{t("cart_empty_title", "Ваша корзина пуста")}</h3>
-            <p>
-              {t(
-                "cart_empty",
-                "Вы еще не выбрали ни одной услуги для своего автомобиля.",
-              )}
-            </p>
+            <p>{t("cart_empty", "Вы еще не выбрали ни одной услуги для своего автомобиля.")}</p>
             <Link to="/services" className="btn-primary">
               {t("btn_back_to_services", "Вернуться к услугам")}
             </Link>
