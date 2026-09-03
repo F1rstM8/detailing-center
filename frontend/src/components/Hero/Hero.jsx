@@ -10,6 +10,7 @@ const Hero = () => {
       <div className="hero__container">
         <div className="hero__content">
           <h1
+            className="hero__title"
             dangerouslySetInnerHTML={{
               __html: t("hero_title").replace(
                 "Кракове",
@@ -17,7 +18,7 @@ const Hero = () => {
               ),
             }}
           />
-          <p>{t("hero_subtitle")}</p>
+          <p className="hero__subtitle">{t("hero_subtitle")}</p>
 
           <Link to="/services" className="hero__btn">
             {t("hero_btn")}
