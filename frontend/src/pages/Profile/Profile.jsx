@@ -7,7 +7,7 @@ import { removeOrder } from "../../redux/ordersSlice";
 import "./Profile.scss";
 
 const Profile = () => {
-  // ДОБАВЛЕНО: достаем i18n для перевода на лету
+ 
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
   
-  // ДОБАВЛЕНО: получаем весь список услуг из базы для правильного перевода
+ 
   const allServices = useSelector((state) => state.services?.servicesList || []);
 
   const [isAddingCar, setIsAddingCar] = useState(false);
@@ -192,7 +192,7 @@ const Profile = () => {
                     <div className="order-header">
                       <div className="order-meta">
                         <span className="order-date">{t("profile_order_from", "От")} {order.date}</span>
-                        {/* ДОБАВЛЕНО: Выводим автомобиль, привязанный к заказу */}
+                       
                         {order.customerCar && order.customerCar !== t("mock_car_status", "Не указан") && (
                           <span className="order-customer" style={{color: '#a0a0a0', display: 'flex', alignItems: 'center', gap: '5px'}}>
                             🚗 {order.customerCar}
@@ -209,7 +209,7 @@ const Profile = () => {
                     
                     <div className="order-services">
                       <ul>
-                        {/* ИЗМЕНЕНО: Динамический перевод услуг в истории заказов */}
+                       
                         {order.items.map(item => {
                           const serviceInfo = allServices.find((s) => s.id === item.id);
                           const currentLang = i18n.language?.startsWith("pl") ? "pl" : "ru";

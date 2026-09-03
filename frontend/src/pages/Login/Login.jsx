@@ -43,7 +43,7 @@ const Login = () => {
         finalPhone = "+48 000 000 000";
         finalCars = []; 
       } else if (!storedUsers[email]) {
-        // Тестовые данные для новых клиентов (просто для наглядности в профиле)
+        
         finalCars = [
           { id: "car-1", model: "Toyota Prius+" },
           { id: "car-2", model: "Renault Dokker" }
@@ -55,7 +55,7 @@ const Login = () => {
         email,
         name: finalName,
         phone: finalPhone,
-        cars: finalCars, // <-- Теперь передаем массив машин
+        cars: finalCars, 
       };
 
       dispatch(login(userData));
@@ -65,7 +65,7 @@ const Login = () => {
 
   return (
     <main className="page-content">
-      {/* ... (весь return остался без изменений, как в предыдущем шаге) ... */}
+     
       <div className="form-container">
         <h2>{t("auth_login_title", "Вход в личный кабинет")}</h2>
         <form onSubmit={formik.handleSubmit} className="auth-form">

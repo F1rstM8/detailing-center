@@ -29,7 +29,7 @@ const authSlice = createSlice({
 
       let userRole = "client";
       
-      // Если ID совпадает с админским, выдаем права
+     
       if (String(id) === String(ADMIN_ID)) {
         userRole = "admin";
       }

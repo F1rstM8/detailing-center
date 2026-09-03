@@ -45,7 +45,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
     const storedUsers = JSON.parse(localStorage.getItem("appUsers")) || {};
 
     if (!isLoginMode) {
-      // При регистрации сохраняем пустой массив машин
+      
       storedUsers[email] = { name, phone, cars: [] };
       localStorage.setItem("appUsers", JSON.stringify(storedUsers));
     } else {
@@ -76,7 +76,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       email,
       name: finalName,
       phone: finalPhone,
-      cars: finalCars, // <-- Массив
+      cars: finalCars, 
     };
 
     dispatch(login(userData));

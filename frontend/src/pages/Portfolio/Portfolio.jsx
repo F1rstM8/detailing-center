@@ -41,7 +41,7 @@ const Portfolio = () => {
 
         <div className="portfolio-grid">
           {portfolioItems.map((item) => {
-            // Применяем вынесенный хелпер вместо ручной проверки
+           
             const categoryText = getLocalizedField(item, "category", currentLang);
 
             return (

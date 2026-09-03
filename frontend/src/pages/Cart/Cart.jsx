@@ -10,7 +10,7 @@ import { ORDER_STATUS } from "../../constants/statuses";
 import { CURRENCY } from "../../constants/config";
 import "./Cart.scss";
 
-// ДОБАВЛЕНО: Страховочный словарь на случай, если Redux еще не успел загрузить услуги
+
 const FALLBACK_SERVICES = {
   "s1": { title_ru: "Комплексная химчистка салона", title_pl: "Kompleksowe czyszczenie wnętrza", category_ru: "Интерьер", category_pl: "Wnętrze" },
   "s2": { title_ru: "Полировка кузова (Восстановительная)", title_pl: "Polerowanie karoserii (Rewitalizujące)", category_ru: "Экстерьер", category_pl: "Nadwozie" },
@@ -117,11 +117,11 @@ const Cart = () => {
           <div className="cart-content">
             <div className="cart-items">
               {items.map((item) => {
-                // Пытаемся найти в Redux. Если там пусто - берем из нашего FALLBACK_SERVICES
+               
                 const serviceInfo = allServices.find((s) => s.id === item.id) || FALLBACK_SERVICES[item.id];
                 const currentLang = i18n.language?.startsWith("pl") ? "pl" : "ru";
                 
-                // Переводим
+                
                 const title = serviceInfo 
                   ? (currentLang === "pl" ? serviceInfo.title_pl : serviceInfo.title_ru) 
                   : item.title;
