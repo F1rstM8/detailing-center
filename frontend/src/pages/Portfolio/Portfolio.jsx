@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Portfolio.scss";
 
 const Portfolio = () => {
@@ -40,7 +41,8 @@ const Portfolio = () => {
 
         <div className="portfolio-grid">
           {portfolioItems.map((item) => {
-            const categoryText = currentLang === 'pl' && item.category_pl ? item.category_pl : item.category_ru;
+            // Применяем вынесенный хелпер вместо ручной проверки
+            const categoryText = getLocalizedField(item, "category", currentLang);
 
             return (
               <article key={item.id} className="portfolio-card">

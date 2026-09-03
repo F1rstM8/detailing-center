@@ -5,6 +5,7 @@ import { addItem } from "../../redux/cartSlice";
 import { getServices } from "../../redux/servicesSlice";
 import Reviews from "../../components/Reviews/Reviews";
 import { useTranslation } from "react-i18next";
+import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Home.scss";
 
 const Home = () => {
@@ -21,7 +22,6 @@ const Home = () => {
 
   const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
 
-  
   useEffect(() => {
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
@@ -29,7 +29,6 @@ const Home = () => {
     };
   }, []);
 
-  
   useEffect(() => {
     if (status === "idle") {
       dispatch(getServices());
@@ -37,11 +36,6 @@ const Home = () => {
   }, [status, dispatch]);
 
   const popularServices = servicesData.slice(0, 3);
-
-  const getLocalizedField = (item, fieldName) => {
-    const localizedKey = `${fieldName}_${currentLang}`;
-    return item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || "";
-  };
 
   const handleAddToCart = (service, serviceTitle, serviceCategory) => {
     dispatch(
@@ -113,9 +107,10 @@ const Home = () => {
         {status === "succeeded" && (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              const serviceTitle = getLocalizedField(service, "title");
-              const serviceDesc = getLocalizedField(service, "description");
-              const serviceCategory = getLocalizedField(service, "category");
+              // Используем вынесенный хелпер с передачей currentLang
+              const serviceTitle = getLocalizedField(service, "title", currentLang);
+              const serviceDesc = getLocalizedField(service, "description", currentLang);
+              const serviceCategory = getLocalizedField(service, "category", currentLang);
               const isAdded = addedItems[service.id];
 
               return (
