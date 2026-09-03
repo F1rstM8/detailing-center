@@ -7,17 +7,20 @@ import { removeOrder } from "../../redux/ordersSlice";
 import "./Profile.scss";
 
 const Profile = () => {
-  const { t } = useTranslation();
+  // ДОБАВЛЕНО: достаем i18n для перевода на лету
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const { user } = useSelector((state) => state.auth);
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
+  
+  // ДОБАВЛЕНО: получаем весь список услуг из базы для правильного перевода
+  const allServices = useSelector((state) => state.services?.servicesList || []);
 
   const [isAddingCar, setIsAddingCar] = useState(false);
   const [newCarModel, setNewCarModel] = useState("");
   
-  // Универсальное состояние для красивого модального окна удаления
   const [confirmModal, setConfirmModal] = useState({ 
     isOpen: false, 
     type: null, 
@@ -69,7 +72,6 @@ const Profile = () => {
     setIsAddingCar(false);
   };
 
-  // --- ЛОГИКА КАСТОМНОГО ПОДТВЕРЖДЕНИЯ ---
   const handleRemoveCarRequest = (carId) => {
     setConfirmModal({ isOpen: true, type: "car", targetId: carId });
   };
@@ -91,7 +93,6 @@ const Profile = () => {
   const cancelAction = () => {
     setConfirmModal({ isOpen: false, type: null, targetId: null });
   };
-  // --------------------------------------
 
   const translateStatus = (status) => {
     switch(status) {
@@ -139,7 +140,7 @@ const Profile = () => {
                           <span className="car-model">🚗 {car.model}</span>
                           <button 
                             className="remove-car-btn" 
-                            onClick={() => handleRemoveCarRequest(car.id)} // Изменено
+                            onClick={() => handleRemoveCarRequest(car.id)} 
                             title={t("btn_remove_car", "Удалить авто")}
                           >
                             ✕
@@ -191,6 +192,12 @@ const Profile = () => {
                     <div className="order-header">
                       <div className="order-meta">
                         <span className="order-date">{t("profile_order_from", "От")} {order.date}</span>
+                        {/* ДОБАВЛЕНО: Выводим автомобиль, привязанный к заказу */}
+                        {order.customerCar && order.customerCar !== t("mock_car_status", "Не указан") && (
+                          <span className="order-customer" style={{color: '#a0a0a0', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                            🚗 {order.customerCar}
+                          </span>
+                        )}
                         {isAdmin && (
                           <span className="order-customer">👤 {order.customerName} ({order.customerPhone})</span>
                         )}
@@ -202,9 +209,18 @@ const Profile = () => {
                     
                     <div className="order-services">
                       <ul>
-                        {order.items.map(item => (
-                          <li key={item.id}>{item.title}</li>
-                        ))}
+                        {/* ИЗМЕНЕНО: Динамический перевод услуг в истории заказов */}
+                        {order.items.map(item => {
+                          const serviceInfo = allServices.find((s) => s.id === item.id);
+                          const currentLang = i18n.language?.startsWith("pl") ? "pl" : "ru";
+                          const title = serviceInfo 
+                            ? (currentLang === "pl" ? serviceInfo.title_pl : serviceInfo.title_ru) 
+                            : item.title;
+
+                          return (
+                            <li key={item.id}>{title}</li>
+                          );
+                        })}
                       </ul>
                     </div>
 
@@ -214,7 +230,7 @@ const Profile = () => {
                       {isAdmin && (
                         <button 
                           className="delete-order-btn"
-                          onClick={() => handleDeleteOrderRequest(order.id)} // Изменено
+                          onClick={() => handleDeleteOrderRequest(order.id)} 
                         >
                           {t("btn_delete", "Удалить")}
                         </button>
@@ -228,7 +244,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Кастомное модальное окно подтверждения */}
       {confirmModal.isOpen && (
         <div className="custom-confirm-overlay" onClick={cancelAction}>
           <div className="custom-confirm-modal" onClick={(e) => e.stopPropagation()}>

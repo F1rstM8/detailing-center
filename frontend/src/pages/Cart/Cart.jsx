@@ -10,11 +10,22 @@ import { ORDER_STATUS } from "../../constants/statuses";
 import { CURRENCY } from "../../constants/config";
 import "./Cart.scss";
 
+// ДОБАВЛЕНО: Страховочный словарь на случай, если Redux еще не успел загрузить услуги
+const FALLBACK_SERVICES = {
+  "s1": { title_ru: "Комплексная химчистка салона", title_pl: "Kompleksowe czyszczenie wnętrza", category_ru: "Интерьер", category_pl: "Wnętrze" },
+  "s2": { title_ru: "Полировка кузова (Восстановительная)", title_pl: "Polerowanie karoserii (Rewitalizujące)", category_ru: "Экстерьер", category_pl: "Nadwozie" },
+  "s3": { title_ru: "Керамическое покрытие (2 слоя)", title_pl: "Powłoka ceramiczna (2 warstwy)", category_ru: "Защита", category_pl: "Ochrona" },
+  "s4": { title_ru: "Оклейка зон риска полиуретаном", title_pl: "Oklejanie stref ryzyka folią PPF", category_ru: "Пленка", category_pl: "Folia" },
+  "s5": { title_ru: "Мойка двигателя диэлектриком", title_pl: "Mycie silnika dielektrykiem", category_ru: "Детейлинг-мойка", category_pl: "Mycie detailingowe" }
+};
+
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth); 
+  const allServices = useSelector((state) => state.services?.servicesList || []); 
+  
   const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -31,7 +42,7 @@ const Cart = () => {
       .matches(/^[+0-9() -]{9,15}$/, t("val_phone_format", "Введите корректный номер телефона"))
       .required(t("val_required", "Обязательное поле")),
     car: Yup.string()
-      .max(50, t("val_car_max", "Название авто слишком длинное")), // Добавлена валидация для авто
+      .max(50, t("val_car_max", "Название авто слишком длинное")),
     comment: Yup.string()
       .max(200, t("val_comment_max", "Комментарий не должен превышать 200 символов")),
   });
@@ -40,7 +51,6 @@ const Cart = () => {
     initialValues: {
       name: user?.name || "",
       phone: user?.phone || "",
-      // Если у пользователя есть авто в гараже, подставляем первое по умолчанию
       car: user?.cars && user.cars.length > 0 ? user.cars[0].model : "", 
       comment: "",
     },
@@ -106,25 +116,40 @@ const Cart = () => {
         {items && items.length > 0 ? (
           <div className="cart-content">
             <div className="cart-items">
-              {items.map((item) => (
-                <div key={item.id} className="cart-item">
-                  <div className="item-info">
-                    <h3>{item.title}</h3>
-                    <p className="item-category">{item.category}</p>
+              {items.map((item) => {
+                // Пытаемся найти в Redux. Если там пусто - берем из нашего FALLBACK_SERVICES
+                const serviceInfo = allServices.find((s) => s.id === item.id) || FALLBACK_SERVICES[item.id];
+                const currentLang = i18n.language?.startsWith("pl") ? "pl" : "ru";
+                
+                // Переводим
+                const title = serviceInfo 
+                  ? (currentLang === "pl" ? serviceInfo.title_pl : serviceInfo.title_ru) 
+                  : item.title;
+                  
+                const category = serviceInfo
+                  ? (currentLang === "pl" ? serviceInfo.category_pl : serviceInfo.category_ru)
+                  : item.category;
+
+                return (
+                  <div key={item.id} className="cart-item">
+                    <div className="item-info">
+                      <h3>{title}</h3>
+                      <p className="item-category">{category}</p>
+                    </div>
+                    <div className="item-actions">
+                      <span className="item-price">{item.price} {CURRENCY}</span>
+                      <button 
+                        className="remove-btn"
+                        onClick={() => handleRemoveItem(item.id)}
+                        aria-label={t("cart_remove_item", "Удалить услугу")}
+                        title={t("cart_remove_item", "Удалить услугу")}
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </div>
-                  <div className="item-actions">
-                    <span className="item-price">{item.price} {CURRENCY}</span>
-                    <button 
-                      className="remove-btn"
-                      onClick={() => handleRemoveItem(item.id)}
-                      aria-label={t("cart_remove_item", "Удалить услугу")}
-                      title={t("cart_remove_item", "Удалить услугу")}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="cart-summary">
@@ -194,7 +219,6 @@ const Cart = () => {
                     )}
                   </div>
 
-                 
                   <div className="form-group">
                     <label htmlFor="checkout-car" className="visually-hidden">
                       {t("profile_car", "Автомобиль")}
@@ -207,7 +231,6 @@ const Cart = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         className={formik.touched.car && formik.errors.car ? "input-error" : ""}
-                       
                         style={{ width: "100%", padding: "12px 15px", backgroundColor: "transparent", border: "1px solid rgba(255, 255, 255, 0.2)", borderRadius: "8px", color: "inherit", outline: "none", fontSize: "1rem" }}
                       >
                         {user.cars.map((c) => (
