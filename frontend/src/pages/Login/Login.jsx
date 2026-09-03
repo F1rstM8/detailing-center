@@ -18,27 +18,38 @@ const Login = () => {
     },
     validationSchema: getLoginSchema(t), 
     onSubmit: (values) => {
-      let mockUser;
+      const email = values.email;
+      const storedUsers = JSON.parse(localStorage.getItem("appUsers")) || {};
       
-      // Имитируем ответ от сервера
-      if (values.email === "admin@test.com") {
-        mockUser = {
-          id: "1", // <-- Ключевой параметр для прав админа
-          email: values.email,
-          name: "Администратор",
-          phone: "+48 000 000 000"
-        };
+      let finalName = "";
+      let finalPhone = "";
+
+      // Проверяем, есть ли пользователь в нашей локальной "базе"
+      if (storedUsers[email]) {
+        finalName = storedUsers[email].name;
+        finalPhone = storedUsers[email].phone;
       } else {
-        mockUser = {
-          id: Date.now().toString(), // Уникальный ID для обычных клиентов
-          email: values.email,
-          name: "Постоянный клиент",
-          phone: "+48 111 222 333",
-          car: "Toyota Prius+"
-        };
+        finalName = email.split("@")[0];
+        finalPhone = t("mock_phone", "Телефон не указан");
       }
 
-      dispatch(login(mockUser));
+      // Жесткая проверка на администратора
+      let finalId = Date.now().toString();
+      if (email === "admin@test.com") {
+        finalId = "1";
+        finalName = "Администратор";
+        finalPhone = "+48 000 000 000";
+      }
+
+      const userData = {
+        id: finalId,
+        email,
+        name: finalName,
+        phone: finalPhone,
+        car: t("mock_car_status", "Не указан"),
+      };
+
+      dispatch(login(userData));
       navigate("/profile");
     },
   });

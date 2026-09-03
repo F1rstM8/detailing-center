@@ -56,11 +56,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       }
     }
 
-    
     let finalId = Date.now().toString();
     if (email === "admin@test.com") {
-      finalId = "1"; 
-      finalName = "Администратор"; 
+      finalId = "1";
+      finalName = "Администратор";
       finalPhone = "+48 000 000 000";
     }
 
@@ -78,15 +77,15 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div 
-        className="modal-content" 
+      <div
+        className="modal-content"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="auth-modal-title"
       >
-        <button 
-          className="close-btn" 
+        <button
+          className="close-btn"
           onClick={onClose}
           aria-label={t("aria_close_menu", "Закрыть окно")}
         >
@@ -94,7 +93,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
         </button>
 
         <h2 id="auth-modal-title">
-          {isLoginMode ? t("auth_login_title", "Вход") : t("auth_register_title", "Регистрация")}
+          {isLoginMode
+            ? t("auth_login_title", "Вход")
+            : t("auth_register_title", "Регистрация")}
         </h2>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -102,23 +103,23 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
             <>
               <div className="input-group">
                 <label htmlFor="auth-name">{t("auth_name", "Имя")}</label>
-                <input 
+                <input
                   id="auth-name"
-                  type="text" 
-                  required 
-                  autoFocus 
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)} 
+                  type="text"
+                  required
+                  autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="input-group">
                 <label htmlFor="auth-phone">{t("auth_phone", "Телефон")}</label>
-                <input 
+                <input
                   id="auth-phone"
-                  type="tel" 
-                  required 
-                  value={phone} 
-                  onChange={(e) => setPhone(e.target.value)} 
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
             </>
@@ -126,28 +127,32 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
 
           <div className="input-group">
             <label htmlFor="auth-email">{t("auth_email", "Email")}</label>
-            <input 
+            <input
               id="auth-email"
-              type="email" 
-              required 
-              autoFocus={isLoginMode} 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
+              type="email"
+              required
+              autoFocus={isLoginMode}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="input-group">
-            <label htmlFor="auth-password">{t("auth_password", "Пароль")}</label>
-            <input 
+            <label htmlFor="auth-password">
+              {t("auth_password", "Пароль")}
+            </label>
+            <input
               id="auth-password"
-              type="password" 
-              required 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <button type="submit" className="submit-btn">
-            {isLoginMode ? t("auth_submit_login", "Войти") : t("auth_submit_register", "Зарегистрироваться")}
+            {isLoginMode
+              ? t("auth_submit_login", "Войти")
+              : t("auth_submit_register", "Зарегистрироваться")}
           </button>
         </form>
 
@@ -155,9 +160,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           {isLoginMode ? (
             <p>
               {t("auth_no_account", "Нет аккаунта?")}{" "}
-              <button 
-                type="button" 
-                className="text-btn" 
+              <button
+                type="button"
+                className="text-btn"
                 onClick={() => setIsLoginMode(false)}
               >
                 {t("btn_register", "Создать")}
@@ -166,9 +171,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
           ) : (
             <p>
               {t("auth_has_account", "Уже есть аккаунт?")}{" "}
-              <button 
-                type="button" 
-                className="text-btn" 
+              <button
+                type="button"
+                className="text-btn"
                 onClick={() => setIsLoginMode(true)}
               >
                 {t("btn_login", "Войти")}
