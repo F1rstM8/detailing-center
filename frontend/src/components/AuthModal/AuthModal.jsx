@@ -41,26 +41,34 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
 
     let finalName = name;
     let finalPhone = phone;
+    let finalCars = [];
     const storedUsers = JSON.parse(localStorage.getItem("appUsers")) || {};
 
     if (!isLoginMode) {
-      storedUsers[email] = { name, phone };
+      // При регистрации сохраняем пустой массив машин
+      storedUsers[email] = { name, phone, cars: [] };
       localStorage.setItem("appUsers", JSON.stringify(storedUsers));
     } else {
       if (storedUsers[email]) {
         finalName = storedUsers[email].name;
         finalPhone = storedUsers[email].phone;
+        finalCars = storedUsers[email].cars || [];
       } else {
         finalName = email.split("@")[0];
         finalPhone = t("mock_phone", "Телефон не указан");
+        finalCars = [
+          { id: "car-1", model: "Toyota Prius+" },
+          { id: "car-2", model: "Renault Dokker" }
+        ];
       }
     }
 
     let finalId = Date.now().toString();
     if (email === "admin@test.com") {
-      finalId = "1";
-      finalName = "Администратор";
+      finalId = "1"; 
+      finalName = "Администратор"; 
       finalPhone = "+48 000 000 000";
+      finalCars = [];
     }
 
     const userData = {
@@ -68,7 +76,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
       email,
       name: finalName,
       phone: finalPhone,
-      car: t("mock_car_status", "Не указан"),
+      cars: finalCars, // <-- Массив
     };
 
     dispatch(login(userData));

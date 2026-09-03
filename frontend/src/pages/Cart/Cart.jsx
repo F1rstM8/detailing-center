@@ -30,13 +30,18 @@ const Cart = () => {
     phone: Yup.string()
       .matches(/^[+0-9() -]{9,15}$/, t("val_phone_format", "Введите корректный номер телефона"))
       .required(t("val_required", "Обязательное поле")),
-    comment: Yup.string().max(200, t("val_comment_max", "Комментарий не должен превышать 200 символов")),
+    car: Yup.string()
+      .max(50, t("val_car_max", "Название авто слишком длинное")), // Добавлена валидация для авто
+    comment: Yup.string()
+      .max(200, t("val_comment_max", "Комментарий не должен превышать 200 символов")),
   });
 
   const formik = useFormik({
     initialValues: {
       name: user?.name || "",
       phone: user?.phone || "",
+      // Если у пользователя есть авто в гараже, подставляем первое по умолчанию
+      car: user?.cars && user.cars.length > 0 ? user.cars[0].model : "", 
       comment: "",
     },
     validationSchema,
@@ -46,12 +51,13 @@ const Cart = () => {
       setTimeout(() => {
         const newOrder = {
           id: `ord-${Date.now()}`,
-          userId: user?.id, // КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: привязываем заказ к ID пользователя
+          userId: user?.id, 
           date: new Date().toLocaleDateString("ru-RU"),
           customerName: values.name,
           customerPhone: values.phone,
+          customerCar: values.car || t("mock_car_status", "Не указан"), 
           comment: values.comment,
-          status: ORDER_STATUS.NEW, // ИСПРАВЛЕНО: используем константу вместо "Новый"
+          status: ORDER_STATUS.NEW, 
           items: items,
           totalPrice: totalPrice,
         };
@@ -107,7 +113,6 @@ const Cart = () => {
                     <p className="item-category">{item.category}</p>
                   </div>
                   <div className="item-actions">
-                    {/* ИСПРАВЛЕНО: используем константу валюты */}
                     <span className="item-price">{item.price} {CURRENCY}</span>
                     <button 
                       className="remove-btn"
@@ -131,7 +136,6 @@ const Cart = () => {
               </div>
               <div className="summary-row total">
                 <span>{t("cart_total_pay", "К оплате:")}</span>
-                {/* ИСПРАВЛЕНО: используем константу валюты */}
                 <span>{totalPrice} {CURRENCY}</span>
               </div>
 
@@ -190,6 +194,49 @@ const Cart = () => {
                     )}
                   </div>
 
+                 
+                  <div className="form-group">
+                    <label htmlFor="checkout-car" className="visually-hidden">
+                      {t("profile_car", "Автомобиль")}
+                    </label>
+                    {user?.cars && user.cars.length > 0 ? (
+                      <select
+                        id="checkout-car"
+                        name="car"
+                        value={formik.values.car}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className={formik.touched.car && formik.errors.car ? "input-error" : ""}
+                       
+                        style={{ width: "100%", padding: "12px 15px", backgroundColor: "transparent", border: "1px solid rgba(255, 255, 255, 0.2)", borderRadius: "8px", color: "inherit", outline: "none", fontSize: "1rem" }}
+                      >
+                        {user.cars.map((c) => (
+                          <option key={c.id} value={c.model} style={{ backgroundColor: "#1e1e1e", color: "#fff" }}>
+                            {c.model}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id="checkout-car"
+                        type="text"
+                        name="car"
+                        placeholder={t("cart_car_placeholder", "Марка вашего авто (например: Toyota Prius+)")}
+                        value={formik.values.car}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className={formik.touched.car && formik.errors.car ? "input-error" : ""}
+                        aria-invalid={formik.touched.car && formik.errors.car ? "true" : "false"}
+                        aria-describedby={formik.touched.car && formik.errors.car ? "car-error" : undefined}
+                      />
+                    )}
+                    {formik.touched.car && formik.errors.car && (
+                      <span id="car-error" className="error-text" aria-live="polite">
+                        {formik.errors.car}
+                      </span>
+                    )}
+                  </div>
+
                   <div className="form-group">
                     <label htmlFor="checkout-comment" className="visually-hidden">
                       {t("cart_comment", "Комментарий")}
@@ -197,7 +244,7 @@ const Cart = () => {
                     <textarea
                       id="checkout-comment"
                       name="comment"
-                      placeholder={t("cart_comment_placeholder", "Марка авто или пожелания...")}
+                      placeholder={t("cart_comment_placeholder", "Дополнительные пожелания...")}
                       value={formik.values.comment}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}

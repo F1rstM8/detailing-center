@@ -23,22 +23,31 @@ const Login = () => {
       
       let finalName = "";
       let finalPhone = "";
+      let finalCars = [];
 
-      // Проверяем, есть ли пользователь в нашей локальной "базе"
       if (storedUsers[email]) {
         finalName = storedUsers[email].name;
         finalPhone = storedUsers[email].phone;
+        finalCars = storedUsers[email].cars || [];
       } else {
         finalName = email.split("@")[0];
         finalPhone = t("mock_phone", "Телефон не указан");
+        finalCars = [];
       }
 
-      // Жесткая проверка на администратора
       let finalId = Date.now().toString();
+      
       if (email === "admin@test.com") {
         finalId = "1";
         finalName = "Администратор";
         finalPhone = "+48 000 000 000";
+        finalCars = []; 
+      } else if (!storedUsers[email]) {
+        // Тестовые данные для новых клиентов (просто для наглядности в профиле)
+        finalCars = [
+          { id: "car-1", model: "Toyota Prius+" },
+          { id: "car-2", model: "Renault Dokker" }
+        ];
       }
 
       const userData = {
@@ -46,7 +55,7 @@ const Login = () => {
         email,
         name: finalName,
         phone: finalPhone,
-        car: t("mock_car_status", "Не указан"),
+        cars: finalCars, // <-- Теперь передаем массив машин
       };
 
       dispatch(login(userData));
@@ -56,9 +65,9 @@ const Login = () => {
 
   return (
     <main className="page-content">
+      {/* ... (весь return остался без изменений, как в предыдущем шаге) ... */}
       <div className="form-container">
         <h2>{t("auth_login_title", "Вход в личный кабинет")}</h2>
-
         <form onSubmit={formik.handleSubmit} className="auth-form">
           <div className="form-group">
             <label htmlFor="email">{t("auth_email", "Email")}</label>
@@ -70,9 +79,7 @@ const Login = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              className={
-                formik.touched.email && formik.errors.email ? "input-error" : ""
-              }
+              className={formik.touched.email && formik.errors.email ? "input-error" : ""}
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="error-message">{formik.errors.email}</div>
@@ -89,11 +96,7 @@ const Login = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
-              className={
-                formik.touched.password && formik.errors.password
-                  ? "input-error"
-                  : ""
-              }
+              className={formik.touched.password && formik.errors.password ? "input-error" : ""}
             />
             {formik.touched.password && formik.errors.password ? (
               <div className="error-message">{formik.errors.password}</div>
