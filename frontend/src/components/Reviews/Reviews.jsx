@@ -1,4 +1,3 @@
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useTranslation } from "react-i18next";
@@ -36,7 +35,6 @@ const Reviews = () => {
           breakpoints={{
             768: {
               slidesPerView: 2,
-
               allowTouchMove: false,
             },
           }}
@@ -52,7 +50,7 @@ const Reviews = () => {
                     <span>{review.car}</span>
                   </div>
                 </div>
-                <p className="review-text">"{review.text}"</p>
+                <p className="review-text">&quot;{review.text}&quot;</p>
                 <div className="rating">{"⭐".repeat(review.rating)}</div>
               </div>
             </SwiperSlide>

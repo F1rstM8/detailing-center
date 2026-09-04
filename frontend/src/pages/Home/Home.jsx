@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
@@ -23,9 +23,11 @@ const Home = () => {
   const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
 
   useEffect(() => {
+    const buttonTimers = buttonTimersRef.current;
+    
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      Object.values(buttonTimersRef.current).forEach(timer => clearTimeout(timer));
+      Object.values(buttonTimers).forEach(timer => clearTimeout(timer));
     };
   }, []);
 
@@ -107,7 +109,6 @@ const Home = () => {
         {status === "succeeded" && (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              // Используем вынесенный хелпер с передачей currentLang
               const serviceTitle = getLocalizedField(service, "title", currentLang);
               const serviceDesc = getLocalizedField(service, "description", currentLang);
               const serviceCategory = getLocalizedField(service, "category", currentLang);

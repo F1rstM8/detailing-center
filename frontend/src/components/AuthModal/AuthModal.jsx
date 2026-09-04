@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
 import { useTranslation } from "react-i18next";

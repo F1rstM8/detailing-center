@@ -1,47 +1,49 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { login, logout } from "../../redux/authSlice"; 
+import { login, logout } from "../../redux/authSlice";
 import { removeOrder } from "../../redux/ordersSlice";
 import "./Profile.scss";
 
 const Profile = () => {
- 
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const { user } = useSelector((state) => state.auth);
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
-  
- 
-  const allServices = useSelector((state) => state.services?.servicesList || []);
+
+  const allServices = useSelector(
+    (state) => state.services?.servicesList || [],
+  );
 
   const [isAddingCar, setIsAddingCar] = useState(false);
   const [newCarModel, setNewCarModel] = useState("");
-  
-  const [confirmModal, setConfirmModal] = useState({ 
-    isOpen: false, 
-    type: null, 
-    targetId: null 
+
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    type: null,
+    targetId: null,
   });
 
   const currentUser = {
     name: user?.name || t("profile_guest", "Гость"),
     phone: user?.phone || "+48 000 000 000",
     email: user?.email || "guest@example.com",
-    cars: user?.cars || [] 
+    cars: user?.cars || [],
   };
 
-  const displayName = (currentUser.name === "Постоянный клиент" || currentUser.name === "Stały klient")
-    ? t("mock_client_name", "Постоянный клиент")
-    : currentUser.name;
+  const displayName =
+    currentUser.name === "Постоянный клиент" ||
+    currentUser.name === "Stały klient"
+      ? t("mock_client_name", "Постоянный клиент")
+      : currentUser.name;
 
   const isAdmin = currentUser.email === "admin@test.com";
 
-  const displayedOrders = isAdmin 
-    ? allOrders 
+  const displayedOrders = isAdmin
+    ? allOrders
     : allOrders.filter((order) => order.customerPhone === currentUser.phone);
 
   const handleLogout = () => {
@@ -52,7 +54,7 @@ const Profile = () => {
   const updateUserCars = (updatedCars) => {
     const updatedUser = { ...user, cars: updatedCars };
     const storedUsers = JSON.parse(localStorage.getItem("appUsers")) || {};
-    
+
     if (storedUsers[user.email]) {
       storedUsers[user.email].cars = updatedCars;
       localStorage.setItem("appUsers", JSON.stringify(storedUsers));
@@ -66,7 +68,7 @@ const Profile = () => {
 
     const newCar = { id: `car-${Date.now()}`, model: newCarModel.trim() };
     const updatedCars = [...currentUser.cars, newCar];
-    
+
     updateUserCars(updatedCars);
     setNewCarModel("");
     setIsAddingCar(false);
@@ -82,7 +84,9 @@ const Profile = () => {
 
   const confirmAction = () => {
     if (confirmModal.type === "car") {
-      const updatedCars = currentUser.cars.filter(car => car.id !== confirmModal.targetId);
+      const updatedCars = currentUser.cars.filter(
+        (car) => car.id !== confirmModal.targetId,
+      );
       updateUserCars(updatedCars);
     } else if (confirmModal.type === "order") {
       dispatch(removeOrder(confirmModal.targetId));
@@ -95,11 +99,15 @@ const Profile = () => {
   };
 
   const translateStatus = (status) => {
-    switch(status) {
-      case 'Новый': return t("status_new", "Новый");
-      case 'В работе': return t("status_progress", "В работе");
-      case 'Выполнено': return t("status_done", "Выполнено");
-      default: return status;
+    switch (status) {
+      case "Новый":
+        return t("status_new", "Новый");
+      case "В работе":
+        return t("status_progress", "В работе");
+      case "Выполнено":
+        return t("status_done", "Выполнено");
+      default:
+        return status;
     }
   };
 
@@ -113,13 +121,15 @@ const Profile = () => {
         <div className="profile-content">
           <aside className="profile-sidebar">
             <div className="user-info-card">
-              <div className={`user-avatar ${isAdmin ? 'admin-avatar' : ''}`}>
+              <div className={`user-avatar ${isAdmin ? "admin-avatar" : ""}`}>
                 {isAdmin ? "А" : displayName.charAt(0).toUpperCase()}
               </div>
-              
-              <h3>{isAdmin ? t("profile_admin", "Администратор") : displayName}</h3>
+
+              <h3>
+                {isAdmin ? t("profile_admin", "Администратор") : displayName}
+              </h3>
               <p className="user-phone">{currentUser.phone}</p>
-              
+
               <div className="user-details">
                 <div className="detail-item">
                   <span className="label">Email:</span>
@@ -129,18 +139,22 @@ const Profile = () => {
 
               {!isAdmin && (
                 <div className="user-garage">
-                  <h4 className="garage-title">{t("profile_garage", "Мой Гараж")}</h4>
-                  
+                  <h4 className="garage-title">
+                    {t("profile_garage", "Мой Гараж")}
+                  </h4>
+
                   {currentUser.cars.length === 0 ? (
-                    <p className="no-cars">{t("profile_no_cars", "У вас пока нет добавленных авто")}</p>
+                    <p className="no-cars">
+                      {t("profile_no_cars", "У вас пока нет добавленных авто")}
+                    </p>
                   ) : (
                     <ul className="cars-list">
-                      {currentUser.cars.map(car => (
+                      {currentUser.cars.map((car) => (
                         <li key={car.id} className="car-item">
                           <span className="car-model">🚗 {car.model}</span>
-                          <button 
-                            className="remove-car-btn" 
-                            onClick={() => handleRemoveCarRequest(car.id)} 
+                          <button
+                            className="remove-car-btn"
+                            onClick={() => handleRemoveCarRequest(car.id)}
                             title={t("btn_remove_car", "Удалить авто")}
                           >
                             ✕
@@ -156,16 +170,30 @@ const Profile = () => {
                         type="text"
                         value={newCarModel}
                         onChange={(e) => setNewCarModel(e.target.value)}
-                        placeholder={t("profile_car_placeholder", "Например: Toyota Prius+")}
+                        placeholder={t(
+                          "profile_car_placeholder",
+                          "Например: Toyota Prius+",
+                        )}
                         autoFocus
                       />
                       <div className="add-car-actions">
-                        <button type="submit" className="btn-save">{t("btn_save", "Сохранить")}</button>
-                        <button type="button" className="btn-cancel" onClick={() => setIsAddingCar(false)}>{t("btn_cancel", "Отмена")}</button>
+                        <button type="submit" className="btn-save">
+                          {t("btn_save", "Сохранить")}
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-cancel"
+                          onClick={() => setIsAddingCar(false)}
+                        >
+                          {t("btn_cancel", "Отмена")}
+                        </button>
                       </div>
                     </form>
                   ) : (
-                    <button className="btn-add-car" onClick={() => setIsAddingCar(true)}>
+                    <button
+                      className="btn-add-car"
+                      onClick={() => setIsAddingCar(true)}
+                    >
                       + {t("btn_add_car", "Добавить авто")}
                     </button>
                   )}
@@ -179,11 +207,22 @@ const Profile = () => {
           </aside>
 
           <section className="profile-orders">
-            <h3>{isAdmin ? t("profile_all_orders", "Все заявки (Панель управления)") : t("profile_my_orders", "Мои заявки")}</h3>
-            
+            <h3>
+              {isAdmin
+                ? t("profile_all_orders", "Все заявки (Панель управления)")
+                : t("profile_my_orders", "Мои заявки")}
+            </h3>
+
             {displayedOrders.length === 0 ? (
               <div className="no-orders">
-                <p>{isAdmin ? t("profile_no_orders_admin", "В системе пока нет заказов.") : t("profile_no_orders", "У вас пока нет активных заявок.")}</p>
+                <p>
+                  {isAdmin
+                    ? t(
+                        "profile_no_orders_admin",
+                        "В системе пока нет заказов.",
+                      )
+                    : t("profile_no_orders", "У вас пока нет активных заявок.")}
+                </p>
               </div>
             ) : (
               <div className="orders-list">
@@ -191,46 +230,68 @@ const Profile = () => {
                   <div key={order.id} className="order-card">
                     <div className="order-header">
                       <div className="order-meta">
-                        <span className="order-date">{t("profile_order_from", "От")} {order.date}</span>
-                       
-                        {order.customerCar && order.customerCar !== t("mock_car_status", "Не указан") && (
-                          <span className="order-customer" style={{color: '#a0a0a0', display: 'flex', alignItems: 'center', gap: '5px'}}>
-                            🚗 {order.customerCar}
+                        <span className="order-date">
+                          {t("profile_order_from", "От")} {order.date}
+                        </span>
+
+                        {order.customerCar &&
+                          order.customerCar !==
+                            t("mock_car_status", "Не указан") && (
+                            <span
+                              className="order-customer"
+                              style={{
+                                color: "#a0a0a0",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
+                              }}
+                            >
+                              🚗 {order.customerCar}
+                            </span>
+                          )}
+                        {isAdmin && (
+                          <span className="order-customer">
+                            👤 {order.customerName} ({order.customerPhone})
                           </span>
                         )}
-                        {isAdmin && (
-                          <span className="order-customer">👤 {order.customerName} ({order.customerPhone})</span>
-                        )}
                       </div>
-                      <span className={`status-badge ${order.status === 'Новый' ? 'status-new' : 'status-progress'}`}>
+                      <span
+                        className={`status-badge ${order.status === "Новый" ? "status-new" : "status-progress"}`}
+                      >
                         {translateStatus(order.status)}
                       </span>
                     </div>
-                    
+
                     <div className="order-services">
                       <ul>
-                       
-                        {order.items.map(item => {
-                          const serviceInfo = allServices.find((s) => s.id === item.id);
-                          const currentLang = i18n.language?.startsWith("pl") ? "pl" : "ru";
-                          const title = serviceInfo 
-                            ? (currentLang === "pl" ? serviceInfo.title_pl : serviceInfo.title_ru) 
+                        {order.items.map((item) => {
+                          const serviceInfo = allServices.find(
+                            (s) => s.id === item.id,
+                          );
+                          const currentLang = i18n.language?.startsWith("pl")
+                            ? "pl"
+                            : "ru";
+                          const title = serviceInfo
+                            ? currentLang === "pl"
+                              ? serviceInfo.title_pl
+                              : serviceInfo.title_ru
                             : item.title;
 
-                          return (
-                            <li key={item.id}>{title}</li>
-                          );
+                          return <li key={item.id}>{title}</li>;
                         })}
                       </ul>
                     </div>
 
                     <div className="order-footer">
-                      <span className="order-total">{t("profile_order_total", "Итого:")} {order.totalPrice} PLN</span>
-                      
+                      <span className="order-total">
+                        {t("profile_order_total", "Итого:")} {order.totalPrice}{" "}
+                        PLN
+                      </span>
+
                       {isAdmin && (
-                        <button 
+                        <button
                           className="delete-order-btn"
-                          onClick={() => handleDeleteOrderRequest(order.id)} 
+                          onClick={() => handleDeleteOrderRequest(order.id)}
                         >
                           {t("btn_delete", "Удалить")}
                         </button>
@@ -246,12 +307,21 @@ const Profile = () => {
 
       {confirmModal.isOpen && (
         <div className="custom-confirm-overlay" onClick={cancelAction}>
-          <div className="custom-confirm-modal" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="custom-confirm-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3>{t("profile_confirm_title", "Подтверждение")}</h3>
             <p>
-              {confirmModal.type === "car" 
-                ? t("profile_remove_car_confirm", "Удалить автомобиль из гаража?")
-                : t("profile_delete_order_confirm", "Вы уверены, что хотите безвозвратно удалить этот заказ?")}
+              {confirmModal.type === "car"
+                ? t(
+                    "profile_remove_car_confirm",
+                    "Удалить автомобиль из гаража?",
+                  )
+                : t(
+                    "profile_delete_order_confirm",
+                    "Вы уверены, что хотите безвозвратно удалить этот заказ?",
+                  )}
             </p>
             <div className="custom-confirm-actions">
               <button className="btn-cancel" onClick={cancelAction}>
