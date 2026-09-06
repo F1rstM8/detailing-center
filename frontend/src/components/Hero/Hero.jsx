@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./Hero.scss";
 
@@ -7,24 +7,16 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <div className="hero__container">
-        <div className="hero__content">
-          <h1
-            className="hero__title"
-            dangerouslySetInnerHTML={{
-              __html: t("hero_title").replace(
-                "Кракове",
-                "<span>Кракове</span>",
-              ),
-            }}
-          />
-          <p className="hero__subtitle">{t("hero_subtitle")}</p>
+      <h1 className="hero__title">
+    
+        <Trans i18nKey="hero_title" components={{ span: <span /> }} />
+      </h1>
+      
+      <p className="hero__subtitle">{t("hero_subtitle")}</p>
 
-          <Link to="/services" className="hero__btn">
-            {t("hero_btn")}
-          </Link>
-        </div>
-      </div>
+      <Link to="/services" className="hero__btn">
+        {t("hero_btn")}
+      </Link>
     </section>
   );
 };

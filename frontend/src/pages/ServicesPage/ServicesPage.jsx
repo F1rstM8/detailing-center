@@ -1,8 +1,9 @@
-import  { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ServiceCard from "../../components/ServicesCard/ServiceCard";
 import { getServices } from "../../redux/servicesSlice";
+import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./ServicesPage.scss";
 
 const ServicesPage = () => {
@@ -14,7 +15,7 @@ const ServicesPage = () => {
   const [toastMessage, setToastMessage] = useState(null);
   const toastTimerRef = useRef(null);
 
-  const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
+  const currentLang = i18n.language;
 
   const showToast = (serviceTitle) => {
     setToastMessage(serviceTitle);
@@ -42,11 +43,6 @@ const ServicesPage = () => {
     }
   }, [status, dispatch]);
 
-  const getLocalizedField = (item, fieldName) => {
-    const localizedKey = `${fieldName}_${currentLang}`;
-    return item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || "";
-  };
-
   if (status === "loading") {
     return (
       <section className="page-content services-page">
@@ -68,7 +64,7 @@ const ServicesPage = () => {
   }
 
   return (
-    <main className="page-content services-page">
+    <section className="page-content services-page">
       <div className="services-container">
         <h2>{t("services_page_title", "Полный прайс-лист")}</h2>
         <p className="services-subtitle">
@@ -79,10 +75,10 @@ const ServicesPage = () => {
           {servicesData.map((service) => {
             const localizedService = {
               ...service,
-              title: getLocalizedField(service, "title"),
-              description: getLocalizedField(service, "description"),
-              category: getLocalizedField(service, "category"),
-              time: getLocalizedField(service, "time"),
+              title: getLocalizedField(service, "title", currentLang),
+              description: getLocalizedField(service, "description", currentLang),
+              category: getLocalizedField(service, "category", currentLang),
+              time: getLocalizedField(service, "time", currentLang),
             };
 
             return (
@@ -104,7 +100,7 @@ const ServicesPage = () => {
           </div>
         </div>
       )}
-    </main>
+    </section>
   );
 };
 

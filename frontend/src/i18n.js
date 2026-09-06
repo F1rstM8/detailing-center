@@ -13,7 +13,7 @@ const resources = {
       btn_register: "Регистрация",
       btn_logout: "Выйти",
 
-      hero_title: "Премиальный детейлинг в Кракове",
+      hero_title: "Премиальный детейлинг в <span>Кракове</span>",
       hero_subtitle:
         "Профессиональный уход, защита кузова и химчистка. Вернем вашему автомобилю состояние нового.",
       hero_btn: "Смотреть услуги",
@@ -108,7 +108,6 @@ const resources = {
       contacts_address_title: "Адрес студии",
       contacts_country: "Польша",
       contacts_phone_title: "Телефон",
-     
       contacts_email_title: "Email и Соцсети",
 
       footer_about_title: "Детейлинг Центр",
@@ -117,7 +116,6 @@ const resources = {
       footer_nav_title: "Навигация",
       footer_schedule_title: "Режим работы",
       footer_schedule_weekdays: "Понедельник - Воскресенье: 09:00 - 19:00",
-
       footer_schedule_no_breaks: "Без перерывов",
       footer_socials_title: "Мы в соцсетях",
       footer_copyright: "© 2026 D3garage. Все права защищены.",
@@ -142,6 +140,20 @@ const resources = {
       profile_order_total: "Итого:",
       profile_delete_confirm:
         "Вы уверены, что хотите безвозвратно удалить этот заказ?",
+
+      profile_confirm_title: "Подтверждение",
+      profile_remove_car_confirm: "Удалить автомобиль из гаража?",
+      profile_delete_order_confirm:
+        "Вы уверены, что хотите безвозвратно удалить этот заказ?",
+      profile_garage: "Мой Гараж",
+      profile_no_cars: "У вас пока нет добавленных авто",
+      profile_car_placeholder: "Например: Toyota Prius+",
+
+      btn_yes_delete: "Да, удалить",
+      btn_cancel: "Отмена",
+      btn_save: "Сохранить",
+      btn_add_car: "Добавить авто",
+      btn_remove_car: "Удалить авто",
 
       admin_title: "Панель управления",
       admin_subtitle: "Управление заявками и статусами автомобилей",
@@ -177,8 +189,10 @@ const resources = {
       auth_submit_register: "Зарегистрироваться",
       auth_no_account: "Нет аккаунта?",
       auth_has_account: "Уже есть аккаунт?",
-      contacts_working_hours_short: "Пн-Сб: 09:00 - 19:00",
 
+      auth_register_success: "Регистрация успешна! Теперь вы можете войти.",
+
+      contacts_working_hours_short: "Пн-Сб: 09:00 - 19:00",
       val_required: "Обязательное поле",
       val_email: "Неверный формат email",
       val_pass_min: "Пароль должен быть не менее 6 символов",
@@ -195,7 +209,7 @@ const resources = {
       btn_register: "Rejestracja",
       btn_logout: "Wyloguj się",
 
-      hero_title: "Detailing Premium w Krakowie",
+      hero_title: "Detailing Premium w <span>Krakowie</span>",
       hero_subtitle:
         "Profesjonalna pielęgnacja, ochrona lakieru i pranie tapicerki. Przywrócimy Twojemu autu wygląd nowości.",
       hero_btn: "Zobacz usługi",
@@ -291,7 +305,6 @@ const resources = {
       contacts_address_title: "Adres studia",
       contacts_country: "Polska",
       contacts_phone_title: "Telefon",
-  
       contacts_email_title: "Email i Social Media",
 
       footer_about_title: "Centrum Detailingu",
@@ -320,6 +333,21 @@ const resources = {
       profile_order_total: "Razem:",
       profile_delete_confirm:
         "Czy na pewno chcesz bezpowrotnie usunąć to zamówienie?",
+
+      profile_confirm_title: "Potwierdzenie",
+      profile_remove_car_confirm: "Usunąć samochód z garażu?",
+      profile_delete_order_confirm:
+        "Czy na pewno chcesz bezpowrotnie usunąć to zamówienie?",
+      profile_garage: "Mój Garaż",
+      profile_no_cars: "Nie masz jeszcze dodanych samochodów",
+      profile_car_placeholder: "Np.: Toyota Prius+",
+
+      btn_yes_delete: "Tak, usuń",
+      btn_cancel: "Anuluj",
+      btn_save: "Zapisz",
+      btn_add_car: "Dodaj auto",
+      btn_remove_car: "Usuń auto",
+
       toast_service: "Usługa",
       toast_added: "dodana do koszyka!",
 
@@ -355,8 +383,11 @@ const resources = {
       auth_submit_register: "Zarejestruj się",
       auth_no_account: "Nie masz konta?",
       auth_has_account: "Masz już konto?",
-      contacts_working_hours_short: "Pn-Sb: 09:00 - 19:00",
 
+      auth_register_success:
+        "Rejestracja zakończona sukcesem! Możesz się teraz zalogować.",
+
+      contacts_working_hours_short: "Pn-Sb: 09:00 - 19:00",
       val_required: "Pole wymagane",
       val_email: "Nieprawidłowy format email",
       val_pass_min: "Hasło musi mieć co najmniej 6 znaków",
