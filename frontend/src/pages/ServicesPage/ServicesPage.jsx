@@ -49,21 +49,21 @@ const ServicesPage = () => {
 
   if (status === "loading") {
     return (
-      <main className="page-content services-page">
+      <section className="page-content services-page">
         <div className="services-loader">
           {t("loading_services_list", "Загрузка прайс-листа...")}
         </div>
-      </main>
+      </section>
     );
   }
 
   if (status === "failed") {
     return (
-      <main className="page-content services-page">
+      <section className="page-content services-page">
         <div className="services-error" style={{ textAlign: "center", padding: "50px" }}>
           <p>Произошла ошибка при загрузке: {error}</p>
         </div>
-      </main>
+      </section>
     );
   }
 

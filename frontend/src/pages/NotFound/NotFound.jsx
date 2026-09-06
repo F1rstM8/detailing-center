@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "./NotFound.scss";
@@ -14,7 +13,7 @@ const NotFound = () => {
         <p>
           {t(
             "not_found_desc",
-            "Возможно, она была удалена или вы ввели неверный адрес."
+            "Возможно, она была удалена или вы ввели неверный адрес.",
           )}
         </p>
         <Link to="/" className="home-btn">

@@ -1,4 +1,4 @@
-
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
@@ -8,6 +8,15 @@ import { getRegisterSchema } from "../../utils/validationSchemas";
 const Register = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [toastMessage, setToastMessage] = useState(null);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -20,13 +29,17 @@ const Register = () => {
     validationSchema: getRegisterSchema(t),
     onSubmit: (values) => {
       console.log("Данные регистрации:", values);
-      alert(
+
+      setToastMessage(
         t(
           "auth_register_success",
           "Регистрация успешна! Теперь вы можете войти.",
         ),
       );
-      navigate("/login");
+
+      timerRef.current = setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     },
   });
 
@@ -116,11 +129,22 @@ const Register = () => {
             ) : null}
           </div>
 
-          <button type="submit" className="submit-btn">
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={!!toastMessage}
+          >
             {t("auth_submit_register", "Зарегистрироваться")}
           </button>
         </form>
       </div>
+
+      {toastMessage && (
+        <div className="toast-notification">
+          <div className="toast-icon">✓</div>
+          <div className="toast-text">{toastMessage}</div>
+        </div>
+      )}
     </main>
   );
 };

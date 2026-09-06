@@ -109,7 +109,7 @@ const Cart = () => {
   }
 
   return (
-    <main className="page-content cart-page">
+    <section className="page-content cart-page">
       <div className="cart-container">
         <h2>{t("cart_page_title", "Ваша заявка")}</h2>
 
@@ -305,7 +305,7 @@ const Cart = () => {
           </div>
         )}
       </div>
-    </main>
+    </section>
   );
 };
 

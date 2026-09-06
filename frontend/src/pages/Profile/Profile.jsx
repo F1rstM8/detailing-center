@@ -1,9 +1,11 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { login, logout } from "../../redux/authSlice";
 import { removeOrder } from "../../redux/ordersSlice";
+import { ORDER_STATUS, ORDER_STATUS_CLASSES } from "../../constants/statuses";
+import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Profile.scss";
 
 const Profile = () => {
@@ -100,12 +102,12 @@ const Profile = () => {
 
   const translateStatus = (status) => {
     switch (status) {
-      case "Новый":
+      case ORDER_STATUS.NEW:
         return t("status_new", "Новый");
-      case "В работе":
-        return t("status_progress", "В работе");
-      case "Выполнено":
-        return t("status_done", "Выполнено");
+      case ORDER_STATUS.IN_PROGRESS:
+        return t("status_in_progress", "В работе");
+      case ORDER_STATUS.COMPLETED:
+        return t("status_completed", "Выполнено");
       default:
         return status;
     }
@@ -256,7 +258,7 @@ const Profile = () => {
                         )}
                       </div>
                       <span
-                        className={`status-badge ${order.status === "Новый" ? "status-new" : "status-progress"}`}
+                        className={`status-badge ${ORDER_STATUS_CLASSES[order.status] || "status-new"}`}
                       >
                         {translateStatus(order.status)}
                       </span>
@@ -271,10 +273,13 @@ const Profile = () => {
                           const currentLang = i18n.language?.startsWith("pl")
                             ? "pl"
                             : "ru";
+
                           const title = serviceInfo
-                            ? currentLang === "pl"
-                              ? serviceInfo.title_pl
-                              : serviceInfo.title_ru
+                            ? getLocalizedField(
+                                serviceInfo,
+                                "title",
+                                currentLang,
+                              )
                             : item.title;
 
                           return <li key={item.id}>{title}</li>;
