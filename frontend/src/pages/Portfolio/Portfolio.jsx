@@ -26,7 +26,9 @@ const Portfolio = () => {
   if (isLoading) {
     return (
       <div className="page-content portfolio-page">
-        <div className="portfolio-loader">{t("loading_portfolio", "Загрузка работ...")}</div>
+        <div className="portfolio-loader">
+          {t("loading_portfolio", "Загрузка работ...")}
+        </div>
       </div>
     );
   }
@@ -41,13 +43,17 @@ const Portfolio = () => {
 
         <div className="portfolio-grid">
           {portfolioItems.map((item) => {
-           
-            const categoryText = getLocalizedField(item, "category", currentLang);
+            const categoryText = getLocalizedField(
+              item,
+              "category",
+              currentLang,
+            );
+            const titleText = getLocalizedField(item, "title", currentLang);
 
             return (
               <article key={item.id} className="portfolio-card">
                 <div className="card-image">
-                  <img src={item.image} alt={item.title} />
+                  <img src={item.image} alt={titleText} />
                   <div className="card-overlay">
                     <button type="button" className="view-project-btn">
                       {t("portfolio_view_project", "Смотреть проект")}
@@ -56,10 +62,8 @@ const Portfolio = () => {
                 </div>
 
                 <div className="card-content">
-                  <span className="category-badge">
-                    {categoryText}
-                  </span>
-                  <h3>{item.title}</h3>
+                  <span className="category-badge">{categoryText}</span>
+                  <h3>{titleText}</h3>
                   <p>{t("portfolio_card_desc")}</p>
                 </div>
               </article>
