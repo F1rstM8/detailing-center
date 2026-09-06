@@ -51,13 +51,20 @@ const AdminDashboard = () => {
     const serviceCounts = {};
     orders.forEach((order) => {
       order.items.forEach((item) => {
-        serviceCounts[item.title] = (serviceCounts[item.title] || 0) + 1;
+        if (!serviceCounts[item.id]) {
+          serviceCounts[item.id] = {
+            id: item.id,
+            title: item.title || `Услуга ${item.id}`,
+            count: 0,
+          };
+        }
+        serviceCounts[item.id].count += 1;
       });
     });
 
-    const popularServices = Object.entries(serviceCounts)
-      .map(([title, count]) => ({ title, count }))
-      .sort((a, b) => b.count - a.count);
+    const popularServices = Object.values(serviceCounts).sort(
+      (a, b) => b.count - a.count,
+    );
 
     const maxServiceCount =
       popularServices.length > 0
@@ -140,7 +147,7 @@ const AdminDashboard = () => {
                   );
 
                   return (
-                    <div key={service.title} className="chart-row">
+                    <div key={service.id} className="chart-row">
                       <div className="chart-label">{service.title}</div>
                       <div className="chart-bar-container">
                         <div

@@ -9,7 +9,7 @@ const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/portfolio")
+    fetch(`${import.meta.env.VITE_API_URL}/portfolio`)
       .then((response) => response.json())
       .then((data) => {
         setPortfolioItems(data);

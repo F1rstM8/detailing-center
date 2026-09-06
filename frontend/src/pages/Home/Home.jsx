@@ -12,7 +12,11 @@ const Home = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
-  const { items: servicesData, status, error } = useSelector((state) => state.services);
+  const {
+    items: servicesData,
+    status,
+    error,
+  } = useSelector((state) => state.services);
 
   const [addedItems, setAddedItems] = useState({});
   const [toastMessage, setToastMessage] = useState(null);
@@ -24,10 +28,10 @@ const Home = () => {
 
   useEffect(() => {
     const buttonTimers = buttonTimersRef.current;
-    
+
     return () => {
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      Object.values(buttonTimers).forEach(timer => clearTimeout(timer));
+      Object.values(buttonTimers).forEach((timer) => clearTimeout(timer));
     };
   }, []);
 
@@ -39,22 +43,20 @@ const Home = () => {
 
   const popularServices = servicesData.slice(0, 3);
 
-  const handleAddToCart = (service, serviceTitle, serviceCategory) => {
+  const handleAddToCart = (service, serviceTitle) => {
     dispatch(
       addItem({
         id: service.id,
-        title: serviceTitle,
         price: service.price,
-        category: serviceCategory || t("home_popular_title"),
-      })
+      }),
     );
 
     setAddedItems((prev) => ({ ...prev, [service.id]: true }));
-    
+
     if (buttonTimersRef.current[service.id]) {
       clearTimeout(buttonTimersRef.current[service.id]);
     }
-    
+
     buttonTimersRef.current[service.id] = setTimeout(() => {
       setAddedItems((prev) => ({ ...prev, [service.id]: false }));
     }, 1500);
@@ -64,7 +66,7 @@ const Home = () => {
     if (toastTimerRef.current) {
       clearTimeout(toastTimerRef.current);
     }
-    
+
     toastTimerRef.current = setTimeout(() => {
       setToastMessage(null);
     }, 3000);
@@ -101,7 +103,10 @@ const Home = () => {
         )}
 
         {status === "failed" && (
-          <div className="home-services-error" style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}>
+          <div
+            className="home-services-error"
+            style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}
+          >
             Произошла ошибка при загрузке: {error}
           </div>
         )}
@@ -109,9 +114,16 @@ const Home = () => {
         {status === "succeeded" && (
           <div className="home-services-grid">
             {popularServices.map((service) => {
-              const serviceTitle = getLocalizedField(service, "title", currentLang);
-              const serviceDesc = getLocalizedField(service, "description", currentLang);
-              const serviceCategory = getLocalizedField(service, "category", currentLang);
+              const serviceTitle = getLocalizedField(
+                service,
+                "title",
+                currentLang,
+              );
+              const serviceDesc = getLocalizedField(
+                service,
+                "description",
+                currentLang,
+              );
               const isAdded = addedItems[service.id];
 
               return (
@@ -124,10 +136,12 @@ const Home = () => {
                     </span>
                     <button
                       className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
-                      onClick={() => handleAddToCart(service, serviceTitle, serviceCategory)}
+                      onClick={() => handleAddToCart(service, serviceTitle)}
                       disabled={isAdded}
                     >
-                      {isAdded ? t("btn_added_to_cart", "В корзине!") : t("btn_add_to_cart", "В корзину")}
+                      {isAdded
+                        ? t("btn_added_to_cart", "В корзине!")
+                        : t("btn_add_to_cart", "В корзину")}
                     </button>
                   </div>
                 </div>
@@ -149,7 +163,8 @@ const Home = () => {
         <div className="toast-notification">
           <div className="toast-icon">✓</div>
           <div className="toast-text">
-            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong> {t("toast_added", "добавлена в корзину!")}
+            {t("toast_service", "Услуга")} <strong>{toastMessage}</strong>{" "}
+            {t("toast_added", "добавлена в корзину!")}
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Blog.scss";
 
 const Blog = () => {
@@ -9,7 +10,8 @@ const Blog = () => {
   const [expandedPostId, setExpandedPostId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/posts")
+  
+    fetch(`${import.meta.env.VITE_API_URL}/posts`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -25,14 +27,7 @@ const Blog = () => {
     setExpandedPostId((prev) => (prev === id ? null : id));
   };
 
-  const currentLang = i18n.language ? i18n.language.slice(0, 2) : "ru";
-
-  const getLocalizedField = (item, fieldName) => {
-    const localizedKey = `${fieldName}_${currentLang}`;
-    return (
-      item[localizedKey] || item[fieldName] || item[`${fieldName}_ru`] || ""
-    );
-  };
+  const currentLang = i18n.language;
 
   return (
     <section className="page-content blog-page">
@@ -48,9 +43,10 @@ const Blog = () => {
         ) : (
           <div className="blog-page__list">
             {posts.map((post) => {
-              const postTitle = getLocalizedField(post, "title");
-              const postExcerpt = getLocalizedField(post, "excerpt");
-              const postContent = getLocalizedField(post, "content");
+             
+              const postTitle = getLocalizedField(post, "title", currentLang);
+              const postExcerpt = getLocalizedField(post, "excerpt", currentLang);
+              const postContent = getLocalizedField(post, "content", currentLang);
 
               const isExpanded = expandedPostId === post.id;
 
