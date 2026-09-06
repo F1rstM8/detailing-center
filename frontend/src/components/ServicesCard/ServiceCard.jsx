@@ -1,4 +1,3 @@
-
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cartSlice";
 import { useTranslation } from "react-i18next";
@@ -8,7 +7,10 @@ const ServiceCard = ({ service, onShowToast }) => {
   const { t } = useTranslation();
 
   const handleAddToCart = () => {
-    dispatch(addItem(service));
+    dispatch(addItem({
+      id: service.id,
+      price: service.price
+    }));
     
     if (onShowToast) {
       onShowToast(service.title || t("service_default_title", "Услуга"));

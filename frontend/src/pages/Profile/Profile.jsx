@@ -42,7 +42,7 @@ const Profile = () => {
       ? t("mock_client_name", "Постоянный клиент")
       : currentUser.name;
 
-  const isAdmin = currentUser.email === "admin@test.com";
+const isAdmin = user?.role === "admin";
 
   const displayedOrders = isAdmin
     ? allOrders
