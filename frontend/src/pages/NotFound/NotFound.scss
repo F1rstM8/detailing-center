@@ -2,7 +2,7 @@
 @import "../../styles/mixins";
 
 .not-found-page {
-  min-height: calc(100vh - 150px); 
+  min-height: calc(100vh - 150px);
   @include flex-center;
   padding: 40px 20px;
   background-color: $bg-body;
@@ -46,7 +46,10 @@
     font-size: 1rem;
     border-radius: 8px;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease,
+      box-shadow 0.3s ease;
 
     &:hover {
       background-color: $primary-hover;

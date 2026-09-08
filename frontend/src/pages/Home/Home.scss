@@ -105,7 +105,9 @@
   @include card-base;
   border: 1px solid $border-dark;
   text-align: center;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-10px);
@@ -161,7 +163,9 @@
   border: 1px solid $border-dark;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-8px);
