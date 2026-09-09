@@ -236,18 +236,10 @@ const isAdmin = user?.role === "admin";
                           {t("profile_order_from", "От")} {order.date}
                         </span>
 
-                        {order.customerCar &&
+                    {order.customerCar &&
                           order.customerCar !==
                             t("mock_car_status", "Не указан") && (
-                            <span
-                              className="order-customer"
-                              style={{
-                                color: "#a0a0a0",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "5px",
-                              }}
-                            >
+                            <span className="order-customer">
                               🚗 {order.customerCar}
                             </span>
                           )}

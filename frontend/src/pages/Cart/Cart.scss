@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
 .cart-page {
   display: flex;
   justify-content: center;
@@ -270,7 +271,8 @@
       gap: 5px;
 
       input,
-      textarea {
+      textarea,
+      .checkout-select {
         width: 100%;
         padding: 12px 15px;
         background-color: $bg-input-focus;
@@ -292,6 +294,11 @@
 
       textarea {
         resize: none;
+      }
+
+      .checkout-option {
+        background-color: #1e1e1e;
+        color: $text-main;
       }
 
       .error-text {

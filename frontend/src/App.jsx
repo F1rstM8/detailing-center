@@ -14,15 +14,16 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import NotFound from "./pages/NotFound/NotFound";
 import LandingPage from "./pages/LandingPage/LandingPage";
 
+
+import "./index.scss"; 
+
 function App() {
   return (
     <BrowserRouter>
-      <div
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
+      <div className="app-wrapper">
         <Header />
 
-        <div style={{ flex: 1 }}>
+        <main className="app-main">
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/cart" element={<Cart />} />
@@ -45,7 +46,7 @@ function App() {
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </div>
+        </main>
 
         <Footer />
       </div>

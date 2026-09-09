@@ -107,7 +107,7 @@
     }
   }
 
-  // Новые стили для гаража
+
   .user-garage {
     width: 100%;
     text-align: left;
@@ -363,9 +363,13 @@
         }
       }
 
+   
       .order-customer {
-        color: $warning-text;
+        color: #a0a0a0; 
         font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
       }
     }
 

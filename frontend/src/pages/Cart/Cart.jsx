@@ -230,11 +230,10 @@ const Cart = () => {
                         value={formik.values.car}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className={formik.touched.car && formik.errors.car ? "input-error" : ""}
-                        style={{ width: "100%", padding: "12px 15px", backgroundColor: "transparent", border: "1px solid rgba(255, 255, 255, 0.2)", borderRadius: "8px", color: "inherit", outline: "none", fontSize: "1rem" }}
+                        className={`checkout-select ${formik.touched.car && formik.errors.car ? "input-error" : ""}`}
                       >
                         {user.cars.map((c) => (
-                          <option key={c.id} value={c.model} style={{ backgroundColor: "#1e1e1e", color: "#fff" }}>
+                          <option key={c.id} value={c.model} className="checkout-option">
                             {c.model}
                           </option>
                         ))}

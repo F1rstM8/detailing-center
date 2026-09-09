@@ -102,11 +102,8 @@ const Home = () => {
           </div>
         )}
 
-        {status === "failed" && (
-          <div
-            className="home-services-error"
-            style={{ textAlign: "center", color: "#e74c3c", padding: "20px" }}
-          >
+       {status === "failed" && (
+          <div className="home-services-error">
             Произошла ошибка при загрузке: {error}
           </div>
         )}

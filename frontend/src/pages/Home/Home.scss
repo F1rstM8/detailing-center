@@ -157,6 +157,11 @@
   gap: 30px;
   margin-bottom: 40px;
 }
+.home-services-error {
+  text-align: center;
+  color: #e74c3c; 
+  padding: 20px;
+}
 
 .home-service-card {
   @include card-base;

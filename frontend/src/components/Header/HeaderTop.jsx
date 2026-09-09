@@ -1,10 +1,9 @@
-
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { COMPANY_CONTACTS } from "../../data/companyInfo.js";
 
 const HeaderTop = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="header__top">
       <div className="header__top-container">
@@ -32,6 +31,7 @@ const HeaderTop = () => {
             className="header__info-item header__info-link"
           >
             <svg
+              className="header__info-icon" 
               width="16"
               height="16"
               viewBox="0 0 24 24"
@@ -40,7 +40,6 @@ const HeaderTop = () => {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              style={{ verticalAlign: "middle" }}
             >
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />

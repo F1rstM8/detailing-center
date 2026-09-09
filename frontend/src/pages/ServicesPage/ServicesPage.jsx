@@ -53,10 +53,10 @@ const ServicesPage = () => {
     );
   }
 
-  if (status === "failed") {
+if (status === "failed") {
     return (
       <section className="page-content services-page">
-        <div className="services-error" style={{ textAlign: "center", padding: "50px" }}>
+        <div className="services-error">
           <p>Произошла ошибка при загрузке: {error}</p>
         </div>
       </section>

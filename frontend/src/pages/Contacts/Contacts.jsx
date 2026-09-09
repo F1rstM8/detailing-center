@@ -1,4 +1,3 @@
-
 import { useTranslation } from "react-i18next";
 import { COMPANY_CONTACTS } from "../../data/companyInfo.js";
 import "./Contacts.scss";
@@ -39,8 +38,9 @@ const Contacts = () => {
               
               <article className="info-card" key={index}>
                 <div className="card-icon">{card.icon}</div>
-               
-                <address className="card-text" style={{ fontStyle: 'normal' }}>
+                
+              
+                <address className="card-text">
                   <h3>{t(card.titleKey)}</h3>
                   {card.lines.map((line, lineIndex) => (
                     <p key={lineIndex}>{line}</p>
@@ -65,9 +65,9 @@ const Contacts = () => {
           <div className="contacts-map">
             <iframe
               src={COMPANY_CONTACTS.mapEmbedUrl}
+              className="map-iframe" 
               width="100%"
               height="100%"
-              style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

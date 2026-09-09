@@ -51,6 +51,9 @@
       color: $primary-color;
     }
   }
+  &__info-icon {
+    vertical-align: middle;
+  }
 
   &__lang {
     padding: 4px 10px;

@@ -82,6 +82,11 @@
         flex-grow: 1;
         margin-bottom: 25px;
       }
+      .services-error {
+        text-align: center;
+        padding: 50px;
+        color: $danger-color;
+      }
 
       .service-footer {
         display: flex;
