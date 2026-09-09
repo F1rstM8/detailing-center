@@ -19,6 +19,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 10px 40px;
+
       @media (max-width: 1100px) {
         display: none;
       }
@@ -51,6 +52,7 @@
       color: $primary-color;
     }
   }
+
   &__info-icon {
     vertical-align: middle;
   }
@@ -97,7 +99,7 @@
     @include tablet {
       padding: 10px 10px 12px 10px;
       gap: 6px;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
   }
 
@@ -119,8 +121,9 @@
     }
 
     @include tablet {
-      display: none;
-    
+      order: 2;
+      margin-right: auto;
+      margin-left: 0;
     }
   }
 
@@ -128,6 +131,7 @@
     display: flex;
     align-items: center;
     gap: 24px;
+
     .header__mobile-logo {
       display: none;
     }
@@ -144,6 +148,7 @@
       font-weight: 500;
       white-space: nowrap;
       transition: color 0.3s ease;
+
       &:hover,
       &.active {
         color: $primary-color;
@@ -168,6 +173,7 @@
       border-bottom: 1px solid $border-dark;
       box-shadow: 0 15px 30px $shadow-main;
       z-index: 99;
+
       &::-webkit-scrollbar {
         width: 6px;
       }
@@ -177,24 +183,6 @@
       &::-webkit-scrollbar-thumb {
         background-color: $primary-color;
         border-radius: 4px;
-      }
-
-      .header__mobile-logo {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        border-bottom: 1px solid $bg-surface;
-        padding-bottom: 15px;
-
-        a {
-          padding: 0;
-        }
-        span {
-          font-size: 1.8rem;
-          font-weight: bold;
-          color: $text-main;
-          letter-spacing: 1px;
-        }
       }
 
       &-links {
@@ -293,7 +281,7 @@
     flex-shrink: 0;
 
     @include tablet {
-      order: 3;
+      order: 4;
       padding-left: 8px;
       border-left: none;
       gap: 0;
@@ -407,17 +395,20 @@
 
     @include desktop {
       padding-left: 15px;
+
       .auth-links {
         margin-left: 0;
       }
     }
 
     @include tablet {
-      order: 2;
+      order: 3;
       margin-right: 15px;
+      margin-left: 0;
 
       .auth-links {
         gap: 6px;
+
         button {
           padding: 6px 10px;
           font-size: 0.8rem;
@@ -426,6 +417,7 @@
 
       .user-profile {
         gap: 0;
+
         .user-name-link {
           .user-text {
             display: none;
@@ -459,7 +451,8 @@
 
     @include tablet {
       order: 1;
-      margin: 0;
+      margin: 0 15px 0 0;
+      display: block;
     }
 
     .burger-line {
@@ -470,6 +463,7 @@
       border-radius: 2px;
       position: relative;
       transition: background-color 0.3s ease;
+
       &::before,
       &::after {
         @include burger-pseudo;
@@ -481,6 +475,7 @@
         top: 8px;
       }
     }
+
     &.active .burger-line {
       background-color: transparent;
       &::before {
@@ -490,6 +485,7 @@
         transform: translateY(-8px) rotate(-45deg);
       }
     }
+
     @include desktop {
       @include flex-center;
     }
