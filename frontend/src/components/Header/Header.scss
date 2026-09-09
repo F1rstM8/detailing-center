@@ -19,6 +19,9 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 10px 40px;
+      @media (max-width: 1100px) {
+        display: none;
+      }
       @include tablet {
         display: none;
       }
@@ -113,7 +116,8 @@
     }
 
     @include tablet {
-      display: none;
+      font-size: 1.25rem;
+    
     }
   }
 
@@ -136,7 +140,9 @@
       font-size: 0.95rem;
       font-weight: 500;
       white-space: nowrap;
-      &:hover {
+      transition: color 0.3s ease;
+      &:hover,
+      &.active {
         color: $primary-color;
       }
     }
@@ -150,13 +156,25 @@
       top: 100%;
       left: 0;
       width: 100%;
+      max-height: calc(100vh - 70px);
+      overflow-y: auto;
       background-color: $bg-card;
       flex-direction: column;
-      padding: 25px 20px;
-      gap: 20px;
+      padding: 15px 20px 30px;
+      gap: 15px;
       border-bottom: 1px solid $border-dark;
-      box-shadow: 0 10px 30px $shadow-main;
+      box-shadow: 0 15px 30px $shadow-main;
       z-index: 99;
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      &::-webkit-scrollbar-track {
+        background: $bg-card;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $primary-color;
+        border-radius: 4px;
+      }
 
       .header__mobile-logo {
         display: flex;

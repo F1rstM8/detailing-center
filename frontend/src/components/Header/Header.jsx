@@ -1,5 +1,5 @@
-import  { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import { useTranslation } from "react-i18next";
@@ -66,13 +66,13 @@ const Header = () => {
 
             <div className="header__nav-links">
               {NAV_LINKS.map((link) => (
-                <Link
+                <NavLink
                   key={link.to}
                   to={link.to}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t(link.key, link.defaultText)}
-                </Link>
+                </NavLink>
               ))}
             </div>
 
