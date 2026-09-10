@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const ADMIN_ID = "1"; 
+const ADMIN_ID = "1";
 
 let savedUser = null;
 
@@ -28,20 +28,25 @@ const authSlice = createSlice({
       const { id, email, ...rest } = action.payload;
 
       let userRole = "client";
-      
-     
+
       if (String(id) === String(ADMIN_ID)) {
         userRole = "admin";
       }
 
-      state.user = { id, email, ...rest, role: userRole };
+      const userData = { id, email, ...rest, role: userRole };
+
+      state.user = userData;
       state.role = userRole;
       state.isAuthenticated = true;
+
+      localStorage.setItem("authUser", JSON.stringify(userData));
     },
     logout: (state) => {
       state.user = null;
       state.role = null;
       state.isAuthenticated = false;
+
+      localStorage.removeItem("authUser");
     },
   },
 });

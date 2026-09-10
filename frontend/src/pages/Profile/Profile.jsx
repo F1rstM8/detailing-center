@@ -16,9 +16,7 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const allOrders = useSelector((state) => state.orders?.ordersList || []);
 
-  const allServices = useSelector(
-    (state) => state.services?.servicesList || [],
-  );
+  const allServices = useSelector((state) => state.services?.items || []);
 
   const [isAddingCar, setIsAddingCar] = useState(false);
   const [newCarModel, setNewCarModel] = useState("");
@@ -42,7 +40,7 @@ const Profile = () => {
       ? t("mock_client_name", "Постоянный клиент")
       : currentUser.name;
 
-const isAdmin = user?.role === "admin";
+  const isAdmin = user?.role === "admin";
 
   const displayedOrders = isAdmin
     ? allOrders
@@ -236,7 +234,7 @@ const isAdmin = user?.role === "admin";
                           {t("profile_order_from", "От")} {order.date}
                         </span>
 
-                    {order.customerCar &&
+                        {order.customerCar &&
                           order.customerCar !==
                             t("mock_car_status", "Не указан") && (
                             <span className="order-customer">

@@ -1,8 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let savedCart = [];
+try {
+  const item = localStorage.getItem("cartItems");
+  if (item) {
+    savedCart = JSON.parse(item);
+  }
+} catch (error) {
+  console.error("Ошибка при чтении cartItems из localStorage:", error);
+  localStorage.removeItem("cartItems");
+}
+
+const calculateTotal = (items) => {
+  return items.reduce((total, item) => total + Number(item.price || 0), 0);
+};
+
 const initialState = {
-  items: [],
-  totalPrice: 0,
+  items: savedCart,
+  totalPrice: calculateTotal(savedCart),
 };
 
 const cartSlice = createSlice({
@@ -12,24 +27,23 @@ const cartSlice = createSlice({
     addItem: (state, action) => {
       const item = action.payload;
       const existingItem = state.items.find((i) => i.id === item.id);
-      
+
       if (!existingItem) {
         state.items.push(item);
-        state.totalPrice += item.price;
+        state.totalPrice = calculateTotal(state.items);
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
       }
     },
     removeItem: (state, action) => {
       const id = action.payload;
-      const existingItem = state.items.find((i) => i.id === id);
-      
-      if (existingItem) {
-        state.totalPrice -= existingItem.price;
-        state.items = state.items.filter((i) => i.id !== id);
-      }
+      state.items = state.items.filter((i) => i.id !== id);
+      state.totalPrice = calculateTotal(state.items);
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     clearCart: (state) => {
       state.items = [];
       state.totalPrice = 0;
+      localStorage.removeItem("cartItems");
     },
   },
 });

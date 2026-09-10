@@ -22,7 +22,7 @@ const FALLBACK_SERVICES = {
 const Cart = () => {
   const { items, totalPrice } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth); 
-  const allServices = useSelector((state) => state.services?.servicesList || []); 
+const allServices = useSelector((state) => state.services?.items || []);
   
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
