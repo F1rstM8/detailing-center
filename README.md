@@ -5,6 +5,7 @@
 ## 🛠 Технологии (Tech Stack)
 
 **Frontend:**
+-Node.js version v24.15.0
 
 - React 18
 - Vite (Сборщик)
