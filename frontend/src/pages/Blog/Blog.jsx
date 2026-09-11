@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Blog.scss";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 const Blog = () => {
   const { t, i18n } = useTranslation();
   const [posts, setPosts] = useState([]);
@@ -10,8 +12,7 @@ const Blog = () => {
   const [expandedPostId, setExpandedPostId] = useState(null);
 
   useEffect(() => {
-  
-    fetch(`${import.meta.env.VITE_API_URL}/posts`)
+    fetch(`${API_URL}/posts`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -43,10 +44,17 @@ const Blog = () => {
         ) : (
           <div className="blog-page__list">
             {posts.map((post) => {
-             
               const postTitle = getLocalizedField(post, "title", currentLang);
-              const postExcerpt = getLocalizedField(post, "excerpt", currentLang);
-              const postContent = getLocalizedField(post, "content", currentLang);
+              const postExcerpt = getLocalizedField(
+                post,
+                "excerpt",
+                currentLang,
+              );
+              const postContent = getLocalizedField(
+                post,
+                "content",
+                currentLang,
+              );
 
               const isExpanded = expandedPostId === post.id;
 

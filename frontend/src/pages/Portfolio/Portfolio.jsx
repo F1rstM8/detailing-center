@@ -3,13 +3,15 @@ import { useTranslation } from "react-i18next";
 import { getLocalizedField } from "../../helpers/getLocalizedField";
 import "./Portfolio.scss";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 const Portfolio = () => {
   const { t, i18n } = useTranslation();
   const [portfolioItems, setPortfolioItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/portfolio`)
+    fetch(`${API_URL}/portfolio`)
       .then((response) => response.json())
       .then((data) => {
         setPortfolioItems(data);
